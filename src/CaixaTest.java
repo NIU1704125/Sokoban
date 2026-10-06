@@ -20,7 +20,7 @@ class CaixaTest {
 	}
 	
 	@Test
-	void testMoure() {
+	void testMove() {
 		fail("Encara no s'ha implementat");
 	}
 
