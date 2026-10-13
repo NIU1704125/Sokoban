@@ -10,6 +10,19 @@ public class Tauler {
 	private int nInterruptors = 0;
 	private Jugador m_jugador;	
 
+	private boolean invariants()
+	{
+		if(m_tauler.length == 0) return false;
+		if(m_tauler.length != nFiles) return false;
+		if(m_tauler[0].length != nCol) return false;
+		if(m_jugador == null) return false;
+		if(m_caixes.size() == 0) return false;
+		if(nInterruptors == 0) return false;
+		if(m_caixes.size() < nInterruptors) return false;
+		return true;
+	}
+	
+	
 	public Tauler(String fitxer) {}
 	
 	public char[][] getTauler()
