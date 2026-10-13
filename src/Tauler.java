@@ -41,6 +41,11 @@ public class Tauler {
         nFiles = lineas.size();
         nCol = lineas.get(0).length();
         
+        if(nFiles < 3 || nCol < 3)
+        {
+        	throw new IllegalArgumentException("Nivell massa petit");
+        }
+        
         m_tauler = new char[nFiles][nCol];
         
         for(int f = 0; f < lineas.size(); f++)
