@@ -2,16 +2,12 @@
 public class Jugador {
 	//Variables
 	private int m_posX, m_posY;
+	private Tauler m_tauler;
 	
-	//Constructors
-	public Jugador() 
+	//Constructor
+	public Jugador(Tauler tauler, int posX, int posY) 
 	{
-		m_posX = 0;
-		m_posY = 0;
-	}
-	
-	public Jugador(int posX, int posY) 
-	{
+		m_tauler = tauler;
 		m_posX = posX;
 		m_posY = posY;
 	}
@@ -19,6 +15,7 @@ public class Jugador {
 	//Getters
 	public int getPosX() {return m_posX;}
 	public int getPosY() {return m_posY;}
+	public Tauler getTauler() {return m_tauler;}
 	
 	//Setters
 	public void setPosX(int posX) {m_posX = posX;}

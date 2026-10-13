@@ -1,10 +1,12 @@
 
 public class Tauler {
 	
-	private char[][] m_tauler = new char[0][0];
-	private Caixa[] m_caixes = new Caixa[0];
-	private Jugador m_jugador;	
+	protected char[][] m_tauler = new char[0][0];
+	protected Caixa[] m_caixes = new Caixa[0];
+	protected Jugador m_jugador;	
 
+	public Tauler() {}
+	
 	public Tauler(String fitxer) {}
 	
 	public char[][] getTauler()
