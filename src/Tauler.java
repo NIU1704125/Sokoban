@@ -10,7 +10,7 @@ public class Tauler {
 	private int nCol = 0;
 	private List<Caixa> m_caixes = new ArrayList<Caixa>();
 	private int nInterruptors = 0;
-	private Jugador m_jugador;	
+	private Jugador m_jugador = null;	
 
 	private boolean invariants()
 	{
@@ -89,7 +89,11 @@ public class Tauler {
             }
         }
         
-        assert invariants();
+        if(!invariants())
+        {
+        	throw new IllegalArgumentException("No es compleixen les invariants");
+        }
+
 	}
 	
 	public char[][] getTauler()
