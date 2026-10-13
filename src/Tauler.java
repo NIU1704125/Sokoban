@@ -30,7 +30,7 @@ public class Tauler {
 		List<String> lineas = new ArrayList<String>();
 		try
 		{
-			lineas = Files.readAllLines(Path.of("/nivells/test/" + nomNivell + ".txt"));
+			lineas = Files.readAllLines(Path.of("nivells/test/" + nomNivell + ".txt"));
 		} catch (Exception e) { throw new IllegalArgumentException("Fitxer no trobat"); }        
         
         if(lineas.isEmpty())
