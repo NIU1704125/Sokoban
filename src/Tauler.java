@@ -67,11 +67,17 @@ public class Tauler {
                     	Caixa novaCaixa = new Caixa();
                     	m_caixes.add(novaCaixa);
                     	m_tauler[f][c] = '$';
+                    	break;
                     case '.':
                     	m_tauler[f][c] = '.';
                     	nInterruptors++;
+                    	break;
                     case ' ':
                     	m_tauler[f][c] = ' ';
+                    	break;
+                    case '#':
+                    	m_tauler[f][c] = '#';
+                    	break;
                     default:
                     	throw new IllegalArgumentException("Caracter invalid");
                 }
