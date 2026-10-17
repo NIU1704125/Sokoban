@@ -5,12 +5,12 @@ import java.nio.file.Path;
 
 public class Tauler {
 
-	protected char[][] m_tauler = new char[0][0];
-	protected int nFiles = 0;
-	protected int nCol = 0;
-	protected List<Caixa> m_caixes = new ArrayList<Caixa>();
-	protected int nInterruptors = 0;
-	protected Jugador m_jugador = null;	
+	private char[][] m_tauler = new char[0][0];
+	private int nFiles = 0;
+	private int nCol = 0;
+	private List<Caixa> m_caixes = new ArrayList<Caixa>();
+	private int nInterruptors = 0;
+	private Jugador m_jugador = null;	
 
 	private boolean invariants()
 	{
@@ -24,6 +24,7 @@ public class Tauler {
 		return true;
 	}
 	
+	protected Tauler() {}
 	
 	public Tauler(String nomNivell) 
 	{

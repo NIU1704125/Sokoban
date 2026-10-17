@@ -1,21 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class MockTauler extends Tauler {
-	public MockTauler(String fitxer) {}
-			
+	
+	public MockTauler(String nivell) 
+	{
+		super();
+	}
+	
 	public char[][] getTauler()
 	{
 		return new char[3][3];
 	}
 	
-	public Caixa[] getCaixes()
+	public List<Caixa> getCaixes()
 	{
-		Caixa[] caixes = {
-			    new Caixa(this, 0, 2),
-			    new Caixa(this, 1, 3),
-			    new Caixa(this, 1, 2)
-		};
-
-		return caixes;
+		return new ArrayList<Caixa>();
 	}
 	
 	public Jugador getJugador()
