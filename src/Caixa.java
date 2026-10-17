@@ -22,8 +22,8 @@ public class Caixa {
 	public void setPosY(int posY) {m_posY = posY;}
 	
 	//Moviment
-	public void move(char dir) 
+	public boolean move(char dir) 
 	{
-		return;
+		return false;
 	} 
 }
