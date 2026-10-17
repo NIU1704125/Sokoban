@@ -40,7 +40,7 @@ public class Tauler {
         }
         
         nFiles = lineas.size();
-        nCol = lineas.get(0).length();
+        nCol = lineas.get(0).length(); 
         
         if(nFiles < 3 || nCol < 3)
         {
@@ -125,5 +125,10 @@ public class Tauler {
 	public Jugador getJugador()
 	{
 		return m_jugador;
+	}
+	
+	public boolean hiHaParetInPosition(int x, int y)
+	{
+		return false;
 	}
 }
