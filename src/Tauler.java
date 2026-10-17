@@ -61,6 +61,7 @@ public class Tauler {
                         if(m_jugador == null)
                         {
                             m_jugador = new Jugador(this, c, f);
+                        	m_tauler[f][c] = ' ';
                         }
                         else
                         {
@@ -69,6 +70,7 @@ public class Tauler {
                     break;
                     case '$':
                     	Caixa novaCaixa = new Caixa(this, c, f);
+                    	m_tauler[f][c] = ' ';
                     	m_caixes.add(novaCaixa);
                     	break;
                     case '.':
