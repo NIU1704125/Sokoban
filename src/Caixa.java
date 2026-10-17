@@ -24,6 +24,40 @@ public class Caixa {
 	//Moviment
 	public boolean move(char dir) 
 	{
+		switch(dir)
+		{
+		case 'U':
+			if(!m_tauler.hiHaParetInPosition(m_posX, m_posY + 1))
+			{
+				m_posY++;
+				return true;
+			}
+			break;
+		case 'D':
+			if(!m_tauler.hiHaParetInPosition(m_posX, m_posY - 1))
+			{
+				m_posY--;
+				return true;
+			}
+			break;
+		case 'R':
+			if(!m_tauler.hiHaParetInPosition(m_posX + 1, m_posY))
+			{
+				m_posX++;
+				return true;
+			}
+			break;
+		case 'L':
+			if(!m_tauler.hiHaParetInPosition(m_posX - 1, m_posY))
+			{
+				m_posX--;
+				return true;
+			}
+			break;
+		default:
+			throw new IllegalArgumentException("CaracterMoviment invalid");
+		}
+		
 		return false;
 	} 
 }
