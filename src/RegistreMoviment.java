@@ -6,7 +6,18 @@ public class RegistreMoviment {
 	
 	public RegistreMoviment(int torn, char dir, Object subjecte)
 	{
+		if (torn < 0) 
+			throw new IllegalArgumentException("Torn no valid");
 		
+		if (dir != 'U' && dir != 'D' && dir != 'R' && dir != 'L') 
+			throw new IllegalArgumentException("Direccio no valida");
+		
+		if (!(subjecte instanceof Jugador) && !(subjecte instanceof Caixa)) 
+			throw new IllegalArgumentException("Tipus de subjecte no reconegut");
+		
+		this.m_torn = torn;
+		this.m_direccio = dir;
+		this.m_subjecte = subjecte;
 	}
 	
 	public int getTorn() 

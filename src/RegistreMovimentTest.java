@@ -19,7 +19,7 @@ class RegistreMovimentTest {
 		rm = new RegistreMoviment(2, 'U', c);
 		assertEquals(rm.getTorn(), 2);
 		assertEquals(rm.getDireccio(), 'U');
-		assertEquals(rm.getSubjecte(), j);
+		assertEquals(rm.getSubjecte(), c);
 		
 		rm = new RegistreMoviment(120, 'L', c);
 		assertEquals(rm.getTorn(), 120);
@@ -35,19 +35,23 @@ class RegistreMovimentTest {
 		//Torn negatiu
 		try {
 			rm = new RegistreMoviment(-2, 'R', j);
+			assertTrue(false);
 		} catch (Exception e) {}
 		
 		//Direccio inexistent
 		try {
 			rm = new RegistreMoviment(5, 'r', j);
+			assertTrue(false);
 		} catch (Exception e) {}
 		try {
 			rm = new RegistreMoviment(5, 'H', j);
+			assertTrue(false);
 		} catch (Exception e) {}
 		
 		//La classe del objecte no es ni caixa ni jugador
 		try {
 			rm = new RegistreMoviment(5, 'R', t);
+			assertTrue(false);
 		} catch (Exception e) {}
 	}
 
