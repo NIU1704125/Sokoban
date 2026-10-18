@@ -161,6 +161,105 @@ class JugadorTest {
 	@Test
 	void testMoveAmbCaixes()
 	{
+		//Creacio MockObject Tauler
+		MockTauler mt = new MockTauler("MovimentLinealCaixes");
+		//Creacio nou jugador situat a x=0, y=0 en el tauler 
+		Jugador j = new Jugador(mt, 0, 0);
 		
+		//Moviment cap a dalt (valid, emputja caixa)
+		assertTrue(j.move('U'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 1);
+		//Moviment cap a dalt (xoca, la caixa té paret darrere)
+		assertFalse(j.move('U'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 1);
+		//Moviment cap a baix (torna al centre)
+		assertTrue(j.move('D'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 0);
+		
+		//Moviment cap a baix (valid, emputja caixa)
+		assertTrue(j.move('D'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), -1);
+		//Moviment cap a baix (xoca, la caixa té paret darrere)
+		assertFalse(j.move('D'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), -1);
+		//Moviment cap a dalt (torna al centre)
+		assertTrue(j.move('U'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 0);
+		
+		//Moviment cap a la dreta (valid, emputja caixa)
+		assertTrue(j.move('R'));
+		assertEquals(j.getPosX(), 1);
+		assertEquals(j.getPosY(), 0);
+		//Moviment cap a la dreta (xoca, la caixa té paret darrere)
+		assertFalse(j.move('R'));
+		assertEquals(j.getPosX(), 1);
+		assertEquals(j.getPosY(), 0);
+		//Moviment cap a l'esquerra (torna al centre)
+		assertTrue(j.move('L'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 0);
+		
+		//Moviment cap a l'esquerra (valid, emputja caixa)
+		assertTrue(j.move('L'));
+		assertEquals(j.getPosX(), -1);
+		assertEquals(j.getPosY(), 0);
+		//Moviment cap a l'esquerra (xoca, la caixa té paret darrere)
+		assertFalse(j.move('L'));
+		assertEquals(j.getPosX(), -1);
+		assertEquals(j.getPosY(), 0);
+		//Moviment cap a la dreta (torna al centre)
+		assertTrue(j.move('R'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 0);
+		
+		//Creacio MockObject Tauler
+		mt = new MockTauler("MovimentCaixes3x5");
+		//Creacio nou jugador situat a x=0, y=0 en el tauler 
+		j = new Jugador(mt, 0, 0);
+		//Falla al emputjar la de dalt (te pared darrere), i emputja la de la dreta
+		assertFalse(j.move('U'));
+		assertEquals(j.getPosX(), 0);
+		assertEquals(j.getPosY(), 0);
+		assertTrue(j.move('R'));
+		assertEquals(j.getPosX(), 1);
+		assertEquals(j.getPosY(), 0);
+		
+		//Rota al voltant de la caixa de la dreta desde baix i l'emputja cap a amunt
+		assertTrue(j.move('D'));
+		assertEquals(j.getPosX(), 1);
+		assertEquals(j.getPosY(), -1);
+		assertTrue(j.move('R'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), -1);
+		assertTrue(j.move('U'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 0);
+		
+		//Falla al tornarla a emputjar cap a amunt ja que ara te pared darrere
+		assertFalse(j.move('U'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 0);
+		
+		//Torna a rotar al voltant la caixa, ara cap a la dreta, i l'emputja cap a l'esquerra
+		assertTrue(j.move('R'));
+		assertEquals(j.getPosX(), 3);
+		assertEquals(j.getPosY(), 0);
+		assertTrue(j.move('U'));
+		assertEquals(j.getPosX(), 3);
+		assertEquals(j.getPosY(), 1);
+		assertTrue(j.move('L'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 1);
+		
+		//Moviment cap a l'esquerra (xoca, la caixa té una altra caixa darrere)
+		assertFalse(j.move('L'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 1);
 	}
 }
