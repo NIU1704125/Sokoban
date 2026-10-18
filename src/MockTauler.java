@@ -6,11 +6,11 @@ public class MockTauler extends Tauler {
 	//string posicio = (xy)
 	Map<String, Map<String, Boolean>> mockParets = Map.of(
 			"MovimentSenseParets", Map.ofEntries(
-					 Map.entry("00", false),
-					 Map.entry("10", false),
-					 Map.entry("-10", false),
-					 Map.entry("01", false),
-					 Map.entry("0-1", false)
+					 Map.entry("22", false),
+					 Map.entry("32", false),
+					 Map.entry("12", false),
+					 Map.entry("21", false),
+					 Map.entry("23", false)
 					), 
 			/*
 			PPPPPPPPPP  
@@ -20,7 +20,7 @@ public class MockTauler extends Tauler {
 			PPPPPPPPPP 
 			*/
 			"MovimentRodejatParets", Map.ofEntries(
-				    Map.entry("00", false)
+				    Map.entry("22", false)
 					),
 			/*
 			PPPPPP
@@ -28,15 +28,15 @@ public class MockTauler extends Tauler {
 			PPPPPP
 			*/
 			"MovimentParets3x3", Map.ofEntries(
-				    Map.entry("00", false),
-				    Map.entry("-10", false),
-				    Map.entry("-11", false),
-				    Map.entry("01", false),
+				    Map.entry("22", false),
+				    Map.entry("12", false),
 				    Map.entry("11", false),
-				    Map.entry("10", false),
-				    Map.entry("1-1", false),
-				    Map.entry("0-1", false),
-				    Map.entry("-1-1", false)
+				    Map.entry("21", false),
+				    Map.entry("31", false),
+				    Map.entry("32", false),
+				    Map.entry("33", false),
+				    Map.entry("23", false),
+				    Map.entry("13", false)
 				),
 			/*
 			PPPPPPPPPP
@@ -46,15 +46,15 @@ public class MockTauler extends Tauler {
 			PPPPPPPPPP  
 			*/
 			"MovimentLinealCaixes", Map.ofEntries(
-					 Map.entry("00", false),
-					 Map.entry("10", false),
-					 Map.entry("20", false),
-					 Map.entry("-10", false),
-					 Map.entry("-20", false),
-					 Map.entry("01", false),
+					 Map.entry("22", false),
+					 Map.entry("32", false),
+					 Map.entry("42", false),
+					 Map.entry("12", false),
 					 Map.entry("02", false),
-					 Map.entry("0-1", false),
-					 Map.entry("0-2", false)
+					 Map.entry("21", false),
+					 Map.entry("20", false),
+					 Map.entry("23", false),
+					 Map.entry("24", false)
 					), 
 			/*
 			PPPPPPPPPPPPPP
@@ -66,21 +66,21 @@ public class MockTauler extends Tauler {
 			PPPPPPPPPPPPPP 
 			*/
 			"MovimentCaixes3x5", Map.ofEntries(
-				    Map.entry("00", false),
-				    Map.entry("-10", false),
-				    Map.entry("-11", false),
-				    Map.entry("01", false),
+				    Map.entry("22", false),
+				    Map.entry("12", false),
 				    Map.entry("11", false),
-				    Map.entry("10", false),
-				    Map.entry("1-1", false),
-				    Map.entry("0-1", false),
-				    Map.entry("-1-1", false),
-				    Map.entry("20", false),
-				    Map.entry("2-1", false),
 				    Map.entry("21", false),
-				    Map.entry("30", false),
-				    Map.entry("3-1", false),
-				    Map.entry("31", false)
+				    Map.entry("31", false),
+				    Map.entry("32", false),
+				    Map.entry("33", false),
+				    Map.entry("23", false),
+				    Map.entry("13", false),
+				    Map.entry("42", false),
+				    Map.entry("43", false),
+				    Map.entry("41", false),
+				    Map.entry("52", false),
+				    Map.entry("53", false),
+				    Map.entry("51", false)
 				)
 			/*
 			PPPPPPPPPPPPPP
@@ -95,10 +95,10 @@ public class MockTauler extends Tauler {
 	
 	Map<String, List<Caixa>> mockCaixes = Map.of(
 			"MovimentLinealCaixes", List.of(
-					new Caixa(this, 1, 0),
-					new Caixa(this, -1, 0),
-					new Caixa(this, 0, 1),
-					new Caixa(this, 0, -1)
+					new Caixa(this, 3, 2),
+					new Caixa(this, 1, 2),
+					new Caixa(this, 2, 1),
+					new Caixa(this, 2, 3)
 					),
 			/*
 			PPPPPPPPPPPPPP
@@ -110,8 +110,8 @@ public class MockTauler extends Tauler {
 			PPPPPPPPPPPPPP 
 			*/
 			"MovimentCaixes3x5", List.of(
-					new Caixa(this, 0, 1),
-					new Caixa(this, 1, 0)
+					new Caixa(this, 2, 1),
+					new Caixa(this, 3, 2)
 					)
 			/*
 			PPPPPPPPPPPPPP
@@ -154,5 +154,15 @@ public class MockTauler extends Tauler {
 	        }
 	    }
 	    return null;
+	}
+	
+	public int getFiles()
+	{
+		return 5;
+	}
+	
+	public int getColumnes()
+	{
+		return 5;
 	}
 }
