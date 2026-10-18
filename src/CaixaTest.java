@@ -130,6 +130,26 @@ class CaixaTest {
 		assertEquals(c.getPosX(), -1);
 		assertEquals(c.getPosY(), -1);
 		
+		//Creacio MockObject Tauler sense parets
+		mt = new MockTauler("MovimentLinealCaixes");
+		
+		//Creacio nova caixa situada a x=0, y=0 en el tauler 
+		c = new Caixa(mt, 0, 0);
+		
+		//Comprovem que no es mou en cap direcció si xoca amb una altre caixa
+		assertFalse(c.move('U'));
+		assertEquals(c.getPosX(), 0);
+		assertEquals(c.getPosY(), 0);
+		assertFalse(c.move('D'));
+		assertEquals(c.getPosX(), 0);
+		assertEquals(c.getPosY(), 0);
+		assertFalse(c.move('R'));
+		assertEquals(c.getPosX(), 0);
+		assertEquals(c.getPosY(), 0);
+		assertFalse(c.move('L'));
+		assertEquals(c.getPosX(), 0);
+		assertEquals(c.getPosY(), 0);
+		
 		//Prova altres caracters i minuscules com a inputs
 		try {
 			c.move('h');
