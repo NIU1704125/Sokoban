@@ -95,7 +95,42 @@ class TaulerTest {
 		assertEquals(tauler.getFiles(), 5);
 		assertEquals(tauler.getColumnes(), 13);
 		assertArrayEquals(tauler.getTauler(), n2);
-		
 
 	}
+	
+	@Test
+	void testHiHaParetInPosition()
+	{
+		Tauler tauler = new Tauler("SenseAlgunesParets");
+		
+		/*
+		### ###
+		  $ .  
+		### ###
+		*/
+		
+		//dins de tauler
+		assertTrue(tauler.hiHaParetInPosition(0, 0));
+		assertTrue(tauler.hiHaParetInPosition(1, 0));
+		assertFalse(tauler.hiHaParetInPosition(0, 1));
+		assertFalse(tauler.hiHaParetInPosition(1, 1));
+		assertFalse(tauler.hiHaParetInPosition(2, 1));
+		assertTrue(tauler.hiHaParetInPosition(6, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, 2));
+		
+		//fora de tauler (conta com paret)
+		assertTrue(tauler.hiHaParetInPosition(-1, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, -1));
+		assertTrue(tauler.hiHaParetInPosition(-1, -1));
+		assertTrue(tauler.hiHaParetInPosition(7, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, 3));
+	}
+	
+
+	@Test
+	void testHiHaCaixaInPosition()
+	{
+		
+	}
+	
 }
