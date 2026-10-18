@@ -129,7 +129,10 @@ public class Tauler {
 	
 	public boolean hiHaParetInPosition(int x, int y)
 	{
-		return false;
+		if(x < 0 || x > nCol) { return true;}
+		if(y < 0 || y > nFiles) { return true;}
+		
+		return (m_tauler[y][x] == '#');
 	}
 	
 	public Caixa hiHaCaixaInPosition(int x, int y) 
