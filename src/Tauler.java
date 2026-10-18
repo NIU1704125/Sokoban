@@ -137,6 +137,15 @@ public class Tauler {
 	
 	public Caixa hiHaCaixaInPosition(int x, int y) 
 	{
+		for(Caixa c : m_caixes)
+		{
+			if(c == null) {continue;}
+			
+			if(c.getPosX() == x && c.getPosY() == y)
+			{
+				return c;
+			}
+		}
 		return null;
 	}
 }
