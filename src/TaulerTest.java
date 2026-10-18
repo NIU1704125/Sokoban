@@ -95,7 +95,73 @@ class TaulerTest {
 		assertEquals(tauler.getFiles(), 5);
 		assertEquals(tauler.getColumnes(), 13);
 		assertArrayEquals(tauler.getTauler(), n2);
-		
 
 	}
+	
+	@Test
+	void testHiHaParetInPosition()
+	{
+		Tauler tauler = new Tauler("SenseAlgunesParets");
+		/*
+		### ###
+		  $ .  
+		### ###
+		*/
+		
+		//dins de tauler
+		assertTrue(tauler.hiHaParetInPosition(0, 0));
+		assertTrue(tauler.hiHaParetInPosition(1, 0));
+		assertFalse(tauler.hiHaParetInPosition(0, 1));
+		assertFalse(tauler.hiHaParetInPosition(1, 1));
+		assertFalse(tauler.hiHaParetInPosition(2, 1));
+		assertTrue(tauler.hiHaParetInPosition(6, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, 2));
+		
+		//fora de tauler (conta com paret)
+		assertTrue(tauler.hiHaParetInPosition(-1, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, -1));
+		assertTrue(tauler.hiHaParetInPosition(-1, -1));
+		assertTrue(tauler.hiHaParetInPosition(7, 0));
+		assertTrue(tauler.hiHaParetInPosition(0, 3));
+	}
+	
+
+	@Test
+	void testHiHaCaixaInPosition()
+	{
+		Tauler tauler = new Tauler("Nivell_2");
+		/*
+		#############
+		#  .  .  .  #
+		#  $  $  $  #
+		#@     $    #
+		#############
+		*/
+		
+		//dins de tauler
+		assertEquals(tauler.hiHaCaixaInPosition(0, 0), null);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2).getPosX() == 3);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2).getPosY() == 2);
+
+		assertTrue(tauler.hiHaCaixaInPosition(6, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(6, 2).getPosX() == 6);
+		assertTrue(tauler.hiHaCaixaInPosition(6, 2).getPosY() == 2);
+		
+		assertTrue(tauler.hiHaCaixaInPosition(9, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(9, 2).getPosX() == 9);
+		assertTrue(tauler.hiHaCaixaInPosition(9, 2).getPosY() == 2);
+		
+		assertTrue(tauler.hiHaCaixaInPosition(7, 3) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(7, 3).getPosX() == 7);
+		assertTrue(tauler.hiHaCaixaInPosition(7, 3).getPosY() == 3);
+
+		//fora de tauler
+		assertEquals(tauler.hiHaCaixaInPosition(-1, -1), null);
+		assertEquals(tauler.hiHaCaixaInPosition(0, 5), null);
+		assertEquals(tauler.hiHaCaixaInPosition(13, 0), null);
+		assertEquals(tauler.hiHaCaixaInPosition(3, 1), null);
+		
+	}
+	
 }
