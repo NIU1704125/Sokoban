@@ -142,7 +142,13 @@ public class MockTauler extends Tauler {
 	
 	public Caixa hiHaCaixaInPosition(int x, int y) 
 	{
-		for (Caixa c : mockCaixes.get(mockTaulerActual)) {
+		List<Caixa> caixesActuals = mockCaixes.get(mockTaulerActual);
+		
+		if (caixesActuals == null) {
+	        return null; 
+	    }
+		
+		for (Caixa c : caixesActuals) {
 	        if (c.getPosX() == x && c.getPosY() == y) {
 	            return c;
 	        }
