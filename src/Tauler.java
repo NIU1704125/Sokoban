@@ -129,8 +129,8 @@ public class Tauler {
 	
 	public boolean hiHaParetInPosition(int x, int y)
 	{
-		if(x < 0 || x > nCol) { return true;}
-		if(y < 0 || y > nFiles) { return true;}
+		if(x < 0 || x >= nCol) { return true;}
+		if(y < 0 || y >= nFiles) { return true;}
 		
 		return (m_tauler[y][x] == '#');
 	}
