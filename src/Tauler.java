@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Stack;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +12,8 @@ public class Tauler {
 	private List<Caixa> m_caixes = new ArrayList<Caixa>();
 	private int nInterruptors = 0;
 	private Jugador m_jugador = null;	
+	private int m_torn;
+	private Stack<RegistreMoviment> m_registre = new Stack<RegistreMoviment>();
 
 	private boolean invariants()
 	{
