@@ -27,37 +27,79 @@ public class Jugador {
 		switch(dir)
 		{
 		case 'U':
-			if(!m_tauler.hiHaParetInPosition(m_posX, m_posY + 1))
+			if(m_tauler.hiHaParetInPosition(m_posX, m_posY + 1)) return false;
+			
+			Caixa c = m_tauler.hiHaCaixaInPosition(m_posX, m_posY + 1);
+			if(c != null) 
+			{
+				if(c.move(dir)) 
+				{
+					m_posY++;
+					return true;	
+				}
+				else return false;
+			}
+			else 
 			{
 				m_posY++;
-				return true;
+				return true;	
 			}
-			break;
 		case 'D':
-			if(!m_tauler.hiHaParetInPosition(m_posX, m_posY - 1))
+			if(m_tauler.hiHaParetInPosition(m_posX, m_posY - 1)) return false;
+			
+			c = m_tauler.hiHaCaixaInPosition(m_posX, m_posY - 1);
+			if(c != null) 
+			{
+				if(c.move(dir)) 
+				{
+					m_posY--;
+					return true;	
+				}
+				else return false;
+			}
+			else 
 			{
 				m_posY--;
-				return true;
+				return true;	
 			}
-			break;
 		case 'R':
-			if(!m_tauler.hiHaParetInPosition(m_posX + 1, m_posY))
+			if(m_tauler.hiHaParetInPosition(m_posX + 1, m_posY)) return false;
+			
+			c = m_tauler.hiHaCaixaInPosition(m_posX + 1, m_posY);
+			if(c != null) 
+			{
+				if(c.move(dir)) 
+				{
+					m_posX++;
+					return true;	
+				}
+				else return false;
+			}
+			else 
 			{
 				m_posX++;
-				return true;
+				return true;	
 			}
-			break;
 		case 'L':
-			if(!m_tauler.hiHaParetInPosition(m_posX - 1, m_posY))
+			if(m_tauler.hiHaParetInPosition(m_posX - 1, m_posY)) return false;
+			
+			c = m_tauler.hiHaCaixaInPosition(m_posX - 1, m_posY);
+			if(c != null) 
+			{
+				if(c.move(dir)) 
+				{
+					m_posX--;
+					return true;	
+				}
+				else return false;
+			}
+			else 
 			{
 				m_posX--;
-				return true;
+				return true;	
 			}
-			break;
 		default:
 			throw new IllegalArgumentException("CaracterMoviment invalid");
 		}
-		
-		return false;
 	} 
 }

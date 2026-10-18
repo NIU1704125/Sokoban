@@ -131,4 +131,9 @@ public class Tauler {
 	{
 		return false;
 	}
+	
+	public Caixa hiHaCaixaInPosition(int x, int y) 
+	{
+		return null;
+	}
 }
