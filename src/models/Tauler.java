@@ -1,8 +1,10 @@
-import java.util.List;
-import java.util.Stack;
-import java.util.ArrayList;
+package models;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class Tauler {
 

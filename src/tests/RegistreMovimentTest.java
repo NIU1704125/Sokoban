@@ -1,6 +1,14 @@
-import static org.junit.jupiter.api.Assertions.*;
+package tests;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import models.Caixa;
+import models.Jugador;
+import models.MockTauler;
+import models.RegistreMoviment;
+import models.Tauler;
 
 class RegistreMovimentTest {
 
