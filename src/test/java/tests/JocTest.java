@@ -27,6 +27,7 @@ class JocTest {
 		assertTrue(joc.carregarNivell("Nivell_2"));
 		assertTrue(joc.getTauler() != null);
 		
+		joc = new Joc();
 		//test carregar nivell invalid
 		assertFalse(joc.carregarNivell(""));
 		assertTrue(joc.getTauler() == null);

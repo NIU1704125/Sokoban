@@ -17,6 +17,6 @@ public class Joc {
 	
 	public Tauler getTauler()
 	{
-		return m_tauler;;
+		return m_tauler;
 	}
 }
