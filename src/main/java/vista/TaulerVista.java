@@ -1,12 +1,15 @@
 package vista;
 
 import models.Caixa;
+import models.Joc;
 import models.Jugador;
 import models.Tauler;
 
 public class TaulerVista {
 
-	public void mostrar(Tauler tauler) {
+	public void mostrar(Joc joc) {
+		
+		Tauler tauler = joc.getTauler();
 		char[][] base = tauler.getTauler();
 		char[][] pantalla = new char[tauler.getFiles()][];
 		for (int f = 0; f < pantalla.length; f++) {
