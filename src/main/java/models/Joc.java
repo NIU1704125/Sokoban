@@ -1,5 +1,6 @@
 package models;
 
+
 public class Joc {	
 	
 	Tauler m_tauler;
@@ -7,16 +8,16 @@ public class Joc {
 	
 	public boolean carregarNivell(String nivell) {
 		
-		try
-		{
+		try{
 			m_tauler = new Tauler(nivell);
 			return true;
-		} catch(Exception e) {return false;}
+		} catch(Exception e) {
+			return false;
+		}
 		
 	}
 	
-	public Tauler getTauler()
-	{
+	public Tauler getTauler() {
 		return m_tauler;
 	}
 }

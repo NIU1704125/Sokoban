@@ -8,8 +8,7 @@ public class JocController {
 	Joc joc;
 	TaulerVista vistaTauler;
 	
-	public JocController(Joc newJoc, TaulerVista newTaulerVista)
-	{
+	public JocController(Joc newJoc, TaulerVista newTaulerVista){
 		joc = newJoc;
 		vistaTauler = newTaulerVista;
 	}

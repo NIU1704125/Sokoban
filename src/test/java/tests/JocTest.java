@@ -1,6 +1,8 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 import models.Joc;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +13,7 @@ class JocTest {
 	Joc joc;
 	
 	@BeforeEach
-	void setup()
-	{
+	void setup() {
 		joc = new Joc();
 	}
 	

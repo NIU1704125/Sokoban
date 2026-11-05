@@ -5,6 +5,7 @@ import models.Joc;
 import models.Jugador;
 import models.Tauler;
 
+
 public class TaulerVista {
 
 	public void mostrar(Joc joc) {

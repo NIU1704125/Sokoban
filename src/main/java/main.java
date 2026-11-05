@@ -1,10 +1,10 @@
 
-import controllers.*;
-import models.*;
-import vista.*;
-public class main {
-	public static void main(String[] arg)
-	{
+import controllers.JocController;
+import models.Joc;
+import vista.TaulerVista;
+
+public class Main {
+	public static void main(String[] arg){
 		Joc joc = new Joc();
 		TaulerVista tv = new TaulerVista();
 		
