@@ -15,9 +15,6 @@ public class JocController {
 	
 	public void executar(){
 		joc.carregarNivell("Nivell_1");
-		
 		vistaTauler.mostrar(joc);
-		
-
 	}
 }
