@@ -14,6 +14,7 @@ class RegistreMovimentTest {
 
 	@Test
 	void testConstructors() {
+		// Construccio dels objectes
 		Tauler t = new MockTauler("");
 		Jugador j = new Jugador(t, 0, 0);
 		Caixa c = new Caixa(t, 1, 1);

@@ -13,25 +13,41 @@ public class MockTauler extends Tauler {
 			Map.ofEntries(Map.entry("22", false), Map.entry("32", false), Map.entry("12", false),
 					Map.entry("21", false), Map.entry("23", false)),
 			/*
-			 * PPPPPPPPPP PPPP PPPP PP JJ PP PPPP PPPP PPPPPPPPPP
+			 * PPPPPPPPPP 
+			 * PPPP  PPPP 
+			 * PP  JJ  PP 
+			 * PPPP  PPPP 
+			 * PPPPPPPPPP
 			 */
 			"MovimentRodejatParets", Map.ofEntries(Map.entry("22", false)),
 			/*
-			 * PPPPPP PPJJPP PPPPPP
+			 * PPPPPP 
+			 * PPJJPP 
+			 * PPPPPP
 			 */
 			"MovimentParets3x3",
 			Map.ofEntries(Map.entry("22", false), Map.entry("12", false), Map.entry("11", false),
 					Map.entry("21", false), Map.entry("31", false), Map.entry("32", false), Map.entry("33", false),
 					Map.entry("23", false), Map.entry("13", false)),
 			/*
-			 * PPPPPPPPPP PP PP PP JJ PP PP PP PPPPPPPPPP
+			 * PPPPPPPPPP
+			 * PP      PP 
+			 * PP  JJ  PP
+			 * PP      PP 
+			 * PPPPPPPPPP
 			 */
 			"MovimentLinealCaixes",
 			Map.ofEntries(Map.entry("22", false), Map.entry("32", false), Map.entry("42", false),
 					Map.entry("12", false), Map.entry("02", false), Map.entry("21", false), Map.entry("20", false),
 					Map.entry("23", false), Map.entry("24", false)),
 			/*
-			 * PPPPPPPPPPPPPP PPPPPP PPPPPP PPPPPP[]PPPPPP PP []JJ[] PP PPPPPP[]PPPPPP PPPPPP PPPPPP PPPPPPPPPPPPPP
+			 * PPPPPPPPPPPPPP 
+			 * PPPPPP  PPPPPP 
+			 * PPPPPP[]PPPPPP 
+			 * PP  []JJ[]  PP 
+			 * PPPPPP[]PPPPPP 
+			 * PPPPPP  PPPPPP 
+			 * PPPPPPPPPPPPPP
 			 */
 			"MovimentCaixes3x5",
 			Map.ofEntries(Map.entry("22", false), Map.entry("12", false), Map.entry("11", false),
@@ -39,7 +55,11 @@ public class MockTauler extends Tauler {
 					Map.entry("23", false), Map.entry("13", false), Map.entry("42", false), Map.entry("43", false),
 					Map.entry("41", false), Map.entry("52", false), Map.entry("53", false), Map.entry("51", false))
 	/*
-	 * PPPPPPPPPPPPPP PP [] PP PP JJ[] PP PP PP PPPPPPPPPPPPPP
+	 * PPPPPPPPPPPPPP 
+	 * PP  []      PP 
+	 * PP  JJ[]    PP
+	 * PP          PP
+	 * PPPPPPPPPPPPPP
 	 */
 	);
 
@@ -48,11 +68,21 @@ public class MockTauler extends Tauler {
 	Map<String, List<Caixa>> mockCaixes = Map.of("MovimentLinealCaixes",
 			List.of(new Caixa(this, 3, 2), new Caixa(this, 1, 2), new Caixa(this, 2, 1), new Caixa(this, 2, 3)),
 			/*
-			 * PPPPPPPPPPPPPP PPPPPP PPPPPP PPPPPP[]PPPPPP PP []JJ[] PP PPPPPP[]PPPPPP PPPPPP PPPPPP PPPPPPPPPPPPPP
+			 * PPPPPPPPPPPPPP 
+			 * PPPPPP  PPPPPP 
+			 * PPPPPP[]PPPPPP 
+			 * PP  []JJ[]  PP 
+			 * PPPPPP[]PPPPPP 
+			 * PPPPPP  PPPPPP 
+			 * PPPPPPPPPPPPPP
 			 */
 			"MovimentCaixes3x5", List.of(new Caixa(this, 2, 1), new Caixa(this, 3, 2))
 	/*
-	 * PPPPPPPPPPPPPP PP [] PP PP JJ[] PP PP PP PPPPPPPPPPPPPP
+	 * PPPPPPPPPPPPPP 
+	 * PP  []      PP 
+	 * PP  JJ[]    PP
+	 * PP          PP
+	 * PPPPPPPPPPPPPP
 	 */
 
 	);

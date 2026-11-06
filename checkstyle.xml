@@ -4,34 +4,31 @@
   "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
   <property name="severity" value="warning"/>
-  <!-- Un tabulador cuenta como 4 caracteres al medir la longitud de linea -->
+  <!-- Un tabulador compta com a 4 caràcters en mesurar la longitud de línia -->
   <property name="tabWidth" value="4"/>
 
-  <!-- Longitud maxima de linea -->
+  <!-- Longitud maxima de línia -->
   <module name="LineLength">
     <property name="max" value="120"/>
   </module>
 
-  <!-- Si quieres prohibir tabuladores (usar espacios), descomenta: -->
-  <!-- <module name="FileTabCharacter"/> -->
-
   <module name="TreeWalker">
-    <!-- Llave de apertura al final de la linea -->
+    <!-- Clau d'obertura al final de la linia -->
     <module name="LeftCurly">
       <property name="option" value="eol"/>
     </module>
-    <!-- "} else {" y "} catch {" permitidos -->
+    <!-- "} else {" i "} catch {" permesos -->
     <module name="RightCurly">
       <property name="option" value="same"/>
     </module>
-    <!-- Llaves obligatorias en if/for/while -->
+    <!-- Claus obligatories en if/for/while -->
     <module name="NeedBraces"/>
 
     <!-- Imports -->
     <module name="UnusedImports"/>
     <module name="AvoidStarImport"/>
 
-    <!-- Nombres -->
+    <!-- Noms -->
     <module name="TypeName"/>
     <module name="MethodName"/>
     <module name="LocalVariableName"/>
