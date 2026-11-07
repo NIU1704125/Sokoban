@@ -5,8 +5,7 @@ import models.Joc;
 import models.Jugador;
 import models.Tauler;
 
-
-public class TaulerVista {
+public class TaulerVista implements IVista {
 
 	public void mostrar(Joc joc) {
 		
