@@ -2,7 +2,6 @@ package models;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Joc {	
@@ -28,8 +27,7 @@ public class Joc {
 		
 		for(int i = 0; i < fitxers.length; i++) {
 			String nom = fitxers[i].getName();
-			if(fitxers[i].isFile() && nom.endsWith(".txt"))
-			{
+			if(fitxers[i].isFile() && nom.endsWith(".txt")){
 				m_nivells.add(nom.substring(0, nom.length() - 4));
 			}
 		}
@@ -52,13 +50,11 @@ public class Joc {
 		m_carpetaNivells = nomCarpeta;
 	}
 	
-	public Estat getEstat()
-	{
+	public Estat getEstat() {
 		return estatJoc;
 	}
 	
-	public List<String> getLevels()
-	{
+	public List<String> getLevels() {
 		return m_nivells;
 	}
 	
