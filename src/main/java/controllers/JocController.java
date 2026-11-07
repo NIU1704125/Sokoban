@@ -14,7 +14,15 @@ public class JocController {
 	}
 	
 	public void executar(){
-		joc.carregarNivell("Nivell_1");
-		vistaTauler.mostrar(joc);
+		
+		IInputController input = new InputConsola();
+		while(true)	{
+
+			joc.carregarNivell("Nivell_1");
+			vistaTauler.mostrar(joc);
+			char tecla = input.llegirTecla();
+			System.out.print(tecla);
+		}
+
 	}
 }
