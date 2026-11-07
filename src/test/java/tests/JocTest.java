@@ -8,15 +8,11 @@ import models.Estat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.io.TempDir;
-import java.nio.file.Path;
+import java.io.File;
 
 class JocTest {
 
 	Joc joc;
-	
-	@TempDir
-	Path carpeta;
 	
 	@BeforeEach
 	void setup() {
@@ -53,8 +49,11 @@ class JocTest {
 		} catch (Exception e) {}
 
 		
+		File carpetaBuida = new File("nivells/carpetaBuida");
+		carpetaBuida.mkdirs();
+		
 		//test carpeta buida
-		joc.setCarpeta(carpeta.toString());
+		joc.setCarpeta("carpetaBuida");
 		joc.obrirSelector();
 		assertEquals(0, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
