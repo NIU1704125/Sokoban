@@ -16,8 +16,7 @@ public class JocController {
 	public void executar(){
 		
 		IInputController input = new InputConsola();
-		while(true)
-		{
+		while(true)	{
 
 			joc.carregarNivell("Nivell_1");
 			vistaTauler.mostrar(joc);
