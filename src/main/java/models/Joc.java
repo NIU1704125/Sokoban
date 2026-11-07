@@ -3,12 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-enum Estat{
-	Menu,
-	Selector,
-	Jugant
-}
-
 public class Joc {	
 	
 	Tauler m_tauler;
@@ -33,6 +27,16 @@ public class Joc {
 	
 	public void setCarpeta(String nomCarpeta) {
 		m_carpetaNivells = nomCarpeta;
+	}
+	
+	public Estat getEstat()
+	{
+		return estatJoc;
+	}
+	
+	public List<String> getLevels()
+	{
+		return m_nivells;
 	}
 	
 	public Tauler getTauler() {
