@@ -25,6 +25,7 @@ class JocTest {
 		//test carregar nivell valid
 		assertTrue(joc.carregarNivell("Nivell_1"));
 		assertTrue(joc.getTauler() != null);
+		assertEquals(Estat.Jugant, joc.getEstat());
 		
 		joc = new Joc();
 		
@@ -35,6 +36,7 @@ class JocTest {
 		//test carregar nivell invalid
 		assertFalse(joc.carregarNivell(""));
 		assertTrue(joc.getTauler() == null);
+		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
 	@Test
