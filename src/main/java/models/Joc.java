@@ -39,8 +39,10 @@ public class Joc {
 		
 		try{
 			m_tauler = new Tauler(nivell);
+			estatJoc = Estat.Jugant;
 			return true;
 		} catch(Exception e) {
+			estatJoc = Estat.Selector;
 			return false;
 		}
 		
