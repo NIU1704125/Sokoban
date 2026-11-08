@@ -38,7 +38,7 @@ public class Joc {
 	public boolean carregarNivell(String nivell) {
 		
 		try{
-			m_tauler = new Tauler(nivell);
+			m_tauler = new Tauler(m_carpetaNivells + "/" + nivell);
 			estatJoc = Estat.Jugant;
 			return true;
 		} catch(Exception e) {
