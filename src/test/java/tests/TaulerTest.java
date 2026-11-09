@@ -25,62 +25,62 @@ class TaulerTest {
 
 		// Fitxer buit
 		try {
-			tauler = new Tauler("Nivell_buit");
+			tauler = new Tauler("test/Nivell_buit");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Caracters invalids
 		try {
-			tauler = new Tauler("CaracterInvalid");
+			tauler = new Tauler("test/CaracterInvalid");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Tauler massa petit
 		try {
-			tauler = new Tauler("NivellMassaPetit");
+			tauler = new Tauler("test/NivellMassaPetit");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Sense jugador
 		try {
-			tauler = new Tauler("NoJugador");
+			tauler = new Tauler("test/NoJugador");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Mes d'un jugador
 		try {
-			tauler = new Tauler("MassaJugadors");
+			tauler = new Tauler("test/MassaJugadors");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Sense caixes
 		try {
-			tauler = new Tauler("NoCaixes");
+			tauler = new Tauler("test/NoCaixes");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Sense interruptors
 		try {
-			tauler = new Tauler("NoInterruptor");
+			tauler = new Tauler("test/NoInterruptor");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Mes interruptors que caixes
 		try {
-			tauler = new Tauler("MassaInterruptors");
+			tauler = new Tauler("test/MassaInterruptors");
 			assertTrue(false);
 		} catch (Exception e) {
 		}
 
 		// Tauler valid nivell 1
-		tauler = new Tauler("Nivell_1");
+		tauler = new Tauler("test/Nivell_1");
 		char[][] n1 = {
 				{ '#', '#', '#', '#', '#', '#', '#' },
 				{ '#', ' ', ' ', ' ', ' ', '.', '#' },
@@ -93,7 +93,7 @@ class TaulerTest {
 		assertArrayEquals(tauler.getTauler(), n1);
 
 		// Tauler valid nivell 2
-		tauler = new Tauler("Nivell_2");
+		tauler = new Tauler("test/Nivell_2");
 		char[][] n2 = {
 				{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
 				{ '#', ' ', ' ', '.', ' ', ' ', '.', ' ', ' ', '.', ' ', ' ', '#' },
@@ -112,7 +112,7 @@ class TaulerTest {
 	@Test
 	void testHiHaParetInPosition() {
 		// Tauler de prova per comprovar parets
-		Tauler tauler = new Tauler("SenseAlgunesParets");
+		Tauler tauler = new Tauler("test/SenseAlgunesParets");
 		/*
 		 *  ###  ###
 		 *   @$  . 
@@ -139,7 +139,7 @@ class TaulerTest {
 	@Test
 	void testHiHaCaixaInPosition() {
 		// Tauler de prova per comprovar caixes
-		Tauler tauler = new Tauler("Nivell_2");
+		Tauler tauler = new Tauler("test/Nivell_2");
 		/*
  		############# 
  		#  .  .  .  # 

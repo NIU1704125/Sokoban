@@ -23,18 +23,22 @@ class JocTest {
 	@Test
 	void testCarregarNivell() {
 		//test carregar nivell valid
+		joc.setCarpeta("test");
 		assertTrue(joc.carregarNivell("Nivell_1"));
 		assertTrue(joc.getTauler() != null);
+		assertEquals(Estat.Jugant, joc.getEstat());
 		
 		joc = new Joc();
-		
+		joc.setCarpeta("test");
 		assertTrue(joc.carregarNivell("Nivell_2"));
 		assertTrue(joc.getTauler() != null);
 		
 		joc = new Joc();
+		joc.setCarpeta("test");
 		//test carregar nivell invalid
 		assertFalse(joc.carregarNivell(""));
 		assertTrue(joc.getTauler() == null);
+		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
 	@Test
