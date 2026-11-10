@@ -49,39 +49,46 @@ public class Caixa {
 
 	// Moviment
 	public boolean move(char dir) {
+		boolean canMove = false;
 		switch (dir) {
 		case 'U':
 			if (!m_tauler.hiHaParetInPosition(m_posX, m_posY - 1)
 					&& m_tauler.hiHaCaixaInPosition(m_posX, m_posY - 1) == null) {
 				m_posY--;
-				return true;
+				canMove = true;
 			}
 			break;
 		case 'D':
 			if (!m_tauler.hiHaParetInPosition(m_posX, m_posY + 1)
 					&& m_tauler.hiHaCaixaInPosition(m_posX, m_posY + 1) == null) {
 				m_posY++;
-				return true;
+				canMove = true;
 			}
 			break;
 		case 'R':
 			if (!m_tauler.hiHaParetInPosition(m_posX + 1, m_posY)
 					&& m_tauler.hiHaCaixaInPosition(m_posX + 1, m_posY) == null) {
 				m_posX++;
-				return true;
+				canMove = true;
 			}
 			break;
 		case 'L':
 			if (!m_tauler.hiHaParetInPosition(m_posX - 1, m_posY)
 					&& m_tauler.hiHaCaixaInPosition(m_posX - 1, m_posY) == null) {
 				m_posX--;
-				return true;
+				canMove = true;
 			}
 			break;
 		default:
 			throw new IllegalArgumentException("CaracterMoviment invalid");
 		}
 
+		if(canMove) 
+		{
+			m_tauler.afegirRegistreMoviment(new RegistreMoviment(m_tauler.getTorn(), dir, this));
+			return true;
+		}
+		
 		return false;
 	}
 }
