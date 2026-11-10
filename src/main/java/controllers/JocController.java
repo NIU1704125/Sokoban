@@ -16,6 +16,7 @@ public class JocController {
 	public void executar(){
 		
 		IInputController input = new InputConsola();
+		joc.setCarpeta("test");
 		while(true)	{
 
 			joc.carregarNivell("Nivell_1");

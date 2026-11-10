@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Caixa;
+import models.RegistreMoviment;
 import models.Tauler;
 
 public class MockTauler extends Tauler {
@@ -127,5 +128,20 @@ public class MockTauler extends Tauler {
 	@Override
 	public int getColumnes() {
 		return 5;
+	}
+	
+	@Override
+	public void afegirRegistreMoviment(RegistreMoviment rm) {
+		return;
+	}
+	
+	@Override
+	public void avancaTorn() {
+		return;
+	}
+	
+	@Override
+	public int getTorn() {
+		return 0;
 	}
 }

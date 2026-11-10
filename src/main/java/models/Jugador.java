@@ -62,13 +62,13 @@ public class Jugador {
 			if (c != null) {
 				if (c.move(dir)) {
 					m_posY--;
-					return true;
+					break;
 				} else {
 					return false;
 				}
 			} else {
 				m_posY--;
-				return true;
+				break;
 			}
 		case 'D':
 			if (m_tauler.hiHaParetInPosition(m_posX, m_posY + 1)) {
@@ -79,13 +79,13 @@ public class Jugador {
 			if (c != null) {
 				if (c.move(dir)) {
 					m_posY++;
-					return true;
+					break;
 				} else {
 					return false;
 				}
 			} else {
 				m_posY++;
-				return true;
+				break;
 			}
 		case 'R':
 			if (m_tauler.hiHaParetInPosition(m_posX + 1, m_posY)) {
@@ -96,13 +96,13 @@ public class Jugador {
 			if (c != null) {
 				if (c.move(dir)) {
 					m_posX++;
-					return true;
+					break;
 				} else {
 					return false;
 				}
 			} else {
 				m_posX++;
-				return true;
+				break;
 			}
 		case 'L':
 			if (m_tauler.hiHaParetInPosition(m_posX - 1, m_posY)) {
@@ -113,16 +113,20 @@ public class Jugador {
 			if (c != null) {
 				if (c.move(dir)) {
 					m_posX--;
-					return true;
+					break;
 				} else {
 					return false;
 				}
 			} else {
 				m_posX--;
-				return true;
+				break;
 			}
 		default:
 			throw new IllegalArgumentException("CaracterMoviment invalid");
 		}
+		
+		m_tauler.afegirRegistreMoviment(new RegistreMoviment(m_tauler.getTorn(), dir, this));
+		m_tauler.avancaTorn();
+		return true;
 	}
 }

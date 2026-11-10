@@ -9,7 +9,7 @@ public class Joc {
 	Tauler m_tauler;
 	Estat estatJoc;
 	List<String> m_nivells = new ArrayList<String>();
-	String m_carpetaNivells;
+	String m_carpetaNivells = "nivells";
 	
 	public void obrirSelector(){
 		File dir = new File("nivells/" + m_carpetaNivells);

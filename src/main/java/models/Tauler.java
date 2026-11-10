@@ -4,7 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Stack;
+import java.util.Stack;
 
 public class Tauler {
 
@@ -14,8 +14,8 @@ public class Tauler {
 	private List<Caixa> m_caixes = new ArrayList<>();
 	private int nInterruptors = 0;
 	private Jugador m_jugador = null;
-	// private int m_torn;
-	// private Stack<RegistreMoviment> m_registre = new Stack<RegistreMoviment>();
+	private int m_torn = 0;
+	private Stack<RegistreMoviment> m_registre = new Stack<RegistreMoviment>();
 
 	private boolean invariants() {
 		if ((m_tauler.length == 0) || (m_tauler.length != nFiles) || (m_tauler[0].length != nCol)
@@ -25,6 +25,10 @@ public class Tauler {
 		if ((m_caixes.size() == 0) || (nInterruptors == 0) || (m_caixes.size() < nInterruptors)) {
 			return false;
 		}
+		if(m_torn < 0) { 
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -32,6 +36,8 @@ public class Tauler {
 	}
 
 	public Tauler(String nomNivell) {
+		m_torn = 0;
+		
 		List<String> lineas = new ArrayList<>();
 		try {
 			lineas = Files.readAllLines(Path.of("nivells/" + nomNivell + ".txt"));
@@ -136,5 +142,66 @@ public class Tauler {
 			}
 		}
 		return null;
+	}
+	
+	public boolean desferMoviment() {
+		if(m_registre.empty()) {
+			return false;
+		}
+		
+		RegistreMoviment rm = m_registre.pop(); 
+		Jugador j = (Jugador) rm.getSubjecte();
+		
+		switch (rm.getDireccio()) {
+		case 'U':
+			j.setPosY(j.getPosY() + 1);
+			break;
+		case 'D':
+			j.setPosY(j.getPosY() - 1);
+			break;
+		case 'R':
+			j.setPosX(j.getPosX() - 1);
+			break;
+		case 'L':
+			j.setPosX(j.getPosX() + 1);
+			break;
+		default:
+			throw new IllegalArgumentException("Direccio de jugador invalida al registre");
+		}
+		
+		if(!m_registre.empty() && m_registre.peek().getSubjecte() instanceof Caixa) {
+			rm = m_registre.pop(); 
+			Caixa c = (Caixa) rm.getSubjecte();
+			
+			switch (rm.getDireccio()) {
+			case 'U':
+				c.setPosY(c.getPosY() + 1);
+				break;
+			case 'D':
+				c.setPosY(c.getPosY() - 1);
+				break;
+			case 'R':
+				c.setPosX(c.getPosX() - 1);
+				break;
+			case 'L':
+				c.setPosX(c.getPosX() + 1);
+				break;
+			default:
+				throw new IllegalArgumentException("Direccio de caixa invalida al registre");
+			}			
+		}
+		return true;
+	}
+	
+	public void afegirRegistreMoviment(RegistreMoviment rm) {
+		m_registre.push(rm);
+	}
+	
+	public void avancaTorn() {
+		m_torn++;
+	}
+	
+	public int getTorn() {
+		return m_torn;
 	}
 }
