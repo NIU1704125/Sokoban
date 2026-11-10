@@ -131,20 +131,17 @@ public class MockTauler extends Tauler {
 	}
 	
 	@Override
-	public void afegirRegistreMoviment(RegistreMoviment rm) 
-	{
+	public void afegirRegistreMoviment(RegistreMoviment rm) {
 		return;
 	}
 	
 	@Override
-	public void avançaTorn() 
-	{
+	public void avancaTorn() {
 		return;
 	}
 	
 	@Override
-	public int getTorn() 
-	{
+	public int getTorn() {
 		return 0;
 	}
 }

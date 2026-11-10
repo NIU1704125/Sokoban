@@ -175,8 +175,7 @@ class TaulerTest {
 	}
 	
 	@Test
-	void testDesferMoviments() 
-	{
+	void testDesferMoviments() {
 		//La logica d'aquesta funcio no dependra de la direccio, o sigui que no cal probar-les totes
 		//Tauler de prova per comprovar si els moviments es desfan correctament
 		Tauler tauler = new Tauler("test/Nivell_2");

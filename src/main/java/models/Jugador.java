@@ -126,7 +126,7 @@ public class Jugador {
 		}
 		
 		m_tauler.afegirRegistreMoviment(new RegistreMoviment(m_tauler.getTorn(), dir, this));
-		m_tauler.avançaTorn();
+		m_tauler.avancaTorn();
 		return true;
 	}
 }

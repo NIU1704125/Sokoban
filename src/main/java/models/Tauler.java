@@ -144,8 +144,7 @@ public class Tauler {
 		return null;
 	}
 	
-	public boolean desferMoviment() 
-	{
+	public boolean desferMoviment() {
 		if(m_registre.empty()) {
 			return false;
 		}
@@ -170,8 +169,7 @@ public class Tauler {
 			throw new IllegalArgumentException("Direccio de jugador invalida al registre");
 		}
 		
-		if(!m_registre.empty() && m_registre.peek().getSubjecte() instanceof Caixa) 
-		{
+		if(!m_registre.empty() && m_registre.peek().getSubjecte() instanceof Caixa) {
 			rm = m_registre.pop(); 
 			Caixa c = (Caixa) rm.getSubjecte();
 			
@@ -195,18 +193,15 @@ public class Tauler {
 		return true;
 	}
 	
-	public void afegirRegistreMoviment(RegistreMoviment rm) 
-	{
+	public void afegirRegistreMoviment(RegistreMoviment rm) {
 		m_registre.push(rm);
 	}
 	
-	public void avançaTorn() 
-	{
+	public void avancaTorn() {
 		m_torn++;
 	}
 	
-	public int getTorn() 
-	{
+	public int getTorn() {
 		return m_torn;
 	}
 }

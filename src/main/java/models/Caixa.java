@@ -83,8 +83,7 @@ public class Caixa {
 			throw new IllegalArgumentException("CaracterMoviment invalid");
 		}
 
-		if(canMove) 
-		{
+		if(canMove) {
 			m_tauler.afegirRegistreMoviment(new RegistreMoviment(m_tauler.getTorn(), dir, this));
 			return true;
 		}
