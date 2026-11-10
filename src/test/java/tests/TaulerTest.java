@@ -172,4 +172,10 @@ class TaulerTest {
 		assertEquals(tauler.hiHaCaixaInPosition(13, 0), null);
 		assertEquals(tauler.hiHaCaixaInPosition(3, 1), null);
 	}
+	
+	@Test
+	void testDesferMoviments() 
+	{
+		fail("No implementat encara");
+	}
 }

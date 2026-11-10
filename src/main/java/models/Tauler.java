@@ -137,4 +137,9 @@ public class Tauler {
 		}
 		return null;
 	}
+	
+	public void desferMoviment() 
+	{
+		return;
+	}
 }
