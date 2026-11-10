@@ -141,4 +141,10 @@ public class MockTauler extends Tauler {
 	{
 		return;
 	}
+	
+	@Override
+	public int getTorn() 
+	{
+		return 0;
+	}
 }

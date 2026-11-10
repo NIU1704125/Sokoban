@@ -158,4 +158,9 @@ public class Tauler {
 	{
 		m_torn++;
 	}
+	
+	public int getTorn() 
+	{
+		return m_torn;
+	}
 }
