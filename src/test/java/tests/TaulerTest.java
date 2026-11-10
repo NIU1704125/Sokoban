@@ -293,7 +293,7 @@ class TaulerTest {
 		assertFalse(tauler.desferMoviment());
 		assertTrue(tauler.hiHaCaixaInPosition(3, 2) != null);
 		assertTrue(tauler.hiHaCaixaInPosition(6, 2) != null);
-		assertTrue(j.getPosX() == 1 && j.getPosY() == 2);
+		assertTrue(j.getPosX() == 1 && j.getPosY() == 3);
 		
 		/*
  		############# 
