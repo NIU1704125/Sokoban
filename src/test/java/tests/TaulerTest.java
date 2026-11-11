@@ -327,6 +327,14 @@ class TaulerTest {
 		j.move('U');
 		assertFalse(tauler.estatGuanyador());
 		
+		/*
+ 		############# 
+ 		#  $  .  .  # 
+ 		#  @  $  $  # 
+ 		#     $     #
+ 		#############
+		 */
+		
 		//Fem el mateix amb la segona caixa
 		j.move('D');
 		j.move('R');
@@ -334,6 +342,14 @@ class TaulerTest {
 		j.move('R');
 		j.move('U');
 		assertFalse(tauler.estatGuanyador());
+		
+		/*
+ 		############# 
+ 		#  $  $  .  # 
+ 		#     @  $  # 
+ 		#      $    #
+ 		#############
+		 */
 		
 		//Ara col·loquem la ultima i mirem que es guanyi
 		j.move('D');
@@ -343,8 +359,26 @@ class TaulerTest {
 		j.move('U');
 		assertTrue(tauler.estatGuanyador());
 		
+		/*
+ 		############# 
+ 		#  $  $  $  # 
+ 		#        @  # 
+ 		#         $ #
+ 		#############
+		 */
+		
 		//Per ultim, movem alguna caixa i comprovem que l'estat ja no sigui el guanyador
+		j.move('R');
 		j.move('U');
+		j.move('L');
 		assertFalse(tauler.estatGuanyador());
+		
+		/*
+ 		############# 
+ 		#  $  $ $@  # 
+ 		#           # 
+ 		#         $ #
+ 		#############
+		 */
 	}
 }
