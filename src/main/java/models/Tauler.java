@@ -206,6 +206,14 @@ public class Tauler {
 	}
 	
 	public boolean estatGuanyador() {
-		return false;
+		int nActius = 0;
+		
+		for(Caixa c : m_caixes) {
+			if(m_tauler[c.getPosY()][c.getPosX()] == '.') {
+				nActius++;
+			}
+		}
+		
+		return nActius == nInterruptors;
 	}
 }
