@@ -305,6 +305,46 @@ class TaulerTest {
 	
 	@Test
 	void testEstatGuanyador() {
-		fail("No implementat encara");
+		//Tauler de prova per comprovar si la verificacio de victoria salta quan toca
+		Tauler tauler = new Tauler("test/Nivell_2");
+		/*
+ 		############# 
+ 		#  .  .  .  # 
+ 		#  $  $  $  # 
+ 		#@    $     #
+ 		#############
+		 */
+		
+		//Agafem la referencia al jugador
+		Jugador j = tauler.getJugador();
+		
+		//Comprovacio inicial
+		assertFalse(tauler.estatGuanyador());
+		
+		//Col·loquem la primera caixa on toca i comprovem
+		j.move('R');
+		j.move('R');
+		j.move('U');
+		assertFalse(tauler.estatGuanyador());
+		
+		//Fem el mateix amb la segona caixa
+		j.move('D');
+		j.move('R');
+		j.move('R');
+		j.move('R');
+		j.move('U');
+		assertFalse(tauler.estatGuanyador());
+		
+		//Ara col·loquem la ultima i mirem que es guanyi
+		j.move('D');
+		j.move('R');
+		j.move('R');
+		j.move('R');
+		j.move('U');
+		assertTrue(tauler.estatGuanyador());
+		
+		//Per ultim, movem alguna caixa i comprovem que l'estat ja no sigui el guanyador
+		j.move('U');
+		assertFalse(tauler.estatGuanyador());
 	}
 }
