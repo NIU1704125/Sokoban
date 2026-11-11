@@ -195,7 +195,7 @@ class TaulerTest {
 		
 		//Jugador es mou cap a dalt i es desfa el moviment
 		assertTrue(j.getPosX() == 1 && j.getPosY() == 3);
-		tauler.getJugador().move('U');
+		j.move('U');
 		assertTrue(tauler.desferMoviment());
 		assertTrue(j.getPosX() == 1 && j.getPosY() == 3);
 		
@@ -208,8 +208,8 @@ class TaulerTest {
 		 */
 		
 		//Jugador es mou cap a dalt dos cops i es desfa un moviment
-		tauler.getJugador().move('U');
-		tauler.getJugador().move('U');
+		j.move('U');
+		j.move('U');
 		assertTrue(tauler.desferMoviment());
 		assertTrue(j.getPosX() == 1 && j.getPosY() == 2);
 		
@@ -222,8 +222,8 @@ class TaulerTest {
 		 */
 
 		//Jugador es torna a moure 2 cops cap a dalt, ara xocant amb una pared al segon, i es desfa un moviment
-		tauler.getJugador().move('U');
-		tauler.getJugador().move('U');
+		j.move('U');
+		j.move('U');
 		assertTrue(tauler.desferMoviment());
 		assertTrue(j.getPosX() == 1 && j.getPosY() == 2);
 		
@@ -239,8 +239,8 @@ class TaulerTest {
 		assertTrue(tauler.hiHaCaixaInPosition(3, 2) != null);
 		assertTrue(tauler.hiHaCaixaInPosition(4, 2) == null);
 		
-		tauler.getJugador().move('R');
-		tauler.getJugador().move('R');
+		j.move('R');
+		j.move('R');
 		
 		assertTrue(j.getPosX() == 3 && j.getPosY() == 2);
 		assertTrue(tauler.hiHaCaixaInPosition(3, 2) == null);
@@ -261,9 +261,9 @@ class TaulerTest {
 		 */
 		
 		//Jugador es mou cap a la dreta fins que dues caixes xoquen i es desfa el moviment
-		tauler.getJugador().move('R');
-		tauler.getJugador().move('R');
-		tauler.getJugador().move('R');
+		j.move('R');
+		j.move('R');
+		j.move('R');
 		
 		assertTrue(j.getPosX() == 4 && j.getPosY() == 2);
 		assertTrue(tauler.hiHaCaixaInPosition(4, 2) == null);
