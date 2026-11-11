@@ -302,4 +302,9 @@ class TaulerTest {
  		#############
 		 */
 	}
+	
+	@Test
+	void testEstatGuanyador() {
+		fail("No implementat encara");
+	}
 }

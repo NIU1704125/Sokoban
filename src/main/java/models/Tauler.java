@@ -204,4 +204,8 @@ public class Tauler {
 	public int getTorn() {
 		return m_torn;
 	}
+	
+	public boolean estatGuanyador() {
+		return false;
+	}
 }

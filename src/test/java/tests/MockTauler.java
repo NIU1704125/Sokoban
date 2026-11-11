@@ -144,4 +144,9 @@ public class MockTauler extends Tauler {
 	public int getTorn() {
 		return 0;
 	}
+	
+	@Override
+	public boolean estatGuanyador() {
+		return false;
+	}
 }
