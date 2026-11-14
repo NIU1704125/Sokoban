@@ -88,4 +88,114 @@ class JocTest {
 		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
+	@Test 
+	void testSeleccionarNivell(){		
+		//Seleccio correcte de nivell
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("0"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("4"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("8"));
+		
+		//Nivell fora de rang
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("-1"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("10"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("-10"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("30"));
+		
+		//String buida
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell(""));
+		
+		//String nul·la
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell(null));
+		
+		//String espai
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell(" "));
+		
+		//Obrir amb strings de lletres
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("A"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("Prova"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("Prova 5"));
+		
+		//Nombre decimal
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("1.2"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("0.000001"));
+		
+		//Combinacio de numeros i lletres
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("2 Prova"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell("7A426B"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("7 A426B"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("5 8 9"));
+		
+		joc = new Joc();
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		assertTrue(joc.seleccionarNivell("  8 9"));
+	}
+	
 }
