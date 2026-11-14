@@ -50,9 +50,18 @@ public class Joc {
 	
 	public boolean seleccionarNivell(String indexNivell) 
 	{
-		//Es seleccionara a partir del index, que tambe es mostrara en el selector. 
-		//S'espera per tant un string que contingui un int.
-		return false;
+		if (indexNivell == null || indexNivell.trim().isEmpty()) {
+	        return false;
+	    }
+		
+		int indexFiltrat = Integer.parseInt(indexNivell.trim().split("\\s+")[0]);
+		
+		if (indexFiltrat >= 0 && indexFiltrat < m_nivells.size()) {
+            return carregarNivell(m_nivells.get(indexFiltrat));
+        } 
+		else {
+            return false;
+        }		
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
