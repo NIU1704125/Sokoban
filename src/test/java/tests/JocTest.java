@@ -41,6 +41,12 @@ class JocTest {
 		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
+	@Test 
+	void testSeleccionarNivell()
+	{
+		fail('no implementat encara');
+	}
+	
 	@Test
 	void testObrirSelector() {
 		

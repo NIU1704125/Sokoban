@@ -48,6 +48,13 @@ public class Joc {
 		
 	}
 	
+	public boolean seleccionarNivell(String indexNivell) 
+	{
+		//Es seleccionara a partir del index, que tambe es mostrara en el selector. 
+		//S'espera per tant un string que contingui un int.
+		return false;
+	}
+	
 	public void setCarpeta(String nomCarpeta) {
 		m_carpetaNivells = nomCarpeta;
 	}
