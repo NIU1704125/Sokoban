@@ -89,8 +89,7 @@ class JocTest {
 	}
 	
 	@Test 
-	void testSeleccionarNivell()
-	{		
+	void testSeleccionarNivell(){		
 		//Seleccio correcte de nivell
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();

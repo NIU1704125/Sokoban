@@ -48,8 +48,7 @@ public class Joc {
 		
 	}
 	
-	public boolean seleccionarNivell(String indexNivell) 
-	{
+	public boolean seleccionarNivell(String indexNivell) {
 		if (indexNivell == null || indexNivell.trim().isEmpty()) {
 	        return false;
 	    }
@@ -59,8 +58,7 @@ public class Joc {
 			
 			if (indexFiltrat >= 0 && indexFiltrat < m_nivells.size()) {
 	            return carregarNivell(m_nivells.get(indexFiltrat));
-	        } 
-			else {
+	        } else {
 	            return false;
 	        }
 			
