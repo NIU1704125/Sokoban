@@ -54,14 +54,19 @@ public class Joc {
 	        return false;
 	    }
 		
-		int indexFiltrat = Integer.parseInt(indexNivell.trim().split("\\s+")[0]);
-		
-		if (indexFiltrat >= 0 && indexFiltrat < m_nivells.size()) {
-            return carregarNivell(m_nivells.get(indexFiltrat));
-        } 
-		else {
-            return false;
-        }		
+		try {	
+			int indexFiltrat = Integer.parseInt(indexNivell.trim().split("\\s+")[0]);
+			
+			if (indexFiltrat >= 0 && indexFiltrat < m_nivells.size()) {
+	            return carregarNivell(m_nivells.get(indexFiltrat));
+	        } 
+			else {
+	            return false;
+	        }
+			
+		} catch (NumberFormatException e) {
+	        return false;
+	    }
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
