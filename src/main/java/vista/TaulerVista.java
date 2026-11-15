@@ -7,30 +7,34 @@ import models.Tauler;
 
 public class TaulerVista implements IVista {
 
+	@Override
 	public void mostrar(Joc joc) {
-		
 		Tauler tauler = joc.getTauler();
+
+		// Es treballa sobre una copia: el pintat es fa en un altre fil i el model pot
+		// canviar mentrestant.
 		char[][] base = tauler.getTauler();
-		char[][] pantalla = new char[tauler.getFiles()][];
-		for (int f = 0; f < pantalla.length; f++) {
-			pantalla[f] = base[f].clone();
+		char[][] escena = new char[tauler.getFiles()][];
+		for (int f = 0; f < escena.length; f++) {
+			escena[f] = base[f].clone();
 		}
 
+		// '*' = caixa sobre un objectiu, '+' = jugador sobre un objectiu
+		int caixesOk = 0;
 		for (Caixa c : tauler.getCaixes()) {
-			int x = c.getPosX();
-			int y = c.getPosY();
-			pantalla[y][x] = '$';
+			if (escena[c.getPosY()][c.getPosX()] == '.') {
+				escena[c.getPosY()][c.getPosX()] = '*';
+				caixesOk++;
+			} else {
+				escena[c.getPosY()][c.getPosX()] = '$';
+			}
 		}
 
 		Jugador j = tauler.getJugador();
-		pantalla[j.getPosY()][j.getPosX()] = '@';
+		boolean sobreObjectiu = escena[j.getPosY()][j.getPosX()] == '.';
+		escena[j.getPosY()][j.getPosX()] = sobreObjectiu ? '+' : '@';
 
-		System.out.println();
-		for (char[] fila : pantalla) {
-			System.out.println(new String(fila));
-		}
-		System.out.println();
-		System.out.print("w/a/s/d = moure, q = sortir > ");
+		FinestraJoc.getInstance().mostrarTauler(escena, caixesOk, tauler.getNInterrutors());
 	}
-	
+
 }
