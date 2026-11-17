@@ -82,4 +82,9 @@ public class Joc {
 	public Tauler getTauler() {
 		return m_tauler;
 	}
+	
+	public void mouJugador(char tecla) 
+	{
+		return;
+	}
 }

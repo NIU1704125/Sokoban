@@ -103,7 +103,7 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("8"));
+		assertTrue(joc.seleccionarNivell("9"));
 		
 		//Nivell fora de rang
 		joc = new Joc();
@@ -196,6 +196,12 @@ class JocTest {
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();
 		assertTrue(joc.seleccionarNivell("  8 9"));
+	}
+	
+	@Test
+	private void testMouJugador() 
+	{
+		fail("Encara no implementat");
 	}
 	
 }
