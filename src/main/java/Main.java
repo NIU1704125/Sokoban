@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] arg){
 		
 		Joc joc = new Joc();
-		JocController jc = new JocController(joc, new TaulerVista(), new SelectorVista(), new InputFinestra());
+		JocController jc = new JocController(joc, new TaulerVista(), new InputFinestra());
 
 		jc.executar();
 	}

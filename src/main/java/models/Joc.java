@@ -10,6 +10,7 @@ public class Joc {
 	Estat estatJoc;
 	List<String> m_nivells = new ArrayList<String>();
 	String m_carpetaNivells = "nivells";
+	boolean m_victoria;
 	
 	public void obrirSelector(){
 		File dir = new File("nivells/" + m_carpetaNivells);
@@ -71,12 +72,19 @@ public class Joc {
 		m_carpetaNivells = nomCarpeta;
 	}
 	
+	public void mouJugador(char tecla) {}
+	
 	public Estat getEstat() {
 		return estatJoc;
 	}
 	
 	public List<String> getLevels() {
 		return m_nivells;
+	}
+	
+	public boolean getVictoria()
+	{
+		return m_victoria;
 	}
 	
 	public Tauler getTauler() {

@@ -10,9 +10,9 @@ public class MockInput implements IInputController {
 	public void configurarTest(String test)
 	{
 		inputIndex = 0;
-		if(test == "test1")
+		if(test == "testRapid")
 		{
-			inputsSequence = new char[] {'a','b'};
+			inputsSequence = new char[] {'w','q'};
 		}
 	}
 	
@@ -21,6 +21,11 @@ public class MockInput implements IInputController {
 		char currentChar = inputsSequence[inputIndex];
 		inputIndex++;
 		return currentChar;
+	}
+	
+	public boolean hiHaMesInputs()
+	{
+		return inputIndex != inputsSequence.length;
 	}
 
 }
