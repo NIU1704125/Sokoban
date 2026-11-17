@@ -1,10 +1,14 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyChar;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,8 +39,7 @@ class JocControllerTest {
 	@Test
 	void testNormal() {
 		mockInput.configurarTest("testNormal");
-		while(mockInput.hiHaMesInputs())
-		{
+		while(mockInput.hiHaMesInputs()){
 			jc.executar();
 		}
 		verify(mockTaulerVista, times(2)).mostrar(any());
@@ -48,8 +51,7 @@ class JocControllerTest {
 	void testNormal2() {
 		mockInput.configurarTest("testNormal2");
 		when(mockJoc.getVictoria()).thenReturn(false);
-		while(mockInput.hiHaMesInputs())
-		{
+		while(mockInput.hiHaMesInputs()){
 			jc.executar();
 		}
 		verify(mockTaulerVista, times(7)).mostrar(any());
@@ -61,8 +63,7 @@ class JocControllerTest {
 	@Test
 	void testSortir() {
 		mockInput.configurarTest("testSortir");
-		while(mockInput.hiHaMesInputs())
-		{
+		while(mockInput.hiHaMesInputs()){
 			jc.executar();
 		}
 		verify(mockTaulerVista, times(1)).mostrar(any());
@@ -75,8 +76,7 @@ class JocControllerTest {
 	void testVictoria() {
 		mockInput.configurarTest("testVictoria");
 		when(mockJoc.getVictoria()).thenReturn(false, true);
-		while(mockInput.hiHaMesInputs())
-		{
+		while(mockInput.hiHaMesInputs()){
 			jc.executar();
 		}
 		verify(mockTaulerVista, times(4)).mostrar(any());

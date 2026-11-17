@@ -82,8 +82,7 @@ public class Joc {
 		return m_nivells;
 	}
 	
-	public boolean getVictoria()
-	{
+	public boolean getVictoria(){
 		return m_victoria;
 	}
 	

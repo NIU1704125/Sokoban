@@ -1,7 +1,7 @@
 package models;
 
 public enum Estat {
-	Menu,
+	Victoria,
 	Selector,
 	Jugant
 }

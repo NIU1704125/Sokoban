@@ -17,6 +17,15 @@ public class JocController {
 	
 	public void executar(){
 		
+		m_vistaTauler.mostrar(m_joc);
+		char input = m_input.llegirTecla();
 		
+		if(input == 'q') {
+			m_joc.obrirSelector();
+		}else{
+			if(!m_joc.getVictoria()){
+				m_joc.mouJugador(input);
+			}
+		}
 	}
 }

@@ -1,7 +1,6 @@
 import controllers.InputFinestra;
 import controllers.JocController;
 import models.Joc;
-import vista.SelectorVista;
 import vista.TaulerVista;
 
 public class Main {
