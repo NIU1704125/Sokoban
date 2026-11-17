@@ -33,11 +33,8 @@ class JocControllerTest {
 	}
 	
 	@Test
-	void testExecutar() {
-		//es testeja que al executar el joc controller, ejecuta les funciones de joc corresponents y la vista
-		
-		//test entrar, moure 1 vegada i sortir
-		mockInput.configurarTest("testRapid");
+	void testNormal() {
+		mockInput.configurarTest("testNormal");
 		while(mockInput.hiHaMesInputs())
 		{
 			jc.executar();
@@ -45,7 +42,47 @@ class JocControllerTest {
 		verify(mockTaulerVista, times(2)).mostrar(any());
 		verify(mockJoc).mouJugador(anyChar());
 		verify(mockJoc).obrirSelector();
-
+	}
+	
+	@Test
+	void testNormal2() {
+		mockInput.configurarTest("testNormal2");
+		when(mockJoc.getVictoria()).thenReturn(false);
+		while(mockInput.hiHaMesInputs())
+		{
+			jc.executar();
+		}
+		verify(mockTaulerVista, times(7)).mostrar(any());
+		verify(mockJoc, times(6)).getVictoria();
+		verify(mockJoc, times(6)).mouJugador(anyChar());
+		verify(mockJoc).obrirSelector();
+	}
+	
+	@Test
+	void testSortir() {
+		mockInput.configurarTest("testSortir");
+		while(mockInput.hiHaMesInputs())
+		{
+			jc.executar();
+		}
+		verify(mockTaulerVista, times(1)).mostrar(any());
+		verify(mockJoc, times(0)).getVictoria();
+		verify(mockJoc, times(0)).mouJugador(anyChar());
+		verify(mockJoc).obrirSelector();
+	}
+	
+	@Test
+	void testVictoria() {
+		mockInput.configurarTest("testVictoria");
+		when(mockJoc.getVictoria()).thenReturn(false, true);
+		while(mockInput.hiHaMesInputs())
+		{
+			jc.executar();
+		}
+		verify(mockTaulerVista, times(4)).mostrar(any());
+		verify(mockJoc, times(3)).getVictoria();
+		verify(mockJoc).mouJugador(anyChar());
+		verify(mockJoc).obrirSelector();
 	}
 
 }
