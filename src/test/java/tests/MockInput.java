@@ -21,6 +21,18 @@ public class MockInput implements IInputController {
 		if(test == "testSortir") {
 			inputsSequence = new char[] {'q'};
 		}
+		if(test == "testSelectorSortir") {
+			inputsSequence = new char[] {'q'};
+		}
+		if(test == "testSelectorEntrarNivell") {
+			inputsSequence = new char[] {'s','\n'};
+		}
+		if(test == "testSelectorEntrarNivell2") {
+			inputsSequence = new char[] {'s','s','s','w','\n'};
+		}
+		if(test == "testSelectorLoop") {
+			inputsSequence = new char[] {'w','w','s','s','\n'};
+		}
 	}
 	
 	@Override

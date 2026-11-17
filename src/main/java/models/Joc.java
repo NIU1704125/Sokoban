@@ -74,6 +74,10 @@ public class Joc {
 	
 	public void mouJugador(char tecla) {}
 	
+	public void moureCursor(char teclar) {}
+	
+	public void finalitzarJoc() {}
+	
 	public Estat getEstat() {
 		return estatJoc;
 	}
