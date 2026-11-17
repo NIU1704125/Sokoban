@@ -16,6 +16,16 @@ public class SelectorController {
 	}
 	
 	public void executar(){
-	//crida a les funcions per controlar el selector de nivells
+		m_vistaSelector.mostrar(m_joc);
+		char input = m_input.llegirTecla();
+		
+		if(input == 'q') {
+			m_joc.finalitzarJoc();
+		}else if(input == '\n'){
+			m_joc.seleccionarNivell();
+		}
+		else {
+			m_joc.moureCursor(input);
+		}
 	}
 }
