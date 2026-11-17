@@ -1,29 +1,38 @@
 package controllers;
 
 import models.Joc;
-import vista.TaulerVista;
+import vista.IVista;
 
 public class JocController {
 
-	Joc joc;
-	TaulerVista vistaTauler;
+	private final Joc m_joc;
+	private final IVista m_vistaTauler;
+	private final IVista m_vistaSelector;
+	private final IInputController m_input;
 	
-	public JocController(Joc newJoc, TaulerVista newTaulerVista){
-		joc = newJoc;
-		vistaTauler = newTaulerVista;
+	public JocController(Joc newJoc, IVista newTaulerVista, IVista newSelectorVista, IInputController input){
+		m_joc = newJoc;
+		m_vistaTauler = newTaulerVista;
+		m_vistaSelector = newSelectorVista;
+		m_input = input;
 	}
 	
 	public void executar(){
 		
-		IInputController input = new InputConsola();
-		joc.setCarpeta("test");
+		m_joc.setCarpeta("test");
+
+		m_joc.carregarNivell("Nivell_2");
 		while(true)	{
 
-			joc.carregarNivell("Nivell_1");
-			vistaTauler.mostrar(joc);
-			char tecla = input.llegirTecla();
+			m_vistaTauler.mostrar(m_joc);
+			char tecla = m_input.llegirTecla();
 			System.out.print(tecla);
 		}
-
+		
+		/*
+		m_joc.obrirSelector();
+		m_vistaSelector.mostrar(m_joc);
+		*/
+		
 	}
 }
