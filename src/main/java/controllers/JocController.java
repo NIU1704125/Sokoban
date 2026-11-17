@@ -18,7 +18,7 @@ public class JocController {
 	}
 	
 	public void executar(){
-		
+		//crida a les funcions de joc per controlar el jugador
 		m_joc.setCarpeta("test");
 
 		m_joc.carregarNivell("Nivell_2");
