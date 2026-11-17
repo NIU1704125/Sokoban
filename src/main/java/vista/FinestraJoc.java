@@ -21,7 +21,7 @@ public final class FinestraJoc {
 
 	private static FinestraJoc s_instancia;
 
-	private PanellJoc2 m_panell;
+	private PanellJoc m_panell;
 
 	public static synchronized FinestraJoc getInstance() {
 		if (s_instancia == null) {
@@ -46,7 +46,7 @@ public final class FinestraJoc {
 	}
 
 	private void crear() {
-		m_panell = new PanellJoc2();
+		m_panell = new PanellJoc();
 		m_panell.setFocusable(true);
 		m_panell.setPreferredSize(new Dimension(800, 600));
 
