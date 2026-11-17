@@ -18,6 +18,7 @@ public class GameController {
 	
 	public void executar(){
 		m_joc.setCarpeta("test");
+		m_joc.obrirSelector();
 		while(true){
 			switch (m_joc.getEstat()) {
 		    case Victoria:

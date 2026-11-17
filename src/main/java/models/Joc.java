@@ -13,6 +13,7 @@ public class Joc {
 	boolean m_victoria;
 	int m_cursor;
 	
+	
 	public void obrirSelector(){
 		File dir = new File("nivells/" + m_carpetaNivells);
 		if(!dir.isDirectory()) {
@@ -80,7 +81,9 @@ public class Joc {
 	
 	public void moureCursor(char teclar) {}
 	
-	public void finalitzarJoc() {}
+	public void finalitzarJoc() {
+		estatJoc = Estat.Final;
+	}
 	
 	public Estat getEstat() {
 		return estatJoc;
