@@ -1,14 +1,11 @@
-import controllers.InputFinestra;
-import controllers.JocController;
-import models.Joc;
-import vista.TaulerVista;
+import controllers.GameController;
 
 public class Main {
 	public static void main(String[] arg){
 		
-		Joc joc = new Joc();
-		JocController jc = new JocController(joc, new TaulerVista(), new InputFinestra());
-
-		jc.executar();
+		GameController gc = new GameController();
+		gc.executar();
+		
+		System.exit(0);
 	}
 }
