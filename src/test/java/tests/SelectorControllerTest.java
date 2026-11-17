@@ -18,6 +18,7 @@ import controllers.SelectorController;
 import models.Joc;
 import vista.SelectorVista;
 
+@ExtendWith(MockitoExtension.class)
 public class SelectorControllerTest {
 	private MockInput mockInput;
 	
@@ -61,11 +62,11 @@ public class SelectorControllerTest {
 	
 	@Test
 	void testEntrarNivell2() {
-		mockInput.configurarTest("testSelectorEntrarNivel2");
+		mockInput.configurarTest("testSelectorEntrarNivell2");
 		while(mockInput.hiHaMesInputs()){
 			sc.executar();
 		}
-		verify(mockSelectorVista, times(4)).mostrar(any());
+		verify(mockSelectorVista, times(5)).mostrar(any());
 		verify(mockJoc, times(0)).finalitzarJoc();
 		verify(mockJoc, times(1)).seleccionarNivell();
 		verify(mockJoc, times(4)).moureCursor(anyChar());
@@ -77,7 +78,7 @@ public class SelectorControllerTest {
 		while(mockInput.hiHaMesInputs()){
 			sc.executar();
 		}
-		verify(mockSelectorVista, times(4)).mostrar(any());
+		verify(mockSelectorVista, times(5)).mostrar(any());
 		verify(mockJoc, times(0)).finalitzarJoc();
 		verify(mockJoc, times(1)).seleccionarNivell();
 		verify(mockJoc, times(4)).moureCursor(anyChar());
