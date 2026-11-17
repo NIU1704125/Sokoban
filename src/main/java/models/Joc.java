@@ -11,6 +11,7 @@ public class Joc {
 	List<String> m_nivells = new ArrayList<String>();
 	String m_carpetaNivells = "nivells";
 	boolean m_victoria;
+	int m_cursor;
 	
 	public void obrirSelector(){
 		File dir = new File("nivells/" + m_carpetaNivells);
@@ -49,7 +50,9 @@ public class Joc {
 		
 	}
 	
-	public boolean seleccionarNivell(String indexNivell) {
+	public boolean seleccionarNivell() {
+		return true;
+		/*
 		if (indexNivell == null || indexNivell.trim().isEmpty()) {
 	        return false;
 	    }
@@ -66,6 +69,7 @@ public class Joc {
 		} catch (NumberFormatException e) {
 	        return false;
 	    }
+	    */
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
