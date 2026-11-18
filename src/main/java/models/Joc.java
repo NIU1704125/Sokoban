@@ -77,9 +77,28 @@ public class Joc {
 		m_carpetaNivells = nomCarpeta;
 	}
 	
-	public void mouJugador(char tecla) {}
+	public void mouJugador(char tecla) {
+		assert m_tauler != null;
+		
+		switch(tecla) {
+		case 'w':
+			m_tauler.getJugador().move('U');
+			break;
+		case 's':
+			m_tauler.getJugador().move('D');
+			break;
+		case 'a':
+			m_tauler.getJugador().move('L');
+			break;
+		case 'd':
+			m_tauler.getJugador().move('R');
+			break;
+		default:
+			break;
+		}
+	}
 	
-	public void moureCursor(char teclar) {}
+	public void mouCursor(char teclar) {}
 	
 	public void finalitzarJoc() {
 		estatJoc = Estat.Final;
@@ -101,8 +120,8 @@ public class Joc {
 		return m_tauler;
 	}
 	
-	public void mouJugador(char tecla) 
-	{
-		return;
+	public void setTauler(Tauler t){
+		m_tauler = t;
+		estatJoc = Estat.Jugant;
 	}
 }
