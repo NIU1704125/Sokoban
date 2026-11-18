@@ -204,18 +204,22 @@ class JocTest {
 	}
 	
 	@Test
-	private void testMouJugador() 
+	void testMouJugador() 
 	{
 		Jugador mockJugador = mock(Jugador.class);
+		
+		MockTauler mockTauler = new MockTauler("MovimentSenseParets");
+	    mockTauler.setJugador(mockJugador);
 		
 		//Tauler no carregat
 		try{
 			joc.mouJugador('w');
-		} catch (Exception e) {}
+			assertTrue(false);
+		} catch (AssertionError e) {}
 		
 		//Carreguem tauler
 		joc.setCarpeta("test");
-		joc.carregarNivell("Nivell_1");
+		joc.setTauler(mockTauler);
 		
 		//Tecles valides
 		joc.mouJugador('w');
