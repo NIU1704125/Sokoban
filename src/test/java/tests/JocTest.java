@@ -9,6 +9,9 @@ import models.Estat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.*;
+import models.Jugador;
+
 import java.io.File;
 
 class JocTest {
@@ -203,7 +206,38 @@ class JocTest {
 	@Test
 	private void testMouJugador() 
 	{
-		fail("Encara no implementat");
+		Jugador mockJugador = mock(Jugador.class);
+		
+		//Tauler no carregat
+		try{
+			joc.mouJugador('w');
+		} catch (Exception e) {}
+		
+		//Carreguem tauler
+		joc.setCarpeta("test");
+		joc.carregarNivell("Nivell_1");
+		
+		//Tecles valides
+		joc.mouJugador('w');
+	    verify(mockJugador, times(1)).move('U');
+
+	    joc.mouJugador('a');
+	    verify(mockJugador, times(1)).move('L');
+
+	    joc.mouJugador('s');
+	    verify(mockJugador, times(1)).move('D');
+
+	    joc.mouJugador('d');
+	    verify(mockJugador, times(1)).move('R');
+	    
+	    //Altres tecles
+	    joc.mouJugador('x');
+	    joc.mouJugador('q');
+	    joc.mouJugador(' ');
+	    joc.mouJugador('1');
+	    
+	    verifyNoMoreInteractions(mockJugador);
+		
 	}
 	
 }
