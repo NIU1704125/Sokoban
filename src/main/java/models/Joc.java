@@ -106,4 +106,8 @@ public class Joc {
 		m_tauler = t;
 		estatJoc = Estat.Jugant;
 	}
+	
+	public int getCursor() {
+		return m_cursor;
+	}
 }
