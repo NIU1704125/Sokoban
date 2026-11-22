@@ -51,8 +51,8 @@ public class Joc {
 		
 	}
 	
-	public boolean seleccionarNivell() {
-		return true;
+	public void seleccionarNivell() {
+		return;
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
@@ -80,7 +80,7 @@ public class Joc {
 		}
 	}
 	
-	public void mouCursor(char teclar) {}
+	public void mouCursor(char tecla) {}
 	
 	public void finalitzarJoc() {
 		estatJoc = Estat.Final;
