@@ -63,7 +63,9 @@ public class Joc {
 	}
 	
 	public void mouJugador(char tecla) {
-		assert m_tauler != null;
+		//Precondicions
+		assert(m_tauler != null);
+		assert(estatJoc == Estat.Jugant);
 		
 		switch(tecla) {
 		case 'w':
