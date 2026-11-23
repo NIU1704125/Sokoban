@@ -95,17 +95,11 @@ class JocTest {
 		assertEquals(joc.getCursor(), 0);
 		
 		//Intentem pujar o baixar sense haber carregat cap carpeta
-		try 
-		{
-			joc.mouCursor('w');
-			assertTrue(false);
-		}catch(Exception e) {}
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 0);
 		
-		try 
-		{
-			joc.mouCursor('s');
-			assertTrue(false);
-		}catch(Exception e) {}
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 0);
 		
 		//Carreguem la carpeta de nivells
 		joc.setCarpeta("10fitxer");
@@ -136,29 +130,17 @@ class JocTest {
 		assertEquals(joc.getCursor(), 0);
 		
 		//Provem a interactuar amb la funcio amb diferents caracters no valids
-		try 
-		{
-			joc.mouCursor(' ');
-			assertTrue(false);
-		}catch(Exception e) {}
+		joc.mouCursor(' ');
+		assertEquals(joc.getCursor(), 0);
+
+		joc.mouCursor('a');
+		assertEquals(joc.getCursor(), 0);
 		
-		try 
-		{
-			joc.mouCursor('a');
-			assertTrue(false);
-		}catch(Exception e) {}
-		
-		try 
-		{
-			joc.mouCursor('W');
-			assertTrue(false);
-		}catch(Exception e) {}
-		
-		try 
-		{
-			joc.mouCursor('S');
-			assertTrue(false);
-		}catch(Exception e) {}
+		joc.mouCursor('W');
+		assertEquals(joc.getCursor(), 0);
+
+		joc.mouCursor('S');
+		assertEquals(joc.getCursor(), 0);
 	}
 	
 	@Test 
@@ -166,6 +148,7 @@ class JocTest {
 		
 		//Triem el nivell 1
 		joc.setCarpeta("test");
+		joc.obrirSelector();
 		joc.mouCursor('s');
 		joc.mouCursor('s');
 		assertTrue(joc.seleccionarNivell());
@@ -175,6 +158,7 @@ class JocTest {
 		//Triem el nivell 2
 		joc = new Joc();
 		joc.setCarpeta("test");
+		joc.obrirSelector();
 		joc.mouCursor('s');
 		joc.mouCursor('s');
 		joc.mouCursor('s');
@@ -185,12 +169,14 @@ class JocTest {
 		//Triem nivells no valids
 		joc = new Joc();
 		joc.setCarpeta("test");
+		joc.obrirSelector();
 		assertFalse(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
 		
 		joc = new Joc();
 		joc.setCarpeta("test");
+		joc.obrirSelector();
 		joc.mouCursor('s');
 		assertFalse(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() == null);
