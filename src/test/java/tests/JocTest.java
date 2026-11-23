@@ -91,6 +91,17 @@ class JocTest {
 	
 	@Test
 	void testMouCursor(){		
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.carregarNivell("Nivell_1");			
+			joc.seleccionarNivell();
+			assertTrue(false);
+		} catch (AssertionError e) {}
+		
+		joc = new Joc();
+		
 		//Comprovacio de control del valor inicial de la variable cursor
 		assertEquals(joc.getCursor(), 0);
 		
@@ -159,8 +170,17 @@ class JocTest {
 			SenseAlgunesParets
 		 */
 		
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.carregarNivell("Nivell_1");			
+			joc.seleccionarNivell();
+			assertTrue(false);
+		} catch (AssertionError e) {}
 		
 		//Triem el nivell 1
+		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
 		joc.mouCursor('s');
@@ -219,7 +239,16 @@ class JocTest {
 			assertTrue(false);
 		} catch (AssertionError e) {}
 		
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.mouJugador('w');
+			assertTrue(false);
+		} catch (AssertionError e) {}
+		
 		//Carreguem tauler
+		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.setTauler(mockTauler);
 		
