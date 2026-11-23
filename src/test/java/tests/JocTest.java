@@ -145,10 +145,25 @@ class JocTest {
 	
 	@Test 
 	void testSeleccionarNivell(){		
+		/*
+		 Nivells de Test:
+		 	MassaInterruptors
+			MassaJugadors
+			NivellMassaPetit
+			Nivell_1
+			Nivell_2
+			Nivell_buit
+			NoCaixes
+			NoInterruptor
+			NoJugador
+			SenseAlgunesParets
+		 */
+		
 		
 		//Triem el nivell 1
 		joc.setCarpeta("test");
 		joc.obrirSelector();
+		joc.mouCursor('s');
 		joc.mouCursor('s');
 		joc.mouCursor('s');
 		assertTrue(joc.seleccionarNivell());
@@ -159,6 +174,7 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
+		joc.mouCursor('s');
 		joc.mouCursor('s');
 		joc.mouCursor('s');
 		joc.mouCursor('s');
@@ -177,6 +193,12 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
 		joc.mouCursor('s');
 		assertFalse(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() == null);
