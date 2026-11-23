@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
 import org.junit.jupiter.api.Test;
 
 import models.Tauler;
@@ -110,31 +113,12 @@ class TaulerTest {
 
 	}
 
-	@Test
-	void testHiHaParetInPosition() {
-		// Tauler de prova per comprovar parets
+	//Test realitzat utilitzant un data-driven approach
+	@ParameterizedTest
+	@CsvFileSource(resources = "/parets_test.csv", numLinesToSkip = 1)
+	void testHiHaParetInPosition(int x, int y, boolean esperat) {
 		Tauler tauler = new Tauler("test/SenseAlgunesParets");
-		/*
-		 *  ###  ###
-		 *   @$  . 
-		 *  ###  ###
-		 */
-
-		// Comprovacions dins dels limits del tauler
-		assertTrue(tauler.hiHaParetInPosition(0, 0));
-		assertTrue(tauler.hiHaParetInPosition(1, 0));
-		assertFalse(tauler.hiHaParetInPosition(0, 1));
-		assertFalse(tauler.hiHaParetInPosition(1, 1));
-		assertFalse(tauler.hiHaParetInPosition(2, 1));
-		assertTrue(tauler.hiHaParetInPosition(6, 0));
-		assertTrue(tauler.hiHaParetInPosition(0, 2));
-
-		// Fora del tauler es considera paret
-		assertTrue(tauler.hiHaParetInPosition(-1, 0));
-		assertTrue(tauler.hiHaParetInPosition(0, -1));
-		assertTrue(tauler.hiHaParetInPosition(-1, -1));
-		assertTrue(tauler.hiHaParetInPosition(7, 0));
-		assertTrue(tauler.hiHaParetInPosition(0, 3));
+		assertEquals(esperat, tauler.hiHaParetInPosition(x, y));
 	}
 
 	@Test
