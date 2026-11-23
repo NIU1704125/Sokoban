@@ -91,7 +91,7 @@ public class Joc {
 		assert(estatJoc == Estat.Selector);
 		
 		if(m_nivells.size() == 0) {
-			throw new IllegalStateException("No hi ha cap nivell carregat");
+			return;
 		}
 		
 		switch(tecla) 
@@ -109,7 +109,7 @@ public class Joc {
 			}
 			return;
 		default:
-			throw new IllegalArgumentException("Tecla invalida premuda");
+			return;
 		}
 	}
 	
