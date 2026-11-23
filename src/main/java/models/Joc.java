@@ -35,6 +35,8 @@ public class Joc {
 			}
 		}
 		
+		m_nivells.sort(null);
+		
 		return;
 	}
 	
