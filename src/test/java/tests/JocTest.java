@@ -9,6 +9,13 @@ import models.Estat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+import models.Jugador;
+
 import java.io.File;
 
 class JocTest {
@@ -43,8 +50,6 @@ class JocTest {
 	
 	@Test
 	void testObrirSelector() {
-		
-
 		//test carpeta no existeix
 		try{
 			joc.setCarpeta("null");
@@ -88,116 +93,189 @@ class JocTest {
 		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
+	@Test
+	void testMouCursor(){		
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.carregarNivell("Nivell_1");			
+			joc.seleccionarNivell();
+			assertTrue(false);
+		} catch (AssertionError e) {}
+		
+		joc = new Joc();
+		
+		//Comprovacio de control del valor inicial de la variable cursor
+		assertEquals(joc.getCursor(), 0);
+		
+		//Intentem pujar o baixar sense haber carregat cap carpeta
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 0);
+		
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 0);
+		
+		//Carreguem la carpeta de nivells
+		joc.setCarpeta("10fitxer");
+		joc.obrirSelector();
+		
+		//Baixem dues posicions a la llista de nivells
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 1);
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 2);
+		
+		//Pujem dues posicions
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 1);
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 0);
+		
+		//Estant a 0 pujem dues posicions mes, comprovant el limit superior
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 9);
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 8);
+		
+		//Baixem dues posicions, comprovant el limit inferior
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 9);
+		joc.mouCursor('s');
+		assertEquals(joc.getCursor(), 0);
+		
+		//Provem a interactuar amb la funcio amb diferents caracters no valids
+		joc.mouCursor(' ');
+		assertEquals(joc.getCursor(), 0);
+
+		joc.mouCursor('a');
+		assertEquals(joc.getCursor(), 0);
+		
+		joc.mouCursor('W');
+		assertEquals(joc.getCursor(), 0);
+
+		joc.mouCursor('S');
+		assertEquals(joc.getCursor(), 0);
+	}
+	
 	@Test 
 	void testSeleccionarNivell(){		
-		//Seleccio correcte de nivell
 		/*
-		joc.setCarpeta("10fitxer");
+		 Nivells de Test:
+		 	MassaInterruptors
+			MassaJugadors
+			NivellMassaPetit
+			Nivell_1
+			Nivell_2
+			Nivell_buit
+			NoCaixes
+			NoInterruptor
+			NoJugador
+			SenseAlgunesParets
+		 */
+		
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.carregarNivell("Nivell_1");			
+			joc.seleccionarNivell();
+			assertTrue(false);
+		} catch (AssertionError e) {}
+		
+		//Triem el nivell 1
+		joc = new Joc();
+		joc.setCarpeta("test");
 		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("0"));
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		assertTrue(joc.seleccionarNivell());
+		assertTrue(joc.getTauler() != null);
+		assertEquals(Estat.Jugant, joc.getEstat());
+		
+		//Triem el nivell 2
+		joc = new Joc();
+		joc.setCarpeta("test");
+		joc.obrirSelector();
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		assertTrue(joc.seleccionarNivell());
+		assertTrue(joc.getTauler() != null);
+		assertEquals(Estat.Jugant, joc.getEstat());
+		
+		//Triem nivells no valids
+		joc = new Joc();
+		joc.setCarpeta("test");
+		joc.obrirSelector();
+		assertFalse(joc.seleccionarNivell());
+		assertTrue(joc.getTauler() == null);
+		assertEquals(Estat.Selector, joc.getEstat());
 		
 		joc = new Joc();
-		joc.setCarpeta("10fitxer");
+		joc.setCarpeta("test");
 		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("4"));
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		joc.mouCursor('s');
+		assertFalse(joc.seleccionarNivell());
+		assertTrue(joc.getTauler() == null);
+		assertEquals(Estat.Selector, joc.getEstat());
+	}
+	
+	@Test
+	void testMouJugador(){
+		Jugador mockJugador = mock(Jugador.class);
 		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("8"));
+		MockTauler mockTauler = new MockTauler("MovimentSenseParets");
+	    mockTauler.setJugador(mockJugador);
 		
-		//Nivell fora de rang
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("-1"));
+		//Tauler no carregat
+		try{
+			joc.mouJugador('w');
+			assertTrue(false);
+		} catch (AssertionError e) {}
 		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("10"));
+		//Estat incorrecte
+		try{
+			joc.setCarpeta("test");
+			joc.obrirSelector();
+			joc.mouJugador('w');
+			assertTrue(false);
+		} catch (AssertionError e) {}
 		
+		//Carreguem tauler
 		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("-10"));
+		joc.setCarpeta("test");
+		joc.setTauler(mockTauler);
 		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("30"));
+		//Tecles valides
+		joc.mouJugador('w');
+	    verify(mockJugador, times(1)).move('U');
+
+	    joc.mouJugador('a');
+	    verify(mockJugador, times(1)).move('L');
+
+	    joc.mouJugador('s');
+	    verify(mockJugador, times(1)).move('D');
+
+	    joc.mouJugador('d');
+	    verify(mockJugador, times(1)).move('R');
+	    
+	    //Altres tecles
+	    joc.mouJugador('x');
+	    joc.mouJugador('q');
+	    joc.mouJugador(' ');
+	    joc.mouJugador('1');
+	    
+	    verifyNoMoreInteractions(mockJugador);
 		
-		//String buida
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell(""));
-		
-		//String nul·la
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell(null));
-		
-		//String espai
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell(" "));
-		
-		//Obrir amb strings de lletres
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("A"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("Prova"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("Prova 5"));
-		
-		//Nombre decimal
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("1.2"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("0.000001"));
-		
-		//Combinacio de numeros i lletres
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("2 Prova"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertFalse(joc.seleccionarNivell("7A426B"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("7 A426B"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("5 8 9"));
-		
-		joc = new Joc();
-		joc.setCarpeta("10fitxer");
-		joc.obrirSelector();
-		assertTrue(joc.seleccionarNivell("  8 9"));
-		*/
 	}
 	
 }

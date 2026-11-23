@@ -6,9 +6,11 @@ import java.util.Map;
 import models.Caixa;
 import models.RegistreMoviment;
 import models.Tauler;
+import models.Jugador;
 
 public class MockTauler extends Tauler {
-
+	private Jugador mockJugador;
+	
 	// string posicio = (xy)
 	Map<String, Map<String, Boolean>> mockParets = Map.of("MovimentSenseParets",
 			Map.ofEntries(Map.entry("22", false), Map.entry("32", false), Map.entry("12", false),
@@ -149,4 +151,13 @@ public class MockTauler extends Tauler {
 	public boolean estatGuanyador() {
 		return false;
 	}
+	
+	public void setJugador(Jugador jugador) {
+        this.mockJugador = jugador;
+    }
+
+    @Override
+    public Jugador getJugador() {
+        return this.mockJugador;
+    }
 }

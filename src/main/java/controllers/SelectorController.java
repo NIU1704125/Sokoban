@@ -24,7 +24,7 @@ public class SelectorController {
 		}else if(input == '\n'){
 			m_joc.seleccionarNivell();
 		}else {
-			m_joc.moureCursor(input);
+			m_joc.mouCursor(input);
 		}
 	}
 }
