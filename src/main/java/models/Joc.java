@@ -7,11 +7,11 @@ import java.util.List;
 public class Joc {	
 	
 	Tauler m_tauler;
-	Estat estatJoc;
+	Estat estatJoc = Estat.Selector;
 	List<String> m_nivells = new ArrayList<String>();
 	String m_carpetaNivells = "nivells";
 	boolean m_victoria;
-	int m_cursor;
+	int m_cursor = 0;
 	
 	
 	public void obrirSelector(){
@@ -51,8 +51,11 @@ public class Joc {
 		
 	}
 	
-	public void seleccionarNivell() {
-		return;
+	public boolean seleccionarNivell() {
+		//Precondicions
+		assert(estatJoc == Estat.Selector);
+		
+		return carregarNivell(m_nivells.get(m_cursor));
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
@@ -80,7 +83,33 @@ public class Joc {
 		}
 	}
 	
-	public void mouCursor(char tecla) {}
+	public void mouCursor(char tecla) 
+	{
+		//Precondicions
+		assert(estatJoc == Estat.Selector);
+		
+		if(m_nivells.size() == 0) {
+			throw new IllegalStateException("No hi ha cap nivell carregat");
+		}
+		
+		switch(tecla) 
+		{
+		case 'w':
+			m_cursor -= 1;
+			if(m_cursor < 0) {
+				m_cursor = m_nivells.size() - 1;
+			}
+			return;
+		case 's':
+			m_cursor += 1;
+			if(m_cursor >= m_nivells.size()) {
+				m_cursor = 0;
+			}
+			return;
+		default:
+			throw new IllegalArgumentException("Tecla invalida premuda");
+		}
+	}
 	
 	public void finalitzarJoc() {
 		estatJoc = Estat.Final;
