@@ -9,7 +9,11 @@ import models.Estat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import models.Jugador;
 
 import java.io.File;
@@ -226,8 +230,7 @@ class JocTest {
 	}
 	
 	@Test
-	void testMouJugador() 
-	{
+	void testMouJugador(){
 		Jugador mockJugador = mock(Jugador.class);
 		
 		MockTauler mockTauler = new MockTauler("MovimentSenseParets");

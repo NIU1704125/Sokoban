@@ -85,8 +85,7 @@ public class Joc {
 		}
 	}
 	
-	public void mouCursor(char tecla) 
-	{
+	public void mouCursor(char tecla){
 		//Precondicions
 		assert(estatJoc == Estat.Selector);
 		
@@ -94,8 +93,7 @@ public class Joc {
 			return;
 		}
 		
-		switch(tecla) 
-		{
+		switch(tecla){
 		case 'w':
 			m_cursor -= 1;
 			if(m_cursor < 0) {
