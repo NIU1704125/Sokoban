@@ -31,6 +31,7 @@ public class PanellJoc extends JPanel {
 
 	private static final int ALCADA_HUD = 48;
 	private static final int MIDA_MAX_CEL = 96;
+	private static final int MAX_NIVELLS_VISIBLES = 10;
 
 	// Paleta de colors (respaldo per a sprites i estil de la interfície)
 	private static final Color FONS_DALT = new Color(122, 122, 122);
@@ -79,9 +80,11 @@ public class PanellJoc extends JPanel {
 	private boolean[][] m_interior;
 	private int m_caixesOk;
 	private int m_objectius;
+	private boolean m_victoria;
 
 	// Llista de nivells del selector (null si no s'està mostrant)
 	private transient List<String> m_nivells;
+	private int m_cursor;
 
 	public PanellJoc() {
 		carregarRecursos();
@@ -166,17 +169,19 @@ public class PanellJoc extends JPanel {
 
 	// ------------------------------------------------------------------ Estat
 
-	public void setTauler(char[][] escena, int caixesOk, int objectius) {
+	public void setTauler(char[][] escena, int caixesOk, int objectius, boolean victoria) {
 		m_escena = escena;
 		m_interior = calcularInterior(escena);
 		m_caixesOk = caixesOk;
 		m_objectius = objectius;
+		m_victoria = victoria;
 		m_nivells = null;
 		repaint();
 	}
 
-	public void setNivells(List<String> nivells) {
+	public void setNivells(List<String> nivells, int cursor) {
 		m_nivells = nivells;
+		m_cursor = cursor;
 		m_escena = null;
 		m_interior = null;
 		repaint();
@@ -272,6 +277,34 @@ public class PanellJoc extends JPanel {
 			}
 		}
 		pintarHud(g2);
+		if (m_victoria) {
+			pintarVictoria(g2);
+		}
+	}
+
+	private void pintarVictoria(Graphics2D g2) {
+		int alcadaZona = getHeight() - ALCADA_HUD;
+
+		// Capa fosca sobre el tauler
+		g2.setColor(new Color(0, 0, 0, 150));
+		g2.fillRect(0, 0, getWidth(), alcadaZona);
+
+		// Targeta central amb el missatge
+		int ample = Math.min(420, getWidth() - 40);
+		int alt = 110;
+		int x = (getWidth() - ample) / 2;
+		int y = (alcadaZona - alt) / 2;
+		g2.setColor(TARGETA_FONS);
+		g2.fillRoundRect(x, y, ample, alt, 18, 18);
+		g2.setColor(ACCENT);
+		g2.setStroke(new BasicStroke(2f));
+		g2.drawRoundRect(x, y, ample, alt, 18, 18);
+
+		g2.setFont(m_fontTitol);
+		pintarTextCentratAmbSombra(g2, "HAS GUANYAT!", y + 55, ACCENT);
+		g2.setFont(m_fontSubtitol);
+		g2.setColor(TEXT_SUAU);
+		pintarCentrat(g2, "Nivell completat", y + 85);
 	}
 
 	private void pintarCasella(Graphics2D g2, char ch, int x, int y, int s) {
@@ -478,28 +511,66 @@ public class PanellJoc extends JPanel {
 			int yEnrere = yTargeta + altTargeta - 28;
 			pintarFilaNivell(g2, xTargeta + 24, yEnrere, ampleTargeta - 48, "0", "Enrere", true);
 		} else {
+			// Pagines de MAX_NIVELLS_VISIBLES nivells: la pagina depen nomes del cursor
+			int primer = (m_cursor / MAX_NIVELLS_VISIBLES) * MAX_NIVELLS_VISIBLES;
+			int visibles = Math.min(MAX_NIVELLS_VISIBLES, n - primer);
 			int espaiIntern = altTargeta - 36;
-			int pas = Math.max(24, Math.min(40, espaiIntern / (n + 1)));
+			int pas = Math.max(24, Math.min(40, espaiIntern / (Math.min(n, MAX_NIVELLS_VISIBLES) + 1)));
 			float midaFont = Math.max(12f, Math.min(16f, pas * 0.48f));
 			g2.setFont(m_fontLlista.deriveFont(midaFont));
 
 			int yFila = yTargeta + 24 + pas / 2;
-			for (int i = 0; i < n; i++) {
+			for (int i = primer; i < primer + visibles; i++) {
+				if (i == m_cursor) {
+					pintarCursor(g2, xTargeta, yFila, ampleTargeta, pas);
+				}
 				pintarFilaNivell(g2, xTargeta + 24, yFila, ampleTargeta - 48,
 						String.valueOf(i + 1), m_nivells.get(i), false);
 				yFila += pas;
 			}
 
-			// Línia separadora abans de "0. Enrere"
-			g2.setColor(TARGETA_VORA);
-			g2.drawLine(xTargeta + 24, yFila - pas / 2, xTargeta + ampleTargeta - 24, yFila - pas / 2);
-			pintarFilaNivell(g2, xTargeta + 24, yFila + 4, ampleTargeta - 48, "0", "Enrere", true);
+			// Fletxes que indiquen que hi ha mes nivells amunt o avall
+			int xCentre = xTargeta + ampleTargeta / 2;
+			if (primer > 0) {
+				pintarFletxa(g2, xCentre, yTargeta + 12, true);
+			}
+			if (primer + visibles < n) {
+				pintarFletxa(g2, xCentre, yFila - pas / 2 + 8, false);
+			}
+
 		}
 
 		// Peu d'ajuda
 		g2.setFont(m_fontPetit);
 		g2.setColor(TEXT_SUAU);
-		pintarCentrat(g2, "Prem la tecla numèrica del nivell per començar", getHeight() - 26);
+		pintarCentrat(g2, "W / S per triar el nivell  ·  Enter per començar  ·  Q per sortir", getHeight() - 26);
+	}
+
+	private void pintarFletxa(Graphics2D g2, int xCentre, int yCentre, boolean amunt) {
+		int meitat = 7;
+		int alt = amunt ? -4 : 4;
+		int[] xs = { xCentre - meitat, xCentre + meitat, xCentre };
+		int[] ys = { yCentre - alt, yCentre - alt, yCentre + alt };
+		g2.setColor(ACCENT);
+		g2.fillPolygon(xs, ys, 3);
+	}
+
+	private void pintarCursor(Graphics2D g2, int xTargeta, int yText, int ampleTargeta, int pas) {
+		FontMetrics fm = g2.getFontMetrics();
+		int alt = pas - 4;
+		int yCentre = yText - (fm.getAscent() - fm.getDescent()) / 2;
+
+		// Fila ressaltada
+		g2.setColor(new Color(ACCENT.getRed(), ACCENT.getGreen(), ACCENT.getBlue(), 40));
+		g2.fillRoundRect(xTargeta + 8, yCentre - alt / 2, ampleTargeta - 16, alt, 10, 10);
+		g2.setColor(ACCENT);
+		g2.setStroke(new BasicStroke(1.5f));
+		g2.drawRoundRect(xTargeta + 8, yCentre - alt / 2, ampleTargeta - 16, alt, 10, 10);
+
+		// Fletxa indicadora
+		int[] xs = { xTargeta + 12, xTargeta + 12, xTargeta + 20 };
+		int[] ys = { yCentre - 5, yCentre + 5, yCentre };
+		g2.fillPolygon(xs, ys, 3);
 	}
 
 	private void pintarFilaNivell(Graphics2D g2, int x, int y, int ample, String tecla, String nom, boolean esSortida) {

@@ -6,7 +6,7 @@ public class SelectorVista implements IVista {
 
 	@Override
 	public void mostrar(Joc joc) {
-		FinestraJoc.getInstance().mostrarNivells(joc.getLevels());
+		FinestraJoc.getInstance().mostrarNivells(joc.getLevels(), joc.getCursor());
 	}
 
 }

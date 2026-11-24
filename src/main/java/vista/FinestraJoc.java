@@ -73,13 +73,13 @@ public final class FinestraJoc {
 	/**
 	 * Mostra el tauler. L'escena ha de ser una copia que ningu mes modifiqui (vegeu TaulerVista).
 	 */
-	public void mostrarTauler(char[][] escena, int caixesOk, int objectius) {
-		SwingUtilities.invokeLater(() -> m_panell.setTauler(escena, caixesOk, objectius));
+	public void mostrarTauler(char[][] escena, int caixesOk, int objectius, boolean victoria) {
+		SwingUtilities.invokeLater(() -> m_panell.setTauler(escena, caixesOk, objectius, victoria));
 	}
 
-	public void mostrarNivells(List<String> nivells) {
+	public void mostrarNivells(List<String> nivells, int cursor) {
 		List<String> copia = List.copyOf(nivells);
-		SwingUtilities.invokeLater(() -> m_panell.setNivells(copia));
+		SwingUtilities.invokeLater(() -> m_panell.setNivells(copia, cursor));
 	}
 
 	public void afegirKeyListener(KeyListener listener) {

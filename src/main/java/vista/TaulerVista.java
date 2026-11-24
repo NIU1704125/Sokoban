@@ -34,7 +34,7 @@ public class TaulerVista implements IVista {
 		boolean sobreObjectiu = escena[j.getPosY()][j.getPosX()] == '.';
 		escena[j.getPosY()][j.getPosX()] = sobreObjectiu ? '+' : '@';
 
-		FinestraJoc.getInstance().mostrarTauler(escena, caixesOk, tauler.getNInterrutors());
+		FinestraJoc.getInstance().mostrarTauler(escena, caixesOk, tauler.getNInterrutors(), joc.getVictoria());
 	}
 
 }

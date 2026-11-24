@@ -7,11 +7,11 @@ import java.util.List;
 public class Joc {	
 	
 	Tauler m_tauler;
-	Estat estatJoc;
+	Estat estatJoc = Estat.Selector;
 	List<String> m_nivells = new ArrayList<String>();
 	String m_carpetaNivells = "nivells";
 	boolean m_victoria;
-	int m_cursor;
+	int m_cursor = 0;
 	
 	
 	public void obrirSelector(){
@@ -35,6 +35,8 @@ public class Joc {
 			}
 		}
 		
+		m_nivells.sort(null);
+		
 		return;
 	}
 	
@@ -52,34 +54,64 @@ public class Joc {
 	}
 	
 	public boolean seleccionarNivell() {
-		return true;
-		/*
-		if (indexNivell == null || indexNivell.trim().isEmpty()) {
-	        return false;
-	    }
+		//Precondicions
+		assert(estatJoc == Estat.Selector);
 		
-		try {	
-			int indexFiltrat = Integer.parseInt(indexNivell.trim().split("\\s+")[0]);
-			
-			if (indexFiltrat >= 0 && indexFiltrat < m_nivells.size()) {
-	            return carregarNivell(m_nivells.get(indexFiltrat));
-	        } else {
-	            return false;
-	        }
-			
-		} catch (NumberFormatException e) {
-	        return false;
-	    }
-	    */
+		return carregarNivell(m_nivells.get(m_cursor));
 	}
 	
 	public void setCarpeta(String nomCarpeta) {
 		m_carpetaNivells = nomCarpeta;
 	}
 	
-	public void mouJugador(char tecla) {}
+	public void mouJugador(char tecla) {
+		//Precondicions
+		assert(m_tauler != null);
+		assert(estatJoc == Estat.Jugant);
+		
+		switch(tecla) {
+		case 'w':
+			m_tauler.getJugador().move('U');
+			break;
+		case 's':
+			m_tauler.getJugador().move('D');
+			break;
+		case 'a':
+			m_tauler.getJugador().move('L');
+			break;
+		case 'd':
+			m_tauler.getJugador().move('R');
+			break;
+		default:
+			break;
+		}
+	}
 	
-	public void moureCursor(char teclar) {}
+	public void mouCursor(char tecla){
+		//Precondicions
+		assert(estatJoc == Estat.Selector);
+		
+		if(m_nivells.size() == 0) {
+			return;
+		}
+		
+		switch(tecla){
+		case 'w':
+			m_cursor -= 1;
+			if(m_cursor < 0) {
+				m_cursor = m_nivells.size() - 1;
+			}
+			return;
+		case 's':
+			m_cursor += 1;
+			if(m_cursor >= m_nivells.size()) {
+				m_cursor = 0;
+			}
+			return;
+		default:
+			return;
+		}
+	}
 	
 	public void finalitzarJoc() {
 		estatJoc = Estat.Final;
@@ -99,5 +131,14 @@ public class Joc {
 	
 	public Tauler getTauler() {
 		return m_tauler;
+	}
+	
+	public void setTauler(Tauler t){
+		m_tauler = t;
+		estatJoc = Estat.Jugant;
+	}
+	
+	public int getCursor() {
+		return m_cursor;
 	}
 }

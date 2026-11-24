@@ -43,7 +43,7 @@ public class SelectorControllerTest {
 		verify(mockSelectorVista, times(1)).mostrar(any());
 		verify(mockJoc).finalitzarJoc();
 		verify(mockJoc, times(0)).seleccionarNivell();
-		verify(mockJoc, times(0)).moureCursor(anyChar());
+		verify(mockJoc, times(0)).mouCursor(anyChar());
 	}
 	
 	@Test
@@ -55,7 +55,7 @@ public class SelectorControllerTest {
 		verify(mockSelectorVista, times(2)).mostrar(any());
 		verify(mockJoc, times(0)).finalitzarJoc();
 		verify(mockJoc, times(1)).seleccionarNivell();
-		verify(mockJoc, times(1)).moureCursor(anyChar());
+		verify(mockJoc, times(1)).mouCursor(anyChar());
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class SelectorControllerTest {
 		verify(mockSelectorVista, times(5)).mostrar(any());
 		verify(mockJoc, times(0)).finalitzarJoc();
 		verify(mockJoc, times(1)).seleccionarNivell();
-		verify(mockJoc, times(4)).moureCursor(anyChar());
+		verify(mockJoc, times(4)).mouCursor(anyChar());
 	}
 	
 	@Test
@@ -79,6 +79,6 @@ public class SelectorControllerTest {
 		verify(mockSelectorVista, times(5)).mostrar(any());
 		verify(mockJoc, times(0)).finalitzarJoc();
 		verify(mockJoc, times(1)).seleccionarNivell();
-		verify(mockJoc, times(4)).moureCursor(anyChar());
+		verify(mockJoc, times(4)).mouCursor(anyChar());
 	}
 }
