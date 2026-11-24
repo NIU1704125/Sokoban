@@ -292,8 +292,7 @@ class JocTest {
 	}
 	
 	@Test
-	void testCondicioVictoria() 
-	{
+	void testCondicioVictoria(){
 		//Carreguem el nivell 1 de test
 		joc.setCarpeta("test");
 		joc.obrirSelector();
