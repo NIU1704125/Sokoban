@@ -21,6 +21,7 @@ public class Joc {
 		}
 		
 		estatJoc = Estat.Selector;
+        m_victoria = false;
 		m_nivells = new ArrayList<String>();
 
 		File[] fitxers = dir.listFiles();
@@ -68,6 +69,7 @@ public class Joc {
 		//Precondicions
 		assert(m_tauler != null);
 		assert(estatJoc == Estat.Jugant);
+		assert(m_victoria == false);
 		
 		switch(tecla) {
 		case 'w':
@@ -82,9 +84,13 @@ public class Joc {
 		case 'd':
 			m_tauler.getJugador().move('R');
 			break;
+        case 'z':
+            m_tauler.desferMoviment();
+            break;
 		default:
 			break;
 		}
+        m_victoria = m_tauler.estatGuanyador();
 	}
 	
 	public void mouCursor(char tecla){
