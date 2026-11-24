@@ -94,7 +94,7 @@ public class PanellJoc extends JPanel {
 		m_imgSol = carregarImatge("floor.png");
 		m_imgObjectiu = carregarImatge("goal.png");
 		m_imgCaixa = carregarImatge("crate.png");
-		m_imgCaixaOk = carregarImatge("caixa_ok.png");
+		m_imgCaixaOk = carregarImatge("crate_ok.png");
 		m_imgJugador = carregarImatge("player.png");
 		m_imgLogo = carregarImatge("logo.png");
 
