@@ -67,30 +67,35 @@ class JocTest {
 		joc.obrirSelector();
 		assertEquals(0, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 		
 		//test 1 fitxer
 		joc.setCarpeta("1fitxer");
 		joc.obrirSelector();
 		assertEquals(1, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 		
 		//test 2 fitxers
 		joc.setCarpeta("2fitxer");
 		joc.obrirSelector();
 		assertEquals(2, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 		
 		//test 10 fitxers
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();
 		assertEquals(10, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 		
 		//test 20 fitxers
 		joc.setCarpeta("20fitxer");
 		joc.obrirSelector();
 		assertEquals(20, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 	}
 	
 	@Test
@@ -276,6 +281,37 @@ class JocTest {
 	    
 	    verifyNoMoreInteractions(mockJugador);
 		
+	}
+	
+	@Test
+	void testCondicioVictoria() 
+	{
+		//Carreguem el nivell 1 de test
+		joc.setCarpeta("test");
+		joc.obrirSelector();
+		joc.carregarNivell("Nivell_1");
+		
+		//Movem el jugador cap a la dreta per comprovar que s'activi la condicio de victoria quan toca
+		joc.mouJugador('d');
+		assertEquals(joc.getVictoria(), false);
+
+		joc.mouJugador('d');
+		assertEquals(joc.getVictoria(), false);
+
+		joc.mouJugador('d');
+		assertEquals(joc.getVictoria(), true);
+		
+		//intent de moure el jugador quan ha guanyat
+		try{
+			joc.mouJugador('d');
+			assertTrue(false);
+		} catch (AssertionError e) {}
+		
+		//comprovacio reinici condicio victoria al tornar al selector
+		joc.obrirSelector();
+		assertEquals(10, joc.getLevels().size());
+		assertEquals(Estat.Selector, joc.getEstat());
+		assertEquals(joc.getVictoria(), false);
 	}
 	
 }
