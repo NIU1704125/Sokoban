@@ -260,7 +260,7 @@ class JocTest {
 		joc.setCarpeta("test");
 		joc.setTauler(mockTauler);
 		
-		//Tecles valides
+		//Tecles valides de moviment
 		joc.mouJugador('w');
 	    verify(mockJugador, times(1)).move('U');
 
@@ -273,11 +273,19 @@ class JocTest {
 	    joc.mouJugador('d');
 	    verify(mockJugador, times(1)).move('R');
 	    
+	    //Desfer moviment
+	    assertEquals(mockTauler.getNombreMovimentsDesfets(), 0);
+	    joc.mouJugador('z');
+	    assertEquals(mockTauler.getNombreMovimentsDesfets(), 1);
+	    
+	    
 	    //Altres tecles
 	    joc.mouJugador('x');
 	    joc.mouJugador('q');
 	    joc.mouJugador(' ');
 	    joc.mouJugador('1');
+	    joc.mouJugador('W');
+	    
 	    
 	    verifyNoMoreInteractions(mockJugador);
 		

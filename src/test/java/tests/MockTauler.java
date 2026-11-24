@@ -95,8 +95,10 @@ public class MockTauler extends Tauler {
 		return mockCaixes.getOrDefault(mockTaulerActual, null);
 	}
 
+    private int nMovimentsDesfets;
 	public MockTauler(String nivell) {
 		super();
+		nMovimentsDesfets = 0;
 		mockTaulerActual = nivell;
 	}
 
@@ -159,5 +161,15 @@ public class MockTauler extends Tauler {
     @Override
     public Jugador getJugador() {
         return this.mockJugador;
+    }
+    
+    @Override
+	public boolean desferMoviment() {
+    	nMovimentsDesfets += 1;
+    	return true;
+    }
+    
+    public int getNombreMovimentsDesfets() {
+    	return nMovimentsDesfets;
     }
 }
