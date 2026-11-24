@@ -84,6 +84,9 @@ public class Joc {
 		case 'd':
 			m_tauler.getJugador().move('R');
 			break;
+        case 'z':
+            m_tauler.desferMoviment();
+            break;
 		default:
 			break;
 		}
