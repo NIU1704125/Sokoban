@@ -47,6 +47,33 @@ class TaulerTest {
 			assertTrue(false);
 		} catch (Exception e) {
 		}
+		
+		// Limit: 2 files (minim 3)
+		try {
+			tauler = new Tauler("test/NivellDuesFiles");
+			assertTrue(false);
+		} catch (Exception e) {
+		}
+
+		// Limit: 2 columnes (minim 3)
+		try {
+			tauler = new Tauler("test/NivellDuesColumnes");
+			assertTrue(false);
+		} catch (Exception e) {
+		}
+
+		// Limit: tauler minim valid 3x3
+		tauler = new Tauler("test/NivellMinim3x3");
+		char[][] minim = {
+				{ '#', '#', '#' },
+				{ ' ', ' ', '.' },
+				{ '#', '#', '#' } };
+		assertTrue(tauler.getJugador() != null);
+		assertEquals(tauler.getCaixes().size(), 1);
+		assertEquals(tauler.getNInterrutors(), 1);
+		assertEquals(tauler.getFiles(), 3);
+		assertEquals(tauler.getColumnes(), 3);
+		assertArrayEquals(tauler.getTauler(), minim);
 
 		// Sense jugador
 		try {
