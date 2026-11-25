@@ -1,10 +1,8 @@
 package tests;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import models.Caixa;
@@ -106,6 +104,8 @@ class CaixaTest {
 		assertEquals(parCaixa.getPosX(), 4);
 		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
+		
+		assertThrows(AssertionError.class, () -> new Caixa(null, 2, 2));
 	}
 
 	@Test

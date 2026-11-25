@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 import models.Jugador;
 import models.Caixa;
 import models.Tauler;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JugadorTest {
 
@@ -112,6 +113,8 @@ class JugadorTest {
 		assertEquals(parJugador.getPosX(), 4);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
+		
+		assertThrows(AssertionError.class, () -> new Jugador(null, 2, 2));
 	}
 
 	@Test
