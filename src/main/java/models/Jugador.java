@@ -7,6 +7,7 @@ public class Jugador {
 
 	// Constructor
 	public Jugador(Tauler tauler, int posX, int posY) {
+		assert(tauler != null);
 		if (posX < 0) {
 			posX = 0;
 		}
