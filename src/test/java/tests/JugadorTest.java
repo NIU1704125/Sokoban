@@ -24,8 +24,18 @@ class JugadorTest {
 		// Creacio MockObject Tauler 10x10
 		MockTauler mt = new MockTauler("");
 
-		// Valors valids
+		// Valor limit Y = 4 (X fixa valida)
 		Jugador parJugador = new Jugador(mt, 2, 4);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 4);
+		assertEquals(parJugador.getTauler(), mt);
+
+		// Valor limit X = 0 (Y fixa valida)
+		parJugador = new Jugador(mt, 0, 2);
+		assertEquals(parJugador.getPosX(), 0);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+		
 		// Valors limit de X (Y fixa valida)
 		parJugador = new Jugador(mt, -1, 2);
 		assertEquals(parJugador.getPosX(), 0);
@@ -76,6 +86,11 @@ class JugadorTest {
 		parJugador = new Jugador(mt, 2, 0);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, 2, 1);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 1);
 		assertEquals(parJugador.getTauler(), mt);
 
 		parJugador = new Jugador(mt, 2, 3);

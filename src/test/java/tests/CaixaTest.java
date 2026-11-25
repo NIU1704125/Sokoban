@@ -14,8 +14,17 @@ class CaixaTest {
 		// Creacio MockObject Tauler
 		MockTauler mt = new MockTauler("");
 
-		// Constructor amb parametres
+		// Valor limit X = 0 (Y fixa valida)
 		Caixa parCaixa = new Caixa(mt, 0, 2);
+		assertEquals(parCaixa.getPosX(), 0);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		// Valor limit X = 1 (Y fixa valida)
+		parCaixa = new Caixa(mt, 1, 2);
+		assertEquals(parCaixa.getPosX(), 1);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
 
 		// Valors limit de X (Y fixa valida)
 		parCaixa = new Caixa(mt, -1, 2);
@@ -72,6 +81,11 @@ class CaixaTest {
 		parCaixa = new Caixa(mt, 2, 3);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 3);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, 2, 4);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 
 		parCaixa = new Caixa(mt, 2, 5);
