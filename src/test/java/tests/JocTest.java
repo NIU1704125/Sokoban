@@ -159,6 +159,12 @@ class JocTest {
 
 		joc.mouCursor('S');
 		assertEquals(joc.getCursor(), 0);
+		
+		joc.mouCursor('w');
+		assertEquals(joc.getCursor(), 9);
+		joc.setCarpeta("2fitxer");
+		joc.obrirSelector();
+		assertEquals(joc.getCursor(), 0);
 	}
 	
 	@Test 
@@ -222,6 +228,13 @@ class JocTest {
 		assertFalse(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
+		
+		//Carpeta buida: no hi ha cap nivell per seleccionar
+		joc = new Joc();
+		new File("nivells/carpetaBuida").mkdirs();
+		joc.setCarpeta("carpetaBuida");
+		joc.obrirSelector();
+		assertThrows(AssertionError.class, () -> joc.seleccionarNivell());
 	}
 	
 	@Test
