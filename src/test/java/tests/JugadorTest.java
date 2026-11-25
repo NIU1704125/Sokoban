@@ -17,24 +17,92 @@ class JugadorTest {
 
 		// Valors valids
 		Jugador parJugador = new Jugador(mt, 2, 4);
+		// Valors limit de X (Y fixa valida)
+		parJugador = new Jugador(mt, -1, 2);
+		assertEquals(parJugador.getPosX(), 0);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, -100, 2);
+		assertEquals(parJugador.getPosX(), 0);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 1, 2);
+		assertEquals(parJugador.getPosX(), 1);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 3, 2);
+		assertEquals(parJugador.getPosX(), 3);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 4, 2);
+		assertEquals(parJugador.getPosX(), 4);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 5, 2);
+		assertEquals(parJugador.getPosX(), 4);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, 500, 2);
+		assertEquals(parJugador.getPosX(), 4);
+		assertEquals(parJugador.getPosY(), 2);
+		assertEquals(parJugador.getTauler(), mt);
+
+		// Valors limit de Y (X fixa valida)
+		parJugador = new Jugador(mt, 2, -1);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, 2, -100);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 2, 0);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 2, 3);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 3);
+		assertEquals(parJugador.getTauler(), mt);
+
+		parJugador = new Jugador(mt, 2, 5);
+		assertEquals(parJugador.getPosX(), 2);
+		assertEquals(parJugador.getPosY(), 4);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, 2, 500);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 
-		parJugador = new Jugador(mt, 0, 1);
+		// Cantonades (els dos eixos fora per un)
+		parJugador = new Jugador(mt, -1, -1);
 		assertEquals(parJugador.getPosX(), 0);
-		assertEquals(parJugador.getPosY(), 1);
+		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getTauler(), mt);
+		
+		parJugador = new Jugador(mt, -100, -100);
+		assertEquals(parJugador.getPosX(), 0);
+		assertEquals(parJugador.getPosY(), 0);
 		assertEquals(parJugador.getTauler(), mt);
 
-		// Valors invalids
-		parJugador = new Jugador(mt, -99, 250);
-		assertEquals(parJugador.getPosX(), 0);
+		parJugador = new Jugador(mt, 5, 5);
+		assertEquals(parJugador.getPosX(), 4);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
-
-		parJugador = new Jugador(mt, 120, -5);
+		
+		parJugador = new Jugador(mt, 500, 500);
 		assertEquals(parJugador.getPosX(), 4);
-		assertEquals(parJugador.getPosY(), 0);
+		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 	}
 

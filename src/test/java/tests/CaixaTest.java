@@ -1,5 +1,6 @@
 package tests;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,25 +19,92 @@ class CaixaTest {
 		// Constructor amb parametres
 		Caixa parCaixa = new Caixa(mt, 0, 2);
 
-		// Valors valids
+		// Valors limit de X (Y fixa valida)
+		parCaixa = new Caixa(mt, -1, 2);
+		assertEquals(parCaixa.getPosX(), 0);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, -100, 2);
 		assertEquals(parCaixa.getPosX(), 0);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		parCaixa = new Caixa(mt, 1, 4);
-		assertEquals(parCaixa.getPosX(), 1);
-		assertEquals(parCaixa.getPosY(), 4);
+		parCaixa = new Caixa(mt, 3, 2);
+		assertEquals(parCaixa.getPosX(), 3);
+		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		// Valors invalids
-		parCaixa = new Caixa(mt, -200, 70);
-		assertEquals(parCaixa.getPosX(), 0);
-		assertEquals(parCaixa.getPosY(), 4);
-		assertEquals(parCaixa.getTauler(), mt);
-
-		parCaixa = new Caixa(mt, 8, -6);
+		parCaixa = new Caixa(mt, 4, 2);
 		assertEquals(parCaixa.getPosX(), 4);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 5, 2);
+		assertEquals(parCaixa.getPosX(), 4);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, 500, 2);
+		assertEquals(parCaixa.getPosX(), 4);
+		assertEquals(parCaixa.getPosY(), 2);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		// Valors limit de Y (X fixa valida)
+		parCaixa = new Caixa(mt, 2, -1);
+		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 0);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, 2, -100);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 0);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 2, 0);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 0);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 2, 1);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 1);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 2, 3);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 3);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 2, 5);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 4);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, 2, 500);
+		assertEquals(parCaixa.getPosX(), 2);
+		assertEquals(parCaixa.getPosY(), 4);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		// Cantonades (els dos eixos fora per un)
+		parCaixa = new Caixa(mt, -1, -1);
+		assertEquals(parCaixa.getPosX(), 0);
+		assertEquals(parCaixa.getPosY(), 0);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, -100, -100);
+		assertEquals(parCaixa.getPosX(), 0);
+		assertEquals(parCaixa.getPosY(), 0);
+		assertEquals(parCaixa.getTauler(), mt);
+
+		parCaixa = new Caixa(mt, 5, 5);
+		assertEquals(parCaixa.getPosX(), 4);
+		assertEquals(parCaixa.getPosY(), 4);
+		assertEquals(parCaixa.getTauler(), mt);
+		
+		parCaixa = new Caixa(mt, 500, 500);
+		assertEquals(parCaixa.getPosX(), 4);
+		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 	}
 
