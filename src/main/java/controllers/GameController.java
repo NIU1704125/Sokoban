@@ -21,7 +21,6 @@ public class GameController {
 		m_joc.obrirSelector();
 		while(true){
 			switch (m_joc.getEstat()) {
-		    case Victoria:
 		    case Jugant:
 		    	jocController.executar();
 		        break;
