@@ -1,0 +1,10 @@
+torn,dir,tipusSubjecte,esValid
+-1,U,JUGADOR,false
+-1,d,CAIXA,false
+-1,X,TAULER,false
+0,U,CAIXA,true
+0,d,TAULER,false
+0,X,JUGADOR,false
+7,U,TAULER,false
+7,d,JUGADOR,false
+7,X,CAIXA,false

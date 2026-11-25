@@ -47,5 +47,13 @@ class RegistreMovimentTest {
 			});
 		}
 	}
+	
+	//Test pairwise: torn {-1, 0, 7} x dir {U, d, X} x subjecte {JUGADOR, CAIXA, TAULER}
+	//Array ortogonal L9: 9 casos en lloc de 27, cobrint tots els parells de valors
+	@ParameterizedTest
+	@CsvFileSource(resources = "/registre_moviment_test_pairwise.csv", numLinesToSkip = 1)
+	void testConstructorsPairwise(int torn, char dir, String tipusSubjecte, boolean esValid) {
+		testConstructors(torn, dir, tipusSubjecte, esValid);
+	}
 
 }
