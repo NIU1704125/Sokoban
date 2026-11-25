@@ -319,7 +319,7 @@ class JocTest {
 		
 		//comprovacio reinici condicio victoria al tornar al selector
 		joc.obrirSelector();
-		assertEquals(14, joc.getLevels().size());
+		assertEquals(15, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 	}
