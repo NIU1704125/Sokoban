@@ -13,6 +13,10 @@ public class Joc {
 	boolean m_victoria;
 	int m_cursor = 0;
 	
+	private boolean invariant() {
+		return m_nivells != null && m_cursor >= 0
+				&& (estatJoc != Estat.Jugant || m_tauler != null);
+	}
 	
 	public void obrirSelector(){
 		File dir = new File("nivells/" + m_carpetaNivells);
@@ -38,25 +42,40 @@ public class Joc {
 		
 		m_nivells.sort(null);
 		
-		return;
+		if(m_cursor >= m_nivells.size()) {
+			m_cursor = 0;
+		}
+		
+		//Postcondicions
+		assert(estatJoc == Estat.Selector);
+		assert(m_victoria == false);
+		assert(m_nivells.isEmpty() || m_cursor < m_nivells.size());
+		assert(invariant());
 	}
 	
 	public boolean carregarNivell(String nivell) {
+		boolean carregat;
 		
 		try{
 			m_tauler = new Tauler(m_carpetaNivells + "/" + nivell);
 			estatJoc = Estat.Jugant;
-			return true;
+			carregat = true;
 		} catch(Exception e) {
 			estatJoc = Estat.Selector;
-			return false;
+			carregat = false;
 		}
 		
+		//Postcondicions
+		assert(!carregat || (estatJoc == Estat.Jugant && m_tauler != null));
+		assert(carregat || estatJoc == Estat.Selector);
+		assert(invariant());
+		return carregat;
 	}
 	
 	public boolean seleccionarNivell() {
 		//Precondicions
 		assert(estatJoc == Estat.Selector);
+		assert(!m_nivells.isEmpty());
 		
 		return carregarNivell(m_nivells.get(m_cursor));
 	}
@@ -91,6 +110,7 @@ public class Joc {
 			break;
 		}
         m_victoria = m_tauler.estatGuanyador();
+		assert(invariant());
 	}
 	
 	public void mouCursor(char tecla){
@@ -107,16 +127,19 @@ public class Joc {
 			if(m_cursor < 0) {
 				m_cursor = m_nivells.size() - 1;
 			}
-			return;
+			break;
 		case 's':
 			m_cursor += 1;
 			if(m_cursor >= m_nivells.size()) {
 				m_cursor = 0;
 			}
-			return;
+			break;
 		default:
-			return;
+			break;
 		}
+		
+		//Postcondicions
+		assert(m_cursor >= 0 && m_cursor < m_nivells.size());
 	}
 	
 	public void finalitzarJoc() {
