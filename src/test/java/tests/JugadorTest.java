@@ -3,10 +3,18 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import models.Jugador;
+import models.Caixa;
+import models.Tauler;
 
 class JugadorTest {
 
@@ -350,5 +358,33 @@ class JugadorTest {
 		assertFalse(j.move('L'));
 		assertEquals(j.getPosX(), 4);
 		assertEquals(j.getPosY(), 1);
+		
+		// Mock objects (Mockito): Tauler i Caixa simulats per aillar Jugador.move de Caixa.move
+		Tauler mockTauler = mock(Tauler.class);
+		Caixa mockCaixa = mock(Caixa.class);
+		when(mockTauler.getColumnes()).thenReturn(5);
+		when(mockTauler.getFiles()).thenReturn(5);
+		when(mockTauler.hiHaCaixaInPosition(2, 1)).thenReturn(mockCaixa);
+
+		// Creacio nou jugador situat a x=2, y=2 en el tauler simulat
+		j = new Jugador(mockTauler, 2, 2);
+
+		// La caixa de dalt no es pot moure: el jugador no es mou ni es registra res
+		when(mockCaixa.move('U')).thenReturn(false);
+		assertFalse(j.move('U'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 2);
+		verify(mockCaixa, times(1)).move('U');
+		verify(mockTauler, never()).afegirRegistreMoviment(any());
+		verify(mockTauler, never()).avancaTorn();
+
+		// La caixa de dalt si es pot moure: el jugador avança, es registra i avança el torn
+		when(mockCaixa.move('U')).thenReturn(true);
+		assertTrue(j.move('U'));
+		assertEquals(j.getPosX(), 2);
+		assertEquals(j.getPosY(), 1);
+		verify(mockCaixa, times(2)).move('U');
+		verify(mockTauler, times(1)).afegirRegistreMoviment(any());
+		verify(mockTauler, times(1)).avancaTorn();
 	}
 }
