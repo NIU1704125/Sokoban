@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import models.Tauler;
 import models.Jugador;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaulerTest {
 
@@ -110,6 +111,12 @@ class TaulerTest {
 		} catch (Exception e) {
 		}
 
+		try {
+			tauler = new Tauler("test/TaulerNoRectangular");
+			assertTrue(false);
+		} catch (Exception e) {
+		}
+		
 		// Tauler valid nivell 1
 		tauler = new Tauler("test/Nivell_1");
 		char[][] n1 = {
@@ -203,6 +210,8 @@ class TaulerTest {
 		
 		//Intentem defer amb la llista de moviments buida
 		assertFalse(tauler.desferMoviment());
+		//Precondicio: no es pot afegir un registre null
+		assertThrows(AssertionError.class, () -> tauler.afegirRegistreMoviment(null));
 		
 		//Jugador es mou cap a dalt i es desfa el moviment
 		assertTrue(j.getPosX() == 1 && j.getPosY() == 3);
