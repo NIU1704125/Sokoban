@@ -192,9 +192,9 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
+		for (int i = 0; i < 7; i++) {
+			joc.mouCursor('s');
+		}
 		assertTrue(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() != null);
 		assertEquals(Estat.Jugant, joc.getEstat());
@@ -203,10 +203,9 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
+		for (int i = 0; i < 8; i++) {
+			joc.mouCursor('s');
+		}
 		assertTrue(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() != null);
 		assertEquals(Estat.Jugant, joc.getEstat());
@@ -222,13 +221,9 @@ class JocTest {
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
-		joc.mouCursor('s');
+		for (int i = 0; i < 11; i++) {
+			joc.mouCursor('s');
+		}
 		assertFalse(joc.seleccionarNivell());
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
@@ -316,7 +311,7 @@ class JocTest {
 		
 		//comprovacio reinici condicio victoria al tornar al selector
 		joc.obrirSelector();
-		assertEquals(10, joc.getLevels().size());
+		assertEquals(14, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 	}
