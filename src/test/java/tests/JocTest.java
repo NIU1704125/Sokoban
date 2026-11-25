@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import models.Jugador;
 
 import java.io.File;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JocTest {
 
@@ -100,14 +101,11 @@ class JocTest {
 	
 	@Test
 	void testMouCursor(){		
-		//Estat incorrecte
-		try{
-			joc.setCarpeta("test");
-			joc.obrirSelector();
-			joc.carregarNivell("Nivell_1");			
-			joc.seleccionarNivell();
-			assertTrue(false);
-		} catch (AssertionError e) {}
+		//Estat incorrecte:  no es pot moure el cursor mentre s'esta jugant
+		joc.setCarpeta("test");
+		joc.obrirSelector();
+		joc.carregarNivell("Nivell_1");
+		assertThrows(AssertionError.class, () -> joc.mouCursor('s'));
 		
 		joc = new Joc();
 		
@@ -179,14 +177,11 @@ class JocTest {
 			SenseAlgunesParets
 		 */
 		
-		//Estat incorrecte
-		try{
-			joc.setCarpeta("test");
-			joc.obrirSelector();
-			joc.carregarNivell("Nivell_1");			
-			joc.seleccionarNivell();
-			assertTrue(false);
-		} catch (AssertionError e) {}
+		//Estat incorrecte: no es pot seleccionar nivell mentre s'esta jugant
+		joc.setCarpeta("test");
+		joc.obrirSelector();
+		joc.carregarNivell("Nivell_1");
+		assertThrows(AssertionError.class, () -> joc.seleccionarNivell());
 		
 		//Triem el nivell 1
 		joc = new Joc();
@@ -237,10 +232,13 @@ class JocTest {
 	    mockTauler.setJugador(mockJugador);
 		
 		//Tauler no carregat
-		try{
-			joc.mouJugador('w');
-			assertTrue(false);
-		} catch (AssertionError e) {}
+	    assertThrows(AssertionError.class, () -> joc.mouJugador('w'));
+		
+		//Estat incorrecte: hi ha tauler pero s'esta al selector
+		joc.setCarpeta("test");
+		joc.carregarNivell("Nivell_1");
+		joc.obrirSelector();
+		assertThrows(AssertionError.class, () -> joc.mouJugador('w'));
 		
 		//Estat incorrecte
 		try{
@@ -304,10 +302,7 @@ class JocTest {
 		assertEquals(joc.getVictoria(), true);
 		
 		//intent de moure el jugador quan ha guanyat
-		try{
-			joc.mouJugador('d');
-			assertTrue(false);
-		} catch (AssertionError e) {}
+		assertThrows(AssertionError.class, () -> joc.mouJugador('d'));
 		
 		//comprovacio reinici condicio victoria al tornar al selector
 		joc.obrirSelector();
