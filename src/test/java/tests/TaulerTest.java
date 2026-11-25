@@ -312,6 +312,82 @@ class TaulerTest {
  		#@    $     #
  		#############
 		 */
+		
+		//Jugador es mou cap a l'esquerra i es desfa el moviment
+		j.move('R');
+		assertTrue(j.move('L'));
+		assertTrue(tauler.desferMoviment());
+		assertTrue(j.getPosX() == 2 && j.getPosY() == 3);
+		
+		/*
+ 		############# 
+ 		#  .  .  .  # 
+ 		#  $  $  $  # 
+ 		# @    $    #
+ 		#############
+		 */
+		
+		//Jugador es mou cap avall i es desfa el moviment
+		j.move('U');
+		assertTrue(j.move('D'));
+		assertTrue(tauler.desferMoviment());
+		assertTrue(j.getPosX() == 2 && j.getPosY() == 2);
+		
+		/*
+ 		############# 
+ 		#  .  .  .  # 
+ 		# @$  $  $  # 
+ 		#      $    #
+ 		#############
+		 */
+		
+		//Jugador emputja una caixa cap a l'esquerra i es desfa el moviment
+		j.move('D');
+		j.move('R');
+		j.move('R');
+		j.move('U');
+		assertTrue(j.getPosX() == 4 && j.getPosY() == 2);
+		
+		assertTrue(j.move('L'));
+		assertTrue(j.getPosX() == 3 && j.getPosY() == 2);
+		assertTrue(tauler.hiHaCaixaInPosition(2, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2) == null);
+		
+		assertTrue(tauler.desferMoviment());
+		assertTrue(j.getPosX() == 4 && j.getPosY() == 2);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(2, 2) == null);
+		
+		/*
+ 		############# 
+ 		#  .  .  .  # 
+ 		#  $@ $  $  # 
+ 		#      $    #
+ 		#############
+		 */
+		
+		//Jugador emputja una caixa cap avall i es desfa el moviment
+		j.move('U');
+		j.move('L');
+		assertTrue(j.getPosX() == 3 && j.getPosY() == 1);
+		
+		assertTrue(j.move('D'));
+		assertTrue(j.getPosX() == 3 && j.getPosY() == 2);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 3) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2) == null);
+		
+		assertTrue(tauler.desferMoviment());
+		assertTrue(j.getPosX() == 3 && j.getPosY() == 1);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 2) != null);
+		assertTrue(tauler.hiHaCaixaInPosition(3, 3) == null);
+		
+		/*
+ 		############# 
+ 		#  .@ .  .  # 
+ 		#  $  $  $  # 
+ 		#      $    #
+ 		#############
+		 */
 	}
 	
 	@Test
