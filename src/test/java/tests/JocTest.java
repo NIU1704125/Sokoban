@@ -171,16 +171,21 @@ class JocTest {
 	void testSeleccionarNivell(){		
 		/*
 		 Nivells de Test:
-		 	MassaInterruptors
-			MassaJugadors
-			NivellMassaPetit
-			Nivell_1
-			Nivell_2
-			Nivell_buit
-			NoCaixes
-			NoInterruptor
-			NoJugador
-			SenseAlgunesParets
+		 	0  CaracterInvalid
+		 	1  MassaInterruptors
+		 	2  MassaJugadors
+		 	3  NivellDuesColumnes
+		 	4  NivellDuesFiles
+		 	5  NivellMassaPetit
+		 	6  NivellMinim3x3
+		 	7  Nivell_1
+		 	8  Nivell_2
+		 	9  Nivell_buit
+		 	10 NoCaixes
+		 	11 NoInterruptor
+		 	12 NoJugador
+		 	13 SenseAlgunesParets
+		 	14 TaulerNoRectangular
 		 */
 		
 		//Estat incorrecte: no es pot seleccionar nivell mentre s'esta jugant
@@ -252,14 +257,6 @@ class JocTest {
 		joc.carregarNivell("Nivell_1");
 		joc.obrirSelector();
 		assertThrows(AssertionError.class, () -> joc.mouJugador('w'));
-		
-		//Estat incorrecte
-		try{
-			joc.setCarpeta("test");
-			joc.obrirSelector();
-			joc.mouJugador('w');
-			assertTrue(false);
-		} catch (AssertionError e) {}
 		
 		//Carreguem tauler
 		joc = new Joc();
