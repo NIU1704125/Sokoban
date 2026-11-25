@@ -468,4 +468,33 @@ class TaulerTest {
  		#############
 		 */
 	}
+	
+	@Test
+	void testTorn() {
+		Tauler tauler = new Tauler("test/Nivell_2");
+		Jugador j = tauler.getJugador(); // (1,3)
+		assertEquals(0, tauler.getTorn());
+
+		// Moviments fallits contra paret: el torn no avança
+		assertFalse(j.move('L'));
+		assertEquals(0, tauler.getTorn());
+		assertFalse(j.move('D'));
+		assertEquals(0, tauler.getTorn());
+
+		// Moviments valids sense caixa: avança 1 per moviment
+		assertTrue(j.move('R')); // (2,3)
+		assertEquals(1, tauler.getTorn());
+		assertTrue(j.move('U')); // (2,2)
+		assertEquals(2, tauler.getTorn());
+
+		// Emputjar una caixa compta com un sol torn
+		assertTrue(j.move('R')); // caixa (3,2)->(4,2)
+		assertEquals(3, tauler.getTorn());
+		assertTrue(j.move('R')); // caixa (4,2)->(5,2)
+		assertEquals(4, tauler.getTorn());
+
+		// Caixa bloquejada per una altra caixa (6,2): el torn no avança
+		assertFalse(j.move('R'));
+		assertEquals(4, tauler.getTorn());
+	}
 }
