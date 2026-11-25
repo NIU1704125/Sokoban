@@ -321,4 +321,12 @@ class JocTest {
 		assertEquals(joc.getVictoria(), false);
 	}
 	
+	@Test
+	void testFinalitzar()
+	{
+		assertEquals(joc.getEstat(), Estat.Selector);
+		joc.finalitzarJoc();
+		assertEquals(joc.getEstat(), Estat.Final);
+	}
+	
 }
