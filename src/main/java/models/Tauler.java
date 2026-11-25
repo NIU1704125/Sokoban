@@ -29,7 +29,20 @@ public class Tauler {
 			return false;
 		}
 		
-		return true;
+		boolean correcte = !hiHaParetInPosition(m_jugador.getPosX(), m_jugador.getPosY());
+		
+		// Caixes dins del tauler, no sobre paret, no sobre el jugador i no superposades
+		for (int i = 0; i < m_caixes.size(); i++) {
+			Caixa ci = m_caixes.get(i);
+			correcte = correcte && !hiHaParetInPosition(ci.getPosX(), ci.getPosY());
+			correcte = correcte && !(ci.getPosX() == m_jugador.getPosX() && ci.getPosY() == m_jugador.getPosY());
+			for (int j = i + 1; j < m_caixes.size(); j++) {
+				Caixa cj = m_caixes.get(j);
+				correcte = correcte && !(ci.getPosX() == cj.getPosX() && ci.getPosY() == cj.getPosY());
+			}
+		}
+		
+		return correcte;
 	}
 
 	protected Tauler() {
@@ -60,6 +73,11 @@ public class Tauler {
 
 		for (int f = 0; f < lineas.size(); f++) {
 			String linea = lineas.get(f);
+			
+			if (linea.length() != nCol) {
+				throw new IllegalArgumentException("Nivell no rectangular");
+			}
+			
 			for (int c = 0; c < linea.length(); c++) {
 				char caracter = linea.charAt(c);
 
@@ -190,10 +208,12 @@ public class Tauler {
 				throw new IllegalArgumentException("Direccio de caixa invalida al registre");
 			}			
 		}
+		assert(invariants());
 		return true;
 	}
 	
 	public void afegirRegistreMoviment(RegistreMoviment rm) {
+		assert(rm != null);
 		m_registre.push(rm);
 	}
 	
