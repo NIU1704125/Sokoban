@@ -10,6 +10,7 @@ import models.Caixa;
 import models.Jugador;
 import models.RegistreMoviment;
 import models.Tauler;
+import static org.mockito.Mockito.mock;
 
 class RegistreMovimentTest {
 
@@ -22,10 +23,10 @@ class RegistreMovimentTest {
 
 		switch (tipusSubjecte) {
 		case "JUGADOR":
-			subjecte = new Jugador(t, 0, 0);
+			subjecte = mock(Jugador.class);
 			break;
 		case "CAIXA":
-			subjecte = new Caixa(t, 1, 1);
+			subjecte = mock(Caixa.class);
 			break;
 		case "TAULER":
 			subjecte = t;
