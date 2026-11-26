@@ -20,10 +20,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- * Panell que dibuixa el joc (tauler o selector de nivells) amb suport per a sprites
- * i interfície millorada.
+ * Panell que dibuixa el joc (tauler o selector de nivells) amb sprites i, si no n'hi ha,
+ * amb formes i colors de reserva.
  *
- * Només s'ha de cridar des del fil d'events de Swing (EDT).
+ * Precondició: només s'ha de cridar des del fil d'esdeveniments de Swing (EDT)
  */
 public class PanellJoc extends JPanel {
 
@@ -33,7 +33,7 @@ public class PanellJoc extends JPanel {
 	private static final int MIDA_MAX_CEL = 96;
 	private static final int MAX_NIVELLS_VISIBLES = 10;
 
-	// Paleta de colors (respaldo per a sprites i estil de la interfície)
+	// Paleta de colors (reserva quan falten sprites i estil de la interfície)
 	private static final Color FONS_DALT = new Color(122, 122, 122);
 	private static final Color FONS_BAIX = new Color(79,79,79);
 	private static final Color HUD_FONS = new Color(15, 17, 23);
@@ -86,6 +86,9 @@ public class PanellJoc extends JPanel {
 	private transient List<String> m_nivells;
 	private int m_cursor;
 
+	/**
+	 * Crea el panell i carrega els sprites i la font des del classpath o de la carpeta {@code resources/}.
+	 */
 	public PanellJoc() {
 		carregarRecursos();
 	}
@@ -169,6 +172,14 @@ public class PanellJoc extends JPanel {
 
 	// ------------------------------------------------------------------ Estat
 
+	/**
+	 * Passa a mostrar el tauler de joc i el repinta.
+	 *
+	 * @param escena matriu [fila][columna] amb els símbols de la partida
+	 * @param caixesOk nombre de caixes sobre un interruptor
+	 * @param objectius nombre total d'interruptors
+	 * @param victoria true si la partida s'ha guanyat
+	 */
 	public void setTauler(char[][] escena, int caixesOk, int objectius, boolean victoria) {
 		m_escena = escena;
 		m_interior = calcularInterior(escena);
@@ -179,6 +190,12 @@ public class PanellJoc extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Passa a mostrar el selector de nivells i el repinta.
+	 *
+	 * @param nivells noms dels nivells
+	 * @param cursor índex del nivell seleccionat
+	 */
 	public void setNivells(List<String> nivells, int cursor) {
 		m_nivells = nivells;
 		m_cursor = cursor;
@@ -232,7 +249,7 @@ public class PanellJoc extends JPanel {
 		Graphics2D g2 = (Graphics2D) g.create();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		// Canvia a VALUE_INTERPOLATION_NEAREST_NEIGHBOR si fas servir sprites Pixel Art
+		// Interpolació per veí més proper: manté nítids els sprites de pixel art en escalar-los
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
 		pintarFons(g2);
@@ -511,7 +528,7 @@ public class PanellJoc extends JPanel {
 			int yEnrere = yTargeta + altTargeta - 28;
 			pintarFilaNivell(g2, xTargeta + 24, yEnrere, ampleTargeta - 48, "0", "Enrere", true);
 		} else {
-			// Pagines de MAX_NIVELLS_VISIBLES nivells: la pagina depen nomes del cursor
+			// Pàgines de MAX_NIVELLS_VISIBLES nivells: la pàgina depèn només del cursor
 			int primer = (m_cursor / MAX_NIVELLS_VISIBLES) * MAX_NIVELLS_VISIBLES;
 			int visibles = Math.min(MAX_NIVELLS_VISIBLES, n - primer);
 			int espaiIntern = altTargeta - 36;
@@ -529,7 +546,7 @@ public class PanellJoc extends JPanel {
 				yFila += pas;
 			}
 
-			// Fletxes que indiquen que hi ha mes nivells amunt o avall
+			// Fletxes que indiquen que hi ha més nivells amunt o avall
 			int xCentre = xTargeta + ampleTargeta / 2;
 			if (primer > 0) {
 				pintarFletxa(g2, xCentre, yTargeta + 12, true);

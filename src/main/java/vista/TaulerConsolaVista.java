@@ -5,8 +5,18 @@ import models.Joc;
 import models.Jugador;
 import models.Tauler;
 
+/**
+ * Vista per consola del tauler: imprimeix el nivell amb caràcters ($ caixa, @ jugador).
+ */
 public class TaulerConsolaVista implements IVista {
 
+	/**
+	 * Imprimeix el tauler actual i les tecles de control.
+	 *
+	 * Precondició: el joc té un tauler carregat.
+	 *
+	 * @param joc model del qual s'obté el tauler
+	 */
 	public void mostrar(Joc joc) {
 		
 		Tauler tauler = joc.getTauler();

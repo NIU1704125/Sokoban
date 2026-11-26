@@ -5,13 +5,23 @@ import models.Joc;
 import models.Jugador;
 import models.Tauler;
 
+/**
+ * Vista gràfica del tauler, dibuixada a FinestraJoc.
+ */
 public class TaulerVista implements IVista {
 
+	/**
+	 * Construeix una còpia de l'escena (cel·les fixes, caixes i jugador) i l'envia a la finestra.
+	 *
+	 * Precondició: el joc té un tauler carregat.
+	 *
+	 * @param joc model del qual s'obté el tauler
+	 */
 	@Override
 	public void mostrar(Joc joc) {
 		Tauler tauler = joc.getTauler();
 
-		// Es treballa sobre una copia: el pintat es fa en un altre fil i el model pot
+		// Es treballa sobre una còpia: el pintat es fa en un altre fil i el model pot
 		// canviar mentrestant.
 		char[][] base = tauler.getTauler();
 		char[][] escena = new char[tauler.getFiles()][];
