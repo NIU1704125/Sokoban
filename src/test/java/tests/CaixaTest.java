@@ -7,98 +7,118 @@ import org.junit.jupiter.api.Test;
 
 import models.Caixa;
 
+/**
+ * Proves de Caixa, aïllada del fitxer de nivell amb el mock propi MockTauler.
+ */
 class CaixaTest {
 
+	/**
+	 * Constructor: ajust de la posició al tauler 5x5 del mock (rang vàlid 0..4 per eix).
+	 * Tècniques: particions equivalents (< 0, 0..4, > 4 per eix), valors límit
+	 * (0 i 4), valors frontera (-1, 1, 3 i 5) i disseny per contracte (precondició != null).
+	 */
 	@Test
 	void testCaixa() {
-		// Creacio MockObject Tauler
+		// Mock propi: tauler 5x5 sense escenari
 		MockTauler mt = new MockTauler("");
 
-		// Valor limit X = 0 (Y fixa valida)
+		// Valor límit X = 0: mínim vàlid (Y fixa vàlida)
 		Caixa parCaixa = new Caixa(mt, 0, 2);
 		assertEquals(parCaixa.getPosX(), 0);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		// Valor limit X = 1 (Y fixa valida)
+		// Valor frontera X = 1: just dins del límit inferior
 		parCaixa = new Caixa(mt, 1, 2);
 		assertEquals(parCaixa.getPosX(), 1);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		// Valors limit de X (Y fixa valida)
+		// Valor frontera X = -1: just fora del límit inferior → s'ajusta a 0
 		parCaixa = new Caixa(mt, -1, 2);
 		assertEquals(parCaixa.getPosX(), 0);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Partició no vàlida X < 0: valor allunyat → s'ajusta a 0
 		parCaixa = new Caixa(mt, -100, 2);
 		assertEquals(parCaixa.getPosX(), 0);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor frontera X = 3: just dins del límit superior
 		parCaixa = new Caixa(mt, 3, 2);
 		assertEquals(parCaixa.getPosX(), 3);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor límit X = 4: màxim vàlid (columnes - 1)
 		parCaixa = new Caixa(mt, 4, 2);
 		assertEquals(parCaixa.getPosX(), 4);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor frontera X = 5: just fora del límit superior → s'ajusta a 4
 		parCaixa = new Caixa(mt, 5, 2);
 		assertEquals(parCaixa.getPosX(), 4);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Partició no vàlida X > 4: valor allunyat → s'ajusta a 4
 		parCaixa = new Caixa(mt, 500, 2);
 		assertEquals(parCaixa.getPosX(), 4);
 		assertEquals(parCaixa.getPosY(), 2);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		// Valors limit de Y (X fixa valida)
+		// Valor frontera Y = -1: just fora del límit inferior → s'ajusta a 0 (X fixa vàlida)
 		parCaixa = new Caixa(mt, 2, -1);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 0);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Partició no vàlida Y < 0: valor allunyat → s'ajusta a 0
 		parCaixa = new Caixa(mt, 2, -100);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 0);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor límit Y = 0: mínim vàlid
 		parCaixa = new Caixa(mt, 2, 0);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 0);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor frontera Y = 1: just dins del límit inferior
 		parCaixa = new Caixa(mt, 2, 1);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 1);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor frontera Y = 3: just dins del límit superior
 		parCaixa = new Caixa(mt, 2, 3);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 3);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Valor límit Y = 4: màxim vàlid (files - 1)
 		parCaixa = new Caixa(mt, 2, 4);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 
+		// Valor frontera Y = 5: just fora del límit superior → s'ajusta a 4
 		parCaixa = new Caixa(mt, 2, 5);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Partició no vàlida Y > 4: valor allunyat → s'ajusta a 4
 		parCaixa = new Caixa(mt, 2, 500);
 		assertEquals(parCaixa.getPosX(), 2);
 		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 
-		// Cantonades (els dos eixos fora per un)
+		// Cantonades: els dos eixos no vàlids alhora (frontera -1 i 5; particions no vàlides -100 i 500)
 		parCaixa = new Caixa(mt, -1, -1);
 		assertEquals(parCaixa.getPosX(), 0);
 		assertEquals(parCaixa.getPosY(), 0);
@@ -119,18 +139,25 @@ class CaixaTest {
 		assertEquals(parCaixa.getPosY(), 4);
 		assertEquals(parCaixa.getTauler(), mt);
 		
+		// Disseny per contracte: precondició tauler != null → AssertionError
 		assertThrows(AssertionError.class, () -> new Caixa(null, 2, 2));
 	}
 
+	/**
+	 * Caixa.move(char) en els escenaris del MockTauler.
+	 * Tècniques: particions equivalents (destinació lliure, amb paret o amb caixa; direcció vàlida o no)
+	 * i caixa blanca: cobertura de decisions i de condicions (cada branca del switch i cada operand
+	 * de !paret && caixa == null a cert i a fals en les quatre direccions).
+	 */
 	@Test
 	void testMove() {
-		// Creacio MockObject Tauler sense parets
+		// Mock propi: escenari sense parets al voltant de (2,2)
 		MockTauler mt = new MockTauler("MovimentSenseParets");
 
-		// Creacio nova caixa situada a x=2, y=2 en el tauler
+		// Caixa inicial a (2,2)
 		Caixa c = new Caixa(mt, 2, 2);
 
-		// Moviment vertical i horitzontal valid (Amunt, avall, avall, amunt)
+		// Partició vàlida: destinació lliure en vertical (U, D, D, U) → les dues condicions certes
 		assertTrue(c.move('U'));
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 1);
@@ -144,7 +171,7 @@ class CaixaTest {
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
 
-		// Moviments laterals valids (Dreta, esquerra, esquerra, dreta)
+		// Partició vàlida: destinació lliure en horitzontal (R, L, L, R)
 		assertTrue(c.move('R'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 2);
@@ -158,12 +185,12 @@ class CaixaTest {
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
 
-		// Creacio MockObject Tauler caixa rodejada de parets
+		// Mock propi: caixa envoltada de parets
 		mt = new MockTauler("MovimentRodejatParets");
-		// Creacio nova caixa situada a x=2, y=2 en el tauler
+		// Caixa inicial a (2,2)
 		c = new Caixa(mt, 2, 2);
 
-		// Comprobacio de que ara no es mou en cap de les direccions
+		// Partició no vàlida: paret a la destinació en les 4 direccions → condició de paret falsa, no es mou
 		assertFalse(c.move('U'));
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
@@ -177,12 +204,12 @@ class CaixaTest {
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
 
-		// Creacio MockObject Tauler de 3x3
+		// Mock propi: recinte lliure de 3x3 envoltat de parets; es recorre fins a xocar en cada direcció
 		mt = new MockTauler("MovimentParets3x3");
-		// Creacio nova caixa situada a x=2, y=2 en el tauler
+		// Caixa inicial a (2,2)
 		c = new Caixa(mt, 2, 2);
 
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(c.move('L'));
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 2);
@@ -190,7 +217,7 @@ class CaixaTest {
 		assertFalse(c.move('L'));
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 2);
-		// Mou cap a dalt (valid)
+		// Mou cap a dalt (vàlid)
 		assertTrue(c.move('U'));
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 1);
@@ -198,11 +225,11 @@ class CaixaTest {
 		assertFalse(c.move('U'));
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 1);
-		// Mou cap a la dreta (valid)
+		// Mou cap a la dreta (vàlid)
 		assertTrue(c.move('R'));
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 1);
-		// Mou cap a la dreta (valid)
+		// Mou cap a la dreta (vàlid)
 		assertTrue(c.move('R'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 1);
@@ -210,11 +237,11 @@ class CaixaTest {
 		assertFalse(c.move('R'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 1);
-		// Mou cap a baix (valid)
+		// Mou cap a baix (vàlid)
 		assertTrue(c.move('D'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 2);
-		// Mou cap a baix (valid)
+		// Mou cap a baix (vàlid)
 		assertTrue(c.move('D'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 3);
@@ -222,11 +249,11 @@ class CaixaTest {
 		assertFalse(c.move('D'));
 		assertEquals(c.getPosX(), 3);
 		assertEquals(c.getPosY(), 3);
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(c.move('L'));
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 3);
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(c.move('L'));
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 3);
@@ -235,13 +262,13 @@ class CaixaTest {
 		assertEquals(c.getPosX(), 1);
 		assertEquals(c.getPosY(), 3);
 
-		// Creacio MockObject Tauler sense parets
+		// Mock propi: caixa envoltada d'altres caixes
 		mt = new MockTauler("MovimentLinealCaixes");
 
-		// Creacio nova caixa situada a x=2, y=2 en el tauler
+		// Caixa inicial a (2,2)
 		c = new Caixa(mt, 2, 2);
 
-		// Comprovem que no es mou en cap direcció si xoca amb una altre caixa
+		// Partició no vàlida: caixa a la destinació en les 4 direccions → condició de caixa falsa, no es mou
 		assertFalse(c.move('U'));
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
@@ -255,7 +282,7 @@ class CaixaTest {
 		assertEquals(c.getPosX(), 2);
 		assertEquals(c.getPosY(), 2);
 
-		// Prova altres caracters i minuscules com a inputs
+		// Partició no vàlida de direcció: minúscules i altres caràcters → IllegalArgumentException (default)
 		try {
 			c.move('h');
 			assertTrue(false);
