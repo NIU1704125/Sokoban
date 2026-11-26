@@ -7,12 +7,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 import vista.FinestraJoc;
 
 /**
- * Input per teclat sobre la finestra Swing: cada tecla arriba a l'instant, sense Enter.
+ * Entrada per teclat sobre la finestra Swing: cada tecla arriba a l'instant, sense Enter.
  *
- * Els events de Swing arriben pel seu propi fil (EDT) i el bucle del joc crida llegirTecla() des
- * del fil principal, aixi que es passen les tecles per una cua. Retorna els mateixos caracters que
- * InputConsola (en minuscula) i les fletxes es tradueixen a w/a/s/d, de manera que el controlador
- * no nota la diferencia.
+ * Els esdeveniments de Swing arriben pel seu propi fil (EDT) i el bucle del joc crida
+ * llegirTecla() des del fil principal; per això les tecles es passen per una cua.
+ * Tradueix les fletxes w/a/s/d, de manera que el controlador no distingeix l'origen.
+ *
  */
 public class InputFinestra implements IInputController {
 
@@ -20,10 +20,20 @@ public class InputFinestra implements IInputController {
 
 	private final BlockingQueue<Character> m_tecles = new LinkedBlockingQueue<>(32);
 
+	/**
+	 * Crea l'entrada associada a la finestra única del joc.
+	 */
 	public InputFinestra() {
 		this(FinestraJoc.getInstance());
 	}
 
+	/**
+	 * Crea l'entrada i registra un listener de teclat a la finestra indicada.
+	 *
+	 * Precondició: finestra != null}
+	 *
+	 * @param finestra finestra de la qual s'escolta el teclat
+	 */
 	public InputFinestra(FinestraJoc finestra) {
 		finestra.afegirKeyListener(new KeyAdapter() {
 			@Override
@@ -36,6 +46,10 @@ public class InputFinestra implements IInputController {
 		});
 	}
 
+	/**
+	 * Bloqueja fins que hi ha una tecla a la cua i la retorna.
+	 *
+	 */
 	@Override
 	public char llegirTecla() {
 		try {
