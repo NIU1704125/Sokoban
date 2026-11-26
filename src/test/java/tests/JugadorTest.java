@@ -17,98 +17,119 @@ import models.Caixa;
 import models.Tauler;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Proves de Jugador amb el mock propi MockTauler i, per aïllar-lo de Caixa,
+ * amb mocks de Mockito.
+ */
 class JugadorTest {
 
+	/**
+	 * Constructor: ajust de la posició al tauler 5x5 del mock (rang vàlid 0..4 per eix).
+	 * Tècniques: particions equivalents (< 0, 0..4, > 4 per eix), valors límit
+	 * (0 i 4), valors frontera (-1, 1, 3 i 5) i disseny per contracte (precondició tauler != null).
+	 */
 	@Test
 	void testJugador() {
-		// Creacio MockObject Tauler 10x10
+		// Mock propi: tauler 5x5 sense escenari
 		MockTauler mt = new MockTauler("");
 
-		// Valor limit Y = 4 (X fixa valida)
+		// Valor límit Y = 4: màxim vàlid, files - 1 (X fixa vàlida)
 		Jugador parJugador = new Jugador(mt, 2, 4);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 
-		// Valor limit X = 0 (Y fixa valida)
+		// Valor límit X = 0: mínim vàlid (Y fixa vàlida)
 		parJugador = new Jugador(mt, 0, 2);
 		assertEquals(parJugador.getPosX(), 0);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 		
-		// Valors limit de X (Y fixa valida)
+		// Valor frontera X = -1: just fora del límit inferior → s'ajusta a 0
 		parJugador = new Jugador(mt, -1, 2);
 		assertEquals(parJugador.getPosX(), 0);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Partició no vàlida X < 0: valor allunyat → s'ajusta a 0
 		parJugador = new Jugador(mt, -100, 2);
 		assertEquals(parJugador.getPosX(), 0);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor frontera X = 1: just dins del límit inferior
 		parJugador = new Jugador(mt, 1, 2);
 		assertEquals(parJugador.getPosX(), 1);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor frontera X = 3: just dins del límit superior
 		parJugador = new Jugador(mt, 3, 2);
 		assertEquals(parJugador.getPosX(), 3);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor límit X = 4: màxim vàlid (columnes - 1)
 		parJugador = new Jugador(mt, 4, 2);
 		assertEquals(parJugador.getPosX(), 4);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor frontera X = 5: just fora del límit superior → s'ajusta a 4
 		parJugador = new Jugador(mt, 5, 2);
 		assertEquals(parJugador.getPosX(), 4);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Partició no vàlida X > 4: valor allunyat → s'ajusta a 4
 		parJugador = new Jugador(mt, 500, 2);
 		assertEquals(parJugador.getPosX(), 4);
 		assertEquals(parJugador.getPosY(), 2);
 		assertEquals(parJugador.getTauler(), mt);
 
-		// Valors limit de Y (X fixa valida)
+		// Valor frontera Y = -1: just fora del límit inferior → s'ajusta a 0 (X fixa vàlida)
 		parJugador = new Jugador(mt, 2, -1);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 0);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Partició no vàlida Y < 0: valor allunyat → s'ajusta a 0
 		parJugador = new Jugador(mt, 2, -100);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 0);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor límit Y = 0: mínim vàlid
 		parJugador = new Jugador(mt, 2, 0);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 0);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Valor frontera Y = 1: just dins del límit inferior
 		parJugador = new Jugador(mt, 2, 1);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 1);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor frontera Y = 3: just dins del límit superior
 		parJugador = new Jugador(mt, 2, 3);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 3);
 		assertEquals(parJugador.getTauler(), mt);
 
+		// Valor frontera Y = 5: just fora del límit superior → s'ajusta a 4
 		parJugador = new Jugador(mt, 2, 5);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Partició no vàlida Y > 4: valor allunyat → s'ajusta a 4
 		parJugador = new Jugador(mt, 2, 500);
 		assertEquals(parJugador.getPosX(), 2);
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 
-		// Cantonades (els dos eixos fora per un)
+		// Cantonades: els dos eixos no vàlids alhora (frontera -1 i 5; particions no vàlides -100 i 500)
 		parJugador = new Jugador(mt, -1, -1);
 		assertEquals(parJugador.getPosX(), 0);
 		assertEquals(parJugador.getPosY(), 0);
@@ -129,18 +150,24 @@ class JugadorTest {
 		assertEquals(parJugador.getPosY(), 4);
 		assertEquals(parJugador.getTauler(), mt);
 		
+		// Disseny per contracte: precondició tauler != null → AssertionError
 		assertThrows(AssertionError.class, () -> new Jugador(null, 2, 2));
 	}
 
+	/**
+	 * {@link Jugador#move(char)} sense caixes al camí.
+	 * Tècniques: particions equivalents (destinació lliure o amb paret; direcció vàlida o no) i
+	 * valors frontera lliure/paret en recórrer el perímetre d'un recinte 3x3.
+	 */
 	@Test
 	void testMoveSenseCaixes() {
-		// Creacio MockObject Tauler sense parets
+		// Mock propi: escenari sense parets al voltant de (2,2)
 		MockTauler mt = new MockTauler("MovimentSenseParets");
 
-		// Creacio nou jugador situat a x=2, y=2 en el tauler
+		// Jugador inicial a (2,2)
 		Jugador j = new Jugador(mt, 2, 2);
 
-		// Moviment vertical i horitzontal valid (Amunt, avall, avall, amunt)
+		// Partició vàlida: destinació lliure en vertical (U, D, D, U)
 		assertTrue(j.move('U'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 1);
@@ -154,7 +181,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Moviments laterals valids (Dreta, esquerra, esquerra, dreta)
+		// Partició vàlida: destinació lliure en horitzontal (R, L, L, R)
 		assertTrue(j.move('R'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 2);
@@ -168,12 +195,12 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Creacio MockObject Tauler jugador rodejat de parets
+		// Mock propi: jugador envoltat de parets
 		mt = new MockTauler("MovimentRodejatParets");
-		// Creacio nou jugador situat a x=2, y=2 en el tauler
+		// Jugador inicial a (2,2)
 		j = new Jugador(mt, 2, 2);
 
-		// Comprobacio de que ara no es mou en cap de les direccions
+		// Partició no vàlida: paret a la destinació en les 4 direccions → no es mou
 		assertFalse(j.move('U'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
@@ -187,12 +214,12 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Creacio MockObject Tauler de 3x3
+		// Mock propi: recinte lliure de 3x3 envoltat de parets; es recorre fins a xocar en cada direcció
 		mt = new MockTauler("MovimentParets3x3");
-		// Creacio nou jugador situat a x=2, y=2 en el tauler
+		// Jugador inicial a (2,2)
 		j = new Jugador(mt, 2, 2);
 
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(j.move('L'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 2);
@@ -200,7 +227,7 @@ class JugadorTest {
 		assertFalse(j.move('L'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 2);
-		// Mou cap a dalt (valid)
+		// Mou cap a dalt (vàlid)
 		assertTrue(j.move('U'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 1);
@@ -208,11 +235,11 @@ class JugadorTest {
 		assertFalse(j.move('U'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 1);
-		// Mou cap a la dreta (valid)
+		// Mou cap a la dreta (vàlid)
 		assertTrue(j.move('R'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 1);
-		// Mou cap a la dreta (valid)
+		// Mou cap a la dreta (vàlid)
 		assertTrue(j.move('R'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 1);
@@ -220,11 +247,11 @@ class JugadorTest {
 		assertFalse(j.move('R'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 1);
-		// Mou cap a baix (valid)
+		// Mou cap a baix (vàlid)
 		assertTrue(j.move('D'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 2);
-		// Mou cap a baix (valid)
+		// Mou cap a baix (vàlid)
 		assertTrue(j.move('D'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 3);
@@ -232,11 +259,11 @@ class JugadorTest {
 		assertFalse(j.move('D'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 3);
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(j.move('L'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 3);
-		// Mou cap a l'esquerra (valid)
+		// Mou cap a l'esquerra (vàlid)
 		assertTrue(j.move('L'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 3);
@@ -245,7 +272,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 3);
 
-		// Prova altres caracters i minuscules com a inputs
+		// Partició no vàlida de direcció: minúscules i altres caràcters → IllegalArgumentException (default)
 		try {
 			j.move('h');
 			assertTrue(false);
@@ -273,14 +300,21 @@ class JugadorTest {
 		}
 	}
 
+	/**
+	 * {@link Jugador#move(char)} empenyent caixes.
+	 * Tècniques: particions equivalents en les 4 direccions (caixa amb casella lliure darrere, caixa amb
+	 * paret darrere i caixa amb una altra caixa darrere) i, amb mocks de Mockito, verificació que
+	 * només es registra el moviment i avança el torn quan la caixa es pot moure (postcondició).
+	 */
 	@Test
 	void testMoveAmbCaixes() {
-		// Creacio MockObject Tauler
+		// Mock propi: jugador a (2,2) amb una caixa a cada costat i una sola casella lliure darrere de cada caixa
 		MockTauler mt = new MockTauler("MovimentLinealCaixes");
-		// Creacio nou jugador situat a x=2, y=2 en el tauler
+		// Jugador inicial a (2,2)
 		Jugador j = new Jugador(mt, 2, 2);
 
-		// Moviment cap a dalt (valid, emputja caixa)
+		// Particions en les 4 direccions: caixa amb casella lliure darrere (vàlida) i amb paret darrere (no vàlida)
+		// Moviment cap a dalt (vàlid, empeny la caixa)
 		assertTrue(j.move('U'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 1);
@@ -293,7 +327,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Moviment cap a baix (valid, emputja caixa)
+		// Moviment cap a baix (vàlid, empeny la caixa)
 		assertTrue(j.move('D'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 3);
@@ -306,7 +340,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Moviment cap a la dreta (valid, emputja caixa)
+		// Moviment cap a la dreta (vàlid, empeny la caixa)
 		assertTrue(j.move('R'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 2);
@@ -319,7 +353,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Moviment cap a l'esquerra (valid, emputja caixa)
+		// Moviment cap a l'esquerra (vàlid, empeny la caixa)
 		assertTrue(j.move('L'));
 		assertEquals(j.getPosX(), 1);
 		assertEquals(j.getPosY(), 2);
@@ -332,11 +366,11 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
 
-		// Creacio MockObject Tauler
+		// Mock propi: sala 3x5 amb dues caixes
 		mt = new MockTauler("MovimentCaixes3x5");
-		// Creacio nou jugador situat a x=2, y=2 en el tauler
+		// Jugador inicial a (2,2)
 		j = new Jugador(mt, 2, 2);
-		// Falla al emputjar la de dalt (te pared darrere), i emputja la de la dreta
+		// Partició no vàlida: la caixa de dalt té paret darrere; partició vàlida: empeny la de la dreta
 		assertFalse(j.move('U'));
 		assertEquals(j.getPosX(), 2);
 		assertEquals(j.getPosY(), 2);
@@ -344,7 +378,7 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 2);
 
-		// Rota al voltant de la caixa de la dreta desde baix i l'emputja cap a amunt
+		// Envolta la caixa de la dreta per baix i l'empeny cap amunt
 		assertTrue(j.move('D'));
 		assertEquals(j.getPosX(), 3);
 		assertEquals(j.getPosY(), 3);
@@ -355,13 +389,12 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 4);
 		assertEquals(j.getPosY(), 2);
 
-		// Falla al tornarla a emputjar cap a amunt ja que ara te pared darrere
+		// Falla en tornar-la a empènyer cap amunt: ara té paret darrere
 		assertFalse(j.move('U'));
 		assertEquals(j.getPosX(), 4);
 		assertEquals(j.getPosY(), 2);
 
-		// Torna a rotar al voltant la caixa, ara cap a la dreta, i l'emputja cap a
-		// l'esquerra
+		// Torna a envoltar la caixa per la dreta i l'empeny cap a l'esquerra
 		assertTrue(j.move('R'));
 		assertEquals(j.getPosX(), 5);
 		assertEquals(j.getPosY(), 2);
@@ -372,22 +405,23 @@ class JugadorTest {
 		assertEquals(j.getPosX(), 4);
 		assertEquals(j.getPosY(), 1);
 
-		// Moviment cap a l'esquerra (xoca, la caixa té una altra caixa darrere)
+		// Partició no vàlida: la caixa té una altra caixa darrere → no es mou
 		assertFalse(j.move('L'));
 		assertEquals(j.getPosX(), 4);
 		assertEquals(j.getPosY(), 1);
 		
-		// Mock objects (Mockito): Tauler i Caixa simulats per aillar Jugador.move de Caixa.move
+		// Mocks de Mockito: Tauler i Caixa simulats per aïllar Jugador.move de Caixa.move
+		// i verificar la interacció amb el tauler
 		Tauler mockTauler = mock(Tauler.class);
 		Caixa mockCaixa = mock(Caixa.class);
 		when(mockTauler.getColumnes()).thenReturn(5);
 		when(mockTauler.getFiles()).thenReturn(5);
 		when(mockTauler.hiHaCaixaInPosition(2, 1)).thenReturn(mockCaixa);
 
-		// Creacio nou jugador situat a x=2, y=2 en el tauler simulat
+		// Jugador inicial a (2,2) sobre el tauler simulat
 		j = new Jugador(mockTauler, 2, 2);
 
-		// La caixa de dalt no es pot moure: el jugador no es mou ni es registra res
+		// Postcondició amb move = false: el jugador no es mou, no es registra res i el torn no avança
 		when(mockCaixa.move('U')).thenReturn(false);
 		assertFalse(j.move('U'));
 		assertEquals(j.getPosX(), 2);
@@ -396,7 +430,7 @@ class JugadorTest {
 		verify(mockTauler, never()).afegirRegistreMoviment(any());
 		verify(mockTauler, never()).avancaTorn();
 
-		// La caixa de dalt si es pot moure: el jugador avança, es registra i avança el torn
+		// Postcondició amb move = true: el jugador avança, es registra el moviment i avança el torn
 		when(mockCaixa.move('U')).thenReturn(true);
 		assertTrue(j.move('U'));
 		assertEquals(j.getPosX(), 2);
