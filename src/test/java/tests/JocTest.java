@@ -19,6 +19,10 @@ import models.Jugador;
 import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Proves de Joc amb els nivells reals de nivells/ i, per a mouJugador,
+ * amb el mock propi MockTauler i un Jugador simulat amb Mockito.
+ */
 class JocTest {
 
 	Joc joc;
@@ -28,9 +32,14 @@ class JocTest {
 		joc = new Joc();
 	}
 	
+	/**
+	 * Joc.carregarNivell(String)}.
+	 * Tècniques: particions equivalents (nivell vàlid / no vàlid) i disseny per contracte
+	 * (postcondicions: Jugant amb tauler si carrega, Selector si no).
+	 */
 	@Test
 	void testCarregarNivell() {
-		//test carregar nivell valid
+		// Partició vàlida: Nivell_1 → estat Jugant i tauler carregat
 		joc.setCarpeta("test");
 		assertTrue(joc.carregarNivell("Nivell_1"));
 		assertTrue(joc.getTauler() != null);
@@ -38,20 +47,27 @@ class JocTest {
 		
 		joc = new Joc();
 		joc.setCarpeta("test");
+		// Partició vàlida: Nivell_2
 		assertTrue(joc.carregarNivell("Nivell_2"));
 		assertTrue(joc.getTauler() != null);
 		
 		joc = new Joc();
 		joc.setCarpeta("test");
-		//test carregar nivell invalid
+		// Partició no vàlida: nivell inexistent → estat Selector i sense tauler
 		assertFalse(joc.carregarNivell(""));
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
 	}
 	
+	/**
+	 * Joc.obrirSelector().
+	 * Tècniques: disseny per contracte (precondició de carpeta existent; postcondicions d'estat
+	 * Selector i sense victòria) i caixa blanca: prova de bucles (loop testing) del bucle simple
+	 * sobre els fitxers de la carpeta amb 0, 1, 2, 10 (típic) i 20 iteracions.
+	 */
 	@Test
 	void testObrirSelector() {
-		//test carpeta no existeix
+		// Disseny per contracte: carpeta inexistent → IllegalArgumentException (no s'arriba al bucle)
 		try{
 			joc.setCarpeta("null");
 			joc.obrirSelector();
@@ -63,35 +79,35 @@ class JocTest {
 		File carpetaBuida = new File("nivells/carpetaBuida");
 		carpetaBuida.mkdirs();
 		
-		//test carpeta buida
+		// Loop testing: 0 iteracions (carpeta buida)
 		joc.setCarpeta("carpetaBuida");
 		joc.obrirSelector();
 		assertEquals(0, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 		
-		//test 1 fitxer
+		// Loop testing: 1 iteració
 		joc.setCarpeta("1fitxer");
 		joc.obrirSelector();
 		assertEquals(1, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 		
-		//test 2 fitxers
+		// Loop testing: 2 iteracions
 		joc.setCarpeta("2fitxer");
 		joc.obrirSelector();
 		assertEquals(2, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 		
-		//test 10 fitxers
+		// Loop testing: 10 iteracions (valor típic)
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();
 		assertEquals(10, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 		
-		//test 20 fitxers
+		// Loop testing: 20 iteracions (valor gran)
 		joc.setCarpeta("20fitxer");
 		joc.obrirSelector();
 		assertEquals(20, joc.getLevels().size());
@@ -99,9 +115,15 @@ class JocTest {
 		assertEquals(joc.getVictoria(), false);
 	}
 	
+	/**
+	 * Joc.mouCursor(char).
+	 * Tècniques: caixa blanca: cobertura de camins (camins P1-P7; P8, la violació de la postcondició,
+	 * és infactible), disseny per contracte (precondició d'estat Selector), valors límit del
+	 * cursor (0 i n-1, amb pas circular) i particions equivalents de tecles (w/s vàlides, la resta no).
+	 */
 	@Test
 	void testMouCursor(){		
-		//Estat incorrecte:  no es pot moure el cursor mentre s'esta jugant
+		// Disseny per contracte (camí P1): moure el cursor mentre es juga → AssertionError
 		joc.setCarpeta("test");
 		joc.obrirSelector();
 		joc.carregarNivell("Nivell_1");
@@ -109,45 +131,45 @@ class JocTest {
 		
 		joc = new Joc();
 		
-		//Comprovacio de control del valor inicial de la variable cursor
+		// Valor inicial del cursor
 		assertEquals(joc.getCursor(), 0);
 		
-		//Intentem pujar o baixar sense haber carregat cap carpeta
+		// Camí P2: llista de nivells buida → el cursor no es mou
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 0);
 		
 		joc.mouCursor('s');
 		assertEquals(joc.getCursor(), 0);
 		
-		//Carreguem la carpeta de nivells
+		// Carpeta amb 10 nivells (índexs 0..9)
 		joc.setCarpeta("10fitxer");
 		joc.obrirSelector();
 		
-		//Baixem dues posicions a la llista de nivells
+		// Camí P5: 's' sense passar de l'últim nivell
 		joc.mouCursor('s');
 		assertEquals(joc.getCursor(), 1);
 		joc.mouCursor('s');
 		assertEquals(joc.getCursor(), 2);
 		
-		//Pujem dues posicions
+		// Camí P3: 'w' sense passar del primer nivell
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 1);
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 0);
 		
-		//Estant a 0 pujem dues posicions mes, comprovant el limit superior
+		// Valor límit 0 (camí P4): 'w' des del primer nivell salta a l'últim
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 9);
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 8);
 		
-		//Baixem dues posicions, comprovant el limit inferior
+		// Valor límit n-1 = 9 (camí P6): 's' des de l'últim nivell salta al primer
 		joc.mouCursor('s');
 		assertEquals(joc.getCursor(), 9);
 		joc.mouCursor('s');
 		assertEquals(joc.getCursor(), 0);
 		
-		//Provem a interactuar amb la funcio amb diferents caracters no valids
+		// Partició no vàlida de tecles (camí P7): espai, altres lletres i majúscules no mouen el cursor
 		joc.mouCursor(' ');
 		assertEquals(joc.getCursor(), 0);
 
@@ -160,6 +182,7 @@ class JocTest {
 		joc.mouCursor('S');
 		assertEquals(joc.getCursor(), 0);
 		
+		// Disseny per contracte: postcondició d'obrirSelector, el cursor fora de rang (9 amb 2 nivells) torna a 0
 		joc.mouCursor('w');
 		assertEquals(joc.getCursor(), 9);
 		joc.setCarpeta("2fitxer");
@@ -167,6 +190,11 @@ class JocTest {
 		assertEquals(joc.getCursor(), 0);
 	}
 	
+	/**
+	 * Joc.seleccionarNivell() sobre la carpeta test (15 nivells en ordre alfabètic).
+	 * Tècniques: particions equivalents (nivell vàlid / no vàlid) i disseny per contracte
+	 * (precondicions d'estat Selector i de llista no buida).
+	 */
 	@Test 
 	void testSeleccionarNivell(){		
 		/*
@@ -188,13 +216,13 @@ class JocTest {
 		 	14 TaulerNoRectangular
 		 */
 		
-		//Estat incorrecte: no es pot seleccionar nivell mentre s'esta jugant
+		// Disseny per contracte: seleccionar mentre es juga → AssertionError
 		joc.setCarpeta("test");
 		joc.obrirSelector();
 		joc.carregarNivell("Nivell_1");
 		assertThrows(AssertionError.class, () -> joc.seleccionarNivell());
 		
-		//Triem el nivell 1
+		// Partició vàlida: Nivell_1 (índex 7)
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
@@ -205,7 +233,7 @@ class JocTest {
 		assertTrue(joc.getTauler() != null);
 		assertEquals(Estat.Jugant, joc.getEstat());
 		
-		//Triem el nivell 2
+		// Partició vàlida: Nivell_2 (índex 8)
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
@@ -216,7 +244,7 @@ class JocTest {
 		assertTrue(joc.getTauler() != null);
 		assertEquals(Estat.Jugant, joc.getEstat());
 		
-		//Triem nivells no valids
+		// Partició no vàlida: CaracterInvalid (índex 0)
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
@@ -224,6 +252,7 @@ class JocTest {
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
 		
+		// Partició no vàlida: NoInterruptor (índex 11)
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.obrirSelector();
@@ -234,7 +263,7 @@ class JocTest {
 		assertTrue(joc.getTauler() == null);
 		assertEquals(Estat.Selector, joc.getEstat());
 		
-		//Carpeta buida: no hi ha cap nivell per seleccionar
+		// Disseny per contracte: carpeta buida, precondició de llista no buida → AssertionError
 		joc = new Joc();
 		new File("nivells/carpetaBuida").mkdirs();
 		joc.setCarpeta("carpetaBuida");
@@ -242,6 +271,11 @@ class JocTest {
 		assertThrows(AssertionError.class, () -> joc.seleccionarNivell());
 	}
 	
+	/**
+	 * Joc.mouJugador(char) amb un MockTauler propi i un Jugador de Mockito.
+	 * Tècniques: particions equivalents de tecles (w/a/s/d, z per desfer i la resta) i disseny per
+	 * contracte (precondicions de tauler carregat i d'estat Jugant).
+	 */
 	@Test
 	void testMouJugador(){
 		Jugador mockJugador = mock(Jugador.class);
@@ -249,21 +283,21 @@ class JocTest {
 		MockTauler mockTauler = new MockTauler("MovimentSenseParets");
 	    mockTauler.setJugador(mockJugador);
 		
-		//Tauler no carregat
+		// Disseny per contracte: sense tauler carregat → AssertionError
 	    assertThrows(AssertionError.class, () -> joc.mouJugador('w'));
 		
-		//Estat incorrecte: hi ha tauler pero s'esta al selector
+		// Disseny per contracte: hi ha tauler però l'estat és Selector → AssertionError
 		joc.setCarpeta("test");
 		joc.carregarNivell("Nivell_1");
 		joc.obrirSelector();
 		assertThrows(AssertionError.class, () -> joc.mouJugador('w'));
 		
-		//Carreguem tauler
+		// S'injecta el MockTauler amb el jugador simulat
 		joc = new Joc();
 		joc.setCarpeta("test");
 		joc.setTauler(mockTauler);
 		
-		//Tecles valides de moviment
+		// Partició vàlida: w/a/s/d es tradueixen a U/L/D/R
 		joc.mouJugador('w');
 	    verify(mockJugador, times(1)).move('U');
 
@@ -276,13 +310,13 @@ class JocTest {
 	    joc.mouJugador('d');
 	    verify(mockJugador, times(1)).move('R');
 	    
-	    //Desfer moviment
+	    // Partició vàlida: z delega a Tauler.desferMoviment
 	    assertEquals(mockTauler.getNombreMovimentsDesfets(), 0);
 	    joc.mouJugador('z');
 	    assertEquals(mockTauler.getNombreMovimentsDesfets(), 1);
 	    
 	    
-	    //Altres tecles
+	    // Partició no vàlida: la resta de tecles (incloses majúscules) no interactuen amb el jugador
 	    joc.mouJugador('x');
 	    joc.mouJugador('q');
 	    joc.mouJugador(' ');
@@ -294,14 +328,19 @@ class JocTest {
 		
 	}
 	
+	/**
+	 * Condició de victòria de Joc sobre Nivell_1 (una caixa i un interruptor a la mateixa fila).
+	 * Tècniques: valors frontera (un moviment abans de guanyar i el moviment que guanya) i disseny per
+	 * contracte (precondició de no victòria en moure; postcondició d'obrirSelector que la reinicia).
+	 */
 	@Test
 	void testCondicioVictoria(){
-		//Carreguem el nivell 1 de test
+		// Nivell_1 de la carpeta de test
 		joc.setCarpeta("test");
 		joc.obrirSelector();
 		joc.carregarNivell("Nivell_1");
 		
-		//Movem el jugador cap a la dreta per comprovar que s'activi la condicio de victoria quan toca
+		// Valors frontera: sense victòria fins que la caixa arriba a l'interruptor al tercer moviment
 		joc.mouJugador('d');
 		assertEquals(joc.getVictoria(), false);
 
@@ -311,16 +350,20 @@ class JocTest {
 		joc.mouJugador('d');
 		assertEquals(joc.getVictoria(), true);
 		
-		//intent de moure el jugador quan ha guanyat
+		// Disseny per contracte: moure després de guanyar → AssertionError
 		assertThrows(AssertionError.class, () -> joc.mouJugador('d'));
 		
-		//comprovacio reinici condicio victoria al tornar al selector
+		// Disseny per contracte: postcondicions d'obrirSelector (estat Selector i victòria reiniciada)
 		joc.obrirSelector();
 		assertEquals(15, joc.getLevels().size());
 		assertEquals(Estat.Selector, joc.getEstat());
 		assertEquals(joc.getVictoria(), false);
 	}
 	
+	/**
+	 * Joc#finalitzarJoc().
+	 * Tècnica: disseny per contracte (postcondició d'estat Final).
+	 */
 	@Test
 	void testFinalitzar()
 	{
