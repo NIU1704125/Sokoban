@@ -2,11 +2,20 @@ package tests;
 
 import controllers.IInputController;
 
+/**
+ * Mock propi d'IInputController: retorna una seqüència fixa de tecles segons el test configurat,
+ * de manera que els controladors es poden provar sense teclat ni finestra.
+ */
 public class MockInput implements IInputController {
 
 	char[] inputsSequence;
 	int inputIndex;
 	
+	/**
+	 * Selecciona la seqüència de tecles i reinicia la posició de lectura.
+	 *
+	 * @param test nom del test (coincideix amb el nom del mètode de prova)
+	 */
 	public void configurarTest(String test){
 		inputIndex = 0;
 		if(test == "testNormal") {
@@ -35,6 +44,7 @@ public class MockInput implements IInputController {
 		}
 	}
 	
+	/** @return la següent tecla de la seqüència */
 	@Override
 	public char llegirTecla() {
 		char currentChar = inputsSequence[inputIndex];
@@ -42,6 +52,7 @@ public class MockInput implements IInputController {
 		return currentChar;
 	}
 	
+	/** @return {@code true} si queden tecles per llegir */
 	public boolean hiHaMesInputs(){
 		return inputIndex < inputsSequence.length;
 	}
