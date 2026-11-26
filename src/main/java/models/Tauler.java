@@ -6,6 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Tauler d'un nivell carregat des de fitxer: cel·les fixes (paret, terra i interruptor), jugador,
+ * caixes, torn actual i pila de moviments per poder-los desfer.
+ *
+ * Format del fitxer: # paret, ' ' terra, . interruptor, $ caixa
+ * i @ jugador.
+ *
+ * Invariant: tauler rectangular amb jugador; almenys una caixa i un interruptor, i no més
+ * interruptors que caixes; torn >= 0; jugador i caixes dins del tauler i fora de les parets;
+ * cap caixa sobre el jugador ni dues caixes a la mateixa casella.
+ */
 public class Tauler {
 
 	private char[][] m_tauler = new char[0][0];
@@ -48,6 +59,17 @@ public class Tauler {
 	protected Tauler() {
 	}
 
+	/**
+	 * Carrega el nivell "nivells/<nomNivell>.txt".
+	 *
+	 * Precondicions (dades externes, es validen amb excepció): el fitxer existeix i no és buit,
+	 * té com a mínim 3x3 cel·les, és rectangular, només conté caràcters vàlids, té un sol jugador i
+	 * compleix l'invariant.
+	 * Postcondicions: es compleix l'invariant i el torn és 0.
+	 *
+	 * @param nomNivell ruta del nivell relativa a nivells/, sense extensió
+	 * @throws IllegalArgumentException si no es compleix alguna precondició
+	 */
 	public Tauler(String nomNivell) {
 		m_torn = 0;
 		
@@ -117,30 +139,43 @@ public class Tauler {
 
 	}
 
+	/** @return matriu [fila][columna] de cel·les fixes ('#', ' ', '.'), sense peces */
 	public char[][] getTauler() {
 		return m_tauler;
 	}
 
+	/** @return nombre d'interruptors del nivell */
 	public int getNInterrutors() {
 		return nInterruptors;
 	}
 
+	/** @return caixes del tauler */
 	public List<Caixa> getCaixes() {
 		return m_caixes;
 	}
 
+	/** @return nombre de files del tauler */
 	public int getFiles() {
 		return nFiles;
 	}
 
+	/** @return nombre de columnes del tauler */
 	public int getColumnes() {
 		return nCol;
 	}
 
+	/** @return jugador del tauler */
 	public Jugador getJugador() {
 		return m_jugador;
 	}
 
+	/**
+	 * Indica si una posició és intransitable: les caselles fora del tauler compten com a paret.
+	 *
+	 * @param x columna
+	 * @param y fila
+	 * @return true si hi ha paret o la posició és fora del tauler
+	 */
 	public boolean hiHaParetInPosition(int x, int y) {
 		if (x < 0 || x >= nCol || y < 0 || y >= nFiles) {
 			return true;
@@ -149,6 +184,13 @@ public class Tauler {
 		return (m_tauler[y][x] == '#');
 	}
 
+	/**
+	 * Cerca la caixa situada en una posició.
+	 *
+	 * @param x columna
+	 * @param y fila
+	 * @return la caixa de la posició, o null si no n'hi ha cap
+	 */
 	public Caixa hiHaCaixaInPosition(int x, int y) {
 		for (Caixa c : m_caixes) {
 			if (c.getPosX() == x && c.getPosY() == y) {
@@ -158,6 +200,14 @@ public class Tauler {
 		return null;
 	}
 	
+	/**
+	 * Desfà l'últim moviment del jugador i, si en aquell moviment va empènyer una caixa, també el de la caixa.
+	 *
+	 * Precondició: el registre del cim de la pila correspon al jugador.
+	 * Postcondició: es compleix l'invariant.
+	 *
+	 * @return false si no hi havia cap moviment per desfer
+	 */
 	public boolean desferMoviment() {
 		if(m_registre.empty()) {
 			return false;
@@ -208,19 +258,35 @@ public class Tauler {
 		return true;
 	}
 	
+	/**
+	 * Afegeix un moviment a la pila de moviments que es poden desfer.
+	 *
+	 * Precondició: rm != null
+	 *
+	 * @param rm registre del moviment
+	 */
 	public void afegirRegistreMoviment(RegistreMoviment rm) {
 		assert(rm != null);
 		m_registre.push(rm);
 	}
 	
+	/**
+	 * Avança el torn en una unitat.
+	 */
 	public void avancaTorn() {
 		m_torn++;
 	}
 	
+	/** @return torn actual (nombre de moviments vàlids del jugador) */
 	public int getTorn() {
 		return m_torn;
 	}
 	
+	/**
+	 * Comprova la condició de victòria.
+	 *
+	 * @return true si hi ha tantes caixes sobre interruptors com interruptors
+	 */
 	public boolean estatGuanyador() {
 		int nActius = 0;
 		

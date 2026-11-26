@@ -8,10 +8,15 @@ import models.RegistreMoviment;
 import models.Tauler;
 import models.Jugador;
 
+/**
+ * Mock propi de Tauler: escenaris de parets i caixes en memòria (sense fitxers) per provar
+ * Caixa i Jugador de manera aïllada. Dimensions fixes de 5x5; anul·la el registre de
+ * moviments, el torn i la victòria, i compta les crides a desferMoviment().
+ */
 public class MockTauler extends Tauler {
 	private Jugador mockJugador;
 	
-	// string posicio = (xy)
+	// Clau de posició: x i y concatenats ("21" = x 2, y 1); false = casella lliure, posició absent = paret
 	Map<String, Map<String, Boolean>> mockParets = Map.of("MovimentSenseParets",
 			Map.ofEntries(Map.entry("22", false), Map.entry("32", false), Map.entry("12", false),
 					Map.entry("21", false), Map.entry("23", false)),
@@ -96,6 +101,11 @@ public class MockTauler extends Tauler {
 	}
 
     private int nMovimentsDesfets;
+	/**
+	 * Crea el mock amb un escenari predefinit.
+	 *
+	 * @param nivell nom de l'escenari (cadena buida quan només calen les dimensions)
+	 */
 	public MockTauler(String nivell) {
 		super();
 		nMovimentsDesfets = 0;
@@ -154,6 +164,11 @@ public class MockTauler extends Tauler {
 		return false;
 	}
 	
+	/**
+	 * Injecta el jugador que retornarà getJugador().
+	 *
+	 * @param jugador jugador (real o simulat)
+	 */
 	public void setJugador(Jugador jugador) {
         this.mockJugador = jugador;
     }
@@ -169,6 +184,7 @@ public class MockTauler extends Tauler {
     	return true;
     }
     
+    /** @return nombre de crides a desferMoviment() */
     public int getNombreMovimentsDesfets() {
     	return nMovimentsDesfets;
     }
