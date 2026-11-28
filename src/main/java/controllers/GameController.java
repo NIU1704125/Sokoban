@@ -26,7 +26,7 @@ public class GameController {
 	 * Postcondició: en retornar, l'estat del joc és Final
 	 */
 	public void executar(){
-		m_joc.setCarpeta("test");
+		m_joc.setCarpeta("Oficials");
 		m_joc.obrirSelector();
 		while(true){
 			switch (m_joc.getEstat()) {
